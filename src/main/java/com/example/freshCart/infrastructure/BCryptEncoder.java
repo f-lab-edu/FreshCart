@@ -1,4 +1,6 @@
-package com.example.freshCart.domain;
+package com.example.freshCart.infrastructure;
+
+import com.example.freshCart.domain.PasswordEncoder;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class BCryptEncoder implements PasswordEncoder {

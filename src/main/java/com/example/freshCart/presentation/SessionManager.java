@@ -13,8 +13,7 @@ import lombok.extern.slf4j.XSlf4j;
 import org.springframework.stereotype.Component;
 
 /*
-1. 쿠키에 SessionId (랜덤을 저장한다)를 저장한다.
-2.
+HttpSession 객체를 직접 구현
  */
 @Component
 @Slf4j
@@ -37,10 +36,8 @@ public class SessionManager {
 
   /*
   (1) 쿠키가 아예 없다면 null 처리를 하고,
-  (2) request 의 쿠키가 Session 저장소에 저장되었는지 조회
+  (2) request 의 쿠키가 Session 저장소에 저장되었는지 조회하고 반환.
   (Session Id를 키로 일치하는 지 확인 가능)
-
-  **get(): value가 null일 경우 no such element 반환
   */
   private Cookie findCookie(HttpServletRequest request, String Session_Cookie_Name) {
     final Cookie[] cookies = request.getCookies();
@@ -54,8 +51,7 @@ public class SessionManager {
   }
   /*
   세션 조회.
-  request 의 쿠키가 Session 저장소의 Session Id와 일치하는 지.
-  (1) 쿠키가 아예 없다면 null 처리를 하고,
+  (1) findCookie의 조회 결과가 없다면 null 처리를 하고,
   (2) 일치할 경우 cookie 의 값과 일치하는 세션을 꺼내온다.
   */
   public LoginUser getSession(HttpServletRequest request) {
@@ -69,7 +65,6 @@ public class SessionManager {
   /*
   세션 만료
   클라이언트가 요청한 sessionId 쿠키의 값으로, 세션 저장소에 보관한 sessionId와 값 제거
-  여러번 가능하다(?)
    */
 
   public void expireSession(HttpServletRequest request) {

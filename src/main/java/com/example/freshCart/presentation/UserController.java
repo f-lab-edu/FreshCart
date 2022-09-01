@@ -1,6 +1,6 @@
 package com.example.freshCart.presentation;
 
-import com.example.freshCart.application.UserRegisterService;
+import com.example.freshCart.application.UserService;
 import com.example.freshCart.application.*;
 import com.example.freshCart.application.command.LoginCommand;
 import com.example.freshCart.application.command.SignupCommand;
@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-  //  private AuthenticationService authentication;
-  private final SessionManager sessionManager;
-  private UserRegisterService userRegisterService;
+  private UserService userService;
+  private SessionManager sessionManager;
 
-  public UserController(UserRegisterService userRegisterService, SessionManager sessionManager) {
-    this.userRegisterService = userRegisterService;
+  public UserController(UserService userService, SessionManager sessionManager) {
+    this.userService = userService;
     this.sessionManager = sessionManager;
   }
 
@@ -30,33 +29,25 @@ public class UserController {
    */
   @PostMapping("/signup")
   public void signup(@RequestBody SignupCommand request) {
-    userRegisterService.register(request);
+    userService.register(request);
   }
 
-  /*
-  exception 처리 필요.
-   */
-
+  // 로그인 실패 시 예외처리가 되고, 성공 시 loginUser (ID, PW만 포함) 이 리턴됨.
   @PostMapping("/login")
   public void login(@RequestBody LoginCommand request, HttpServletResponse servletResponse) {
-    // 로그인 실패 시 예외처리가 되고, 성공 시 loginUser (ID, PW만 포함) 이 리턴됨.
-    LoginUser check = userRegisterService.signIn(request);
+    LoginUser check = userService.signIn(request);
     sessionManager.createSession(check, servletResponse);
   }
 
-  @GetMapping("/home")
-  public String homeLogin(HttpServletRequest request) {
-    // 세션 매니저를 통해서 저장된 회원 정보를 조회
-    LoginUser user = sessionManager.getSession(request);
-    if (user == null) {
-      return "세션이 존재하지 않습니다";
-    } else {
-      return "환영합니다." + user.getEmail(); //
-    }
-  }
 
   @PostMapping("/logout")
   public void logout(HttpServletRequest request) {
     sessionManager.expireSession(request);
+  }
+
+  // 인터셉터 작동 여부 확인 - 홈 화면
+  @GetMapping("/home")
+  public String homeLogin() {
+    return "환영합니다.";
   }
 }
