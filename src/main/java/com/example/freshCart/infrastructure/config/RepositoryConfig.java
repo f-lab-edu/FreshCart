@@ -1,4 +1,4 @@
-package com.example.freshCart.config;
+package com.example.freshCart.infrastructure.config;
 
 import com.example.freshCart.domain.UserRepository;
 import com.example.freshCart.infrastructure.UserInMemoryRepository;

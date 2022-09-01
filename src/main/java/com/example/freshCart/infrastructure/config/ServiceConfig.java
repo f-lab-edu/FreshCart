@@ -1,7 +1,7 @@
-package com.example.freshCart.config;
+package com.example.freshCart.infrastructure.config;
 
-import com.example.freshCart.application.UserRegisterServiceV1;
-import com.example.freshCart.domain.BCryptEncoder;
+import com.example.freshCart.application.UserService;
+import com.example.freshCart.infrastructure.BCryptEncoder;
 import com.example.freshCart.domain.PasswordEncoder;
 import com.example.freshCart.domain.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServiceConfig {
 
-    @Bean
-    public UserRegisterServiceV1 userService(UserRepository userRepository, PasswordEncoder passwordEncoder){
-        return new UserRegisterServiceV1(userRepository, passwordEncoder);
+  @Bean
+  public UserService userService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    return new UserService(userRepository, passwordEncoder);
     }
 
     @Bean
