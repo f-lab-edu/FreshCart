@@ -1,7 +1,5 @@
 package com.example.freshCart.infrastructure;
 
-import com.example.freshCart.application.command.EmailDupCheckCommand;
-import com.example.freshCart.application.command.SignupCommand;
 import com.example.freshCart.domain.UserRepository;
 import com.example.freshCart.domain.User;
 import com.example.freshCart.infrastructure.exception.EmailExistsException;
@@ -20,8 +18,7 @@ public class UserInMemoryRepository implements UserRepository {
     private static Long sequence = 0L;
 
   @Override
-  public User save(SignupCommand request) {
-        User user = new User(request.getEmail(), request.getPassword(), request.getName());
+  public User save(User user) {
         user.setId(++sequence);
         store.put(user.getEmail(), user);
         return user;
@@ -29,7 +26,7 @@ public class UserInMemoryRepository implements UserRepository {
 
   // LoginId 와 일치하는 데이터가 있으면 꺼내올 것. FindFirst 를 붙여야, stream의 요소 중 조건에 맞는 첫 번째 결과를 반환함.
   @Override
-  public Optional<User> findByLoginId(String email) {
+  public Optional<User> findByUserEmail(String email) {
         return findAll().stream().filter(u -> u.getEmail().equals(email)).findFirst();
     }
   /*
@@ -42,8 +39,8 @@ public class UserInMemoryRepository implements UserRepository {
     }
 
   @Override
-  public void findByEmail(EmailDupCheckCommand request) {
-        User user = store.getOrDefault(request.getEmail(), null);
+  public void findEmailDuplicate(String email) {
+    User user = store.getOrDefault(email, null);
     if (user != null) {
       throw new EmailExistsException("이미 존재하는 이메일입니다");
         }
