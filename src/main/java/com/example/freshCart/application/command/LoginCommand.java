@@ -1,6 +1,6 @@
-package com.example.freshCart.presentation.request;
+package com.example.freshCart.application.command;
 
-public class LoginRequest {
+public class LoginCommand {
     private String email;
     private String password;
 
@@ -12,7 +12,7 @@ public class LoginRequest {
         return password;
     }
 
-    public LoginRequest(String email, String password) {
+  public LoginCommand(String email, String password) {
         this.email = email;
         this.password = password;
     }
