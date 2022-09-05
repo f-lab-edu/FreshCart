@@ -1,33 +1,30 @@
 package com.example.freshCart.domain;
 
-import lombok.NonNull;
+import javax.validation.constraints.NotNull;
 
 /*
-@NonNull: 필드가 Null일 경우 NullPointerException 발생.
-Role (1) 기본값 - USER (2) ADMIN, SELLER는 따로 값을 받을 방법을 찾아보기.
+@NotNull + Valid(@RequestBody와 함께) 쓰면, 필드를 체크해준다.
  */
 
 public class User {
 
     private Long id;
 
-    @NonNull
     private String email;
 
-    @NonNull
     private String password;
 
-    @NonNull
     private String name;
 
     private Role role;
 
-    //입력 안할 경우 User Role로 가입.
-    public User(@NonNull String email, @NonNull String password,
-            @NonNull String name) {
+  // 입력 안할 경우 User Role로 가입.
+
+  public User(String email, String password, String name, Role role) {
         this.email = email;
         this.password = password;
         this.name = name;
+    this.role = role;
     }
 
     public void setId(Long id) {
@@ -46,4 +43,11 @@ public class User {
         return password;
     }
 
+  public String getName() {
+    return name;
+  }
+
+  public Role getRole() {
+    return role;
+  }
 }
