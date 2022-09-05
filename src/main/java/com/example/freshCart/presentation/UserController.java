@@ -6,6 +6,7 @@ import com.example.freshCart.application.command.LoginCommand;
 import com.example.freshCart.application.command.SignupCommand;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,7 @@ public class UserController {
   회원 가입
    */
   @PostMapping("/signup")
-  public void signup(@RequestBody SignupCommand request) {
+  public void signup(@Valid @RequestBody SignupCommand request) {
     userService.register(request);
   }
 
@@ -39,7 +40,6 @@ public class UserController {
     sessionManager.createSession(check, servletResponse);
   }
 
-
   @PostMapping("/logout")
   public void logout(HttpServletRequest request) {
     sessionManager.expireSession(request);
@@ -49,5 +49,10 @@ public class UserController {
   @GetMapping("/home")
   public String homeLogin() {
     return "환영합니다.";
+  }
+
+  @GetMapping("/unexpected")
+  public String unExpectedException() {
+    throw new IllegalCallerException();
   }
 }

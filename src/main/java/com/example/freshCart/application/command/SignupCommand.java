@@ -1,34 +1,41 @@
 package com.example.freshCart.application.command;
 
+import com.example.freshCart.domain.Role;
+import javax.validation.constraints.NotNull;
+
+/*
+가입을 요청하는 객체.
+ */
 public class SignupCommand {
-    private String email;
-    private String password;
-    private String name;
 
-  public SignupCommand(String email, String password, String name) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-    }
+  @NotNull private String email;
 
-    public String getEmail() {
-        return email;
-    }
+  @NotNull private String password;
 
-    public String getPassword() {
-        return password;
-    }
+  @NotNull private String name;
 
-    public String getName() {
-        return name;
-    }
+  @NotNull private Role role;
 
-  public static EmailDupCheckCommand from(SignupCommand request) {
-    return new EmailDupCheckCommand(request.getEmail());
-    }
+  public SignupCommand(String email, String password, String name, Role role) {
+    this.email = email;
+    this.password = password;
+    this.name = name;
+    this.role = role;
+  }
 
-  // 암호화된 패스워드로 바꾸기 BCrytpEncoder에서 가져와야 함.
-  public void toEncryptPassword(String encryptedPassword) {
-        this.password = encryptedPassword;
-    }
+  public String getEmail() {
+    return email;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Role getRole() {
+    return role;
+  }
 }
