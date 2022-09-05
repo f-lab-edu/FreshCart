@@ -1,11 +1,14 @@
 package com.example.freshCart.infrastructure.exception;
 
-public class UserNotExistsException extends RuntimeException {
+import org.springframework.http.HttpStatus;
 
-  private final String message = "존재하지 않는 유저입니다";
+public class UserNotExistsException extends BaseException {
 
-  public UserNotExistsException(String message) {
-    super(message);
+  // static 변수 할당으로 인스턴스를 생성하지 않고도 사용 가능하게 함. 변수가 super() 생성자에서도 참조되기 위함.
+  private static final String message = "존재하지 않는 유저입니다";
+
+  public UserNotExistsException() {
+    super(HttpStatus.NOT_FOUND, message);
   }
 
   @Override

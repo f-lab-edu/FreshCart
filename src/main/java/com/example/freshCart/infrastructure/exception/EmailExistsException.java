@@ -1,10 +1,13 @@
 package com.example.freshCart.infrastructure.exception;
 
-public class EmailExistsException extends RuntimeException {
+import org.springframework.http.HttpStatus;
 
-    private String message = "이미 존재하는 이메일입니다";
-    public EmailExistsException(String message) {
-        super(message);
+public class EmailExistsException extends BaseException {
+
+  private static final String message = "이미 존재하는 이메일입니다";
+
+  public EmailExistsException() {
+    super(HttpStatus.BAD_REQUEST, message);
     }
 
     @Override

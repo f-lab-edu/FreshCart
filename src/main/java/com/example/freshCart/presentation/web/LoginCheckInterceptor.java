@@ -1,11 +1,15 @@
 package com.example.freshCart.presentation.web;
 
 import com.example.freshCart.application.LoginUser;
+import com.example.freshCart.infrastructure.exception.EmailExistsException;
+import com.example.freshCart.infrastructure.exception.UnauthorizedRequestException;
+import com.example.freshCart.infrastructure.exception.UserNotExistsException;
 import com.example.freshCart.presentation.SessionManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /*
@@ -28,14 +32,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
     String requestURI = request.getRequestURI();
     log.info(requestURI + "인증 체크 인터셉터 실행");
-
-    //    HttpSession session = request.getSession(false); 위와 같이 Session 객체를 직접 생성하는 대신,
-    // sessionManager에서 생성
     LoginUser user = sessionManager.getSession(request);
     if (user == null) {
       log.info("인증되지 않은 요청" + requestURI);
-      response.sendRedirect("/users/login?redirectURL=" + requestURI);
-      return false;
+      throw new UnauthorizedRequestException();
     }
     return true;
   }
