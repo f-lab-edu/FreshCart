@@ -1,6 +1,7 @@
 package com.example.freshCart.application;
 
 public class LoginUser {
+
   private String email;
   private String password;
 
