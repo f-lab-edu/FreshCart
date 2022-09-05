@@ -42,7 +42,7 @@ public class UserInMemoryRepository implements UserRepository {
   public void findEmailDuplicate(String email) {
     User user = store.getOrDefault(email, null);
     if (user != null) {
-      throw new EmailExistsException("이미 존재하는 이메일입니다");
+      throw new EmailExistsException();
         }
   }
 }

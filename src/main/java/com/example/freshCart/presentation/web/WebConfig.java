@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
         .addInterceptor(new LoginCheckInterceptor(sessionManager))
         .order(1)
         .addPathPatterns("/**")
-        .excludePathPatterns("/users/login", "/users/logout", "/users/signup");
+        .excludePathPatterns("/users/login", "/users/logout", "/users/signup", "/users/unexpected");
   }
 
   // argument Resolver 등록해야 함.
