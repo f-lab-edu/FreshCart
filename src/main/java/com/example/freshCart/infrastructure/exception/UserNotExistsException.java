@@ -1,4 +1,4 @@
-package com.example.freshCart.infrastructure.exception;
+package com.example.freshcart.infrastructure.exception;
 
 import org.springframework.http.HttpStatus;
 

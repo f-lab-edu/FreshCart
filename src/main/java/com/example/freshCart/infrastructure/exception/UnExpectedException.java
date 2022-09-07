@@ -1,6 +1,10 @@
-package com.example.freshCart.infrastructure.exception;
+package com.example.freshcart.infrastructure.exception;
 
 import org.springframework.http.HttpStatus;
+
+/**
+ * 애플리케이션에서 정의한 것 이외의 예외.
+ */
 
 public class UnExpectedException extends BaseException {
 

@@ -1,10 +1,11 @@
-package com.example.freshCart.infrastructure.exception;
+package com.example.freshcart.infrastructure.exception;
 
 import org.springframework.http.HttpStatus;
 
 /**
- * BaseException: Exception 의 공통 기능 정의 직접 정의하는 Exception은 Base Exception 을 상속 받아서 핸들러에서 공통으로 처리할 수
- * 있도록 한다. 추후 로깅을 할 경우, logLevel도 설정한다.
+ * BaseException: Exception 의 공통 기능 정의
+ * Base Exception 을 상속 받아서 핸들러에서 공통으로 처리할 수 있도록 한다.
+ * 추후 로깅을 할 경우, logLevel도 설정한다.
  */
 public class BaseException extends RuntimeException {
   private final HttpStatus status;
