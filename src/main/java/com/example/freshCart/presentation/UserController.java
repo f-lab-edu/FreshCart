@@ -53,7 +53,7 @@ public class UserController {
   //LoginCheck가 요구되는 로직 테스트용 - 추후 기능 개발 시 삭제 예정
   @LoginCheck
   @PostMapping("/logincheck")
-  public String test(){
+  public String test() {
     return "LoginCheck 테스트 중";
   }
 
