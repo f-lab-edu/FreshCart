@@ -1,6 +1,6 @@
-package com.example.freshCart.presentation;
+package com.example.freshcart.presentation;
 
-import com.example.freshCart.application.LoginUser;
+import com.example.freshcart.application.LoginUser;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
@@ -9,7 +9,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
 import org.springframework.stereotype.Component;
 
 /*
@@ -19,7 +18,7 @@ HttpSession 객체를 직접 구현
 @Slf4j
 public class SessionManager {
 
-  public static final String Session_Cookie_Name = "MySessionId";
+  public static final String SESSION_COOKIE_NAME = "MySessionId";
   private Map<String, LoginUser> sessionStore = new ConcurrentHashMap<>();
 
   /*
@@ -30,7 +29,7 @@ public class SessionManager {
   public void createSession(LoginUser check, HttpServletResponse response) {
     String sessionId = UUID.randomUUID().toString();
     sessionStore.put(sessionId, check);
-    Cookie cookie = new Cookie(Session_Cookie_Name, sessionId);
+    Cookie cookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
     response.addCookie(cookie);
   }
 
@@ -39,23 +38,24 @@ public class SessionManager {
   (2) request 의 쿠키가 Session 저장소에 저장되었는지 조회하고 반환.
   (Session Id를 키로 일치하는 지 확인 가능)
   */
-  private Cookie findCookie(HttpServletRequest request, String Session_Cookie_Name) {
+  private Cookie findCookie(HttpServletRequest request, String cookieName) {
     final Cookie[] cookies = request.getCookies();
     if (cookies == null) {
       return null;
     }
     return Arrays.stream(cookies)
-        .filter(c -> c.getName().equals(Session_Cookie_Name))
+        .filter(c -> c.getName().equals(cookieName))
         .findFirst()
         .get();
   }
+
   /*
   세션 조회.
   (1) findCookie의 조회 결과가 없다면 null 처리를 하고,
   (2) 일치할 경우 cookie 의 값과 일치하는 세션을 꺼내온다.
   */
   public LoginUser getSession(HttpServletRequest request) {
-    Cookie sessionCookie = findCookie(request, Session_Cookie_Name);
+    Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
     if (sessionCookie == null) {
       return null;
     }
@@ -68,7 +68,7 @@ public class SessionManager {
    */
 
   public void expireSession(HttpServletRequest request) {
-    Cookie sessionCookie = findCookie(request, Session_Cookie_Name);
+    Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
     if (sessionCookie != null) {
       sessionStore.remove(sessionCookie.getValue());
       log.info("세션이 만료되었습니다");
