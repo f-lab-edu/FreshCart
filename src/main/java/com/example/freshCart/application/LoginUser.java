@@ -1,4 +1,8 @@
-package com.example.freshCart.application;
+package com.example.freshcart.application;
+
+/**
+ 저장소에서 조회한 유저의 email/password 정보.
+ */
 
 public class LoginUser {
 

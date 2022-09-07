@@ -1,10 +1,10 @@
-package com.example.freshCart.application.command;
+package com.example.freshcart.application.command;
 
-import com.example.freshCart.domain.Role;
+import com.example.freshcart.domain.Role;
 import javax.validation.constraints.NotNull;
 
-/*
-가입을 요청하는 객체.
+/**
+ 사용자가 필수 정보를 담아서 회원 가입 요청.
  */
 public class SignupCommand {
 

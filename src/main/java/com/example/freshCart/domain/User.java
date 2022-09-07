@@ -1,47 +1,43 @@
-package com.example.freshCart.domain;
+package com.example.freshcart.domain;
 
-import javax.validation.constraints.NotNull;
-
-/*
-@NotNull + Valid(@RequestBody와 함께) 쓰면, 필드를 체크해준다.
+/**
+ * @NotNull + Valid(@RequestBody와 함께)로 필드가 입력되었는지 점검 .
  */
 
 public class User {
 
-    private Long id;
+  private Long id;
 
-    private String email;
+  private String email;
 
-    private String password;
+  private String password;
 
-    private String name;
+  private String name;
 
-    private Role role;
-
-  // 입력 안할 경우 User Role로 가입.
+  private Role role;
 
   public User(String email, String password, String name, Role role) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
+    this.email = email;
+    this.password = password;
+    this.name = name;
     this.role = role;
-    }
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
   public String getName() {
     return name;

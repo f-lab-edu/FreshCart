@@ -1,5 +1,8 @@
-package com.example.freshCart.application.command;
+package com.example.freshcart.application.command;
 
+/**
+ 사용자가 로그인 시도 시 정보를 담아서 요청.
+ */
 public class LoginCommand {
   private String email;
   private String password;

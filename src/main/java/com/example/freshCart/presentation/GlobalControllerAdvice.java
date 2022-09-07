@@ -1,8 +1,8 @@
-package com.example.freshCart.presentation;
+package com.example.freshcart.presentation;
 
-import com.example.freshCart.domain.ErrorResult;
-import com.example.freshCart.infrastructure.exception.BaseException;
-import com.example.freshCart.infrastructure.exception.UnExpectedException;
+import com.example.freshcart.domain.ErrorResult;
+import com.example.freshcart.infrastructure.exception.BaseException;
+import com.example.freshcart.infrastructure.exception.UnExpectedException;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -1,13 +1,16 @@
-package com.example.freshCart.application;
+package com.example.freshcart.application;
 
-import com.example.freshCart.application.command.LoginCommand;
-import com.example.freshCart.application.command.SignupCommand;
-import com.example.freshCart.domain.PasswordEncoder;
-import com.example.freshCart.domain.User;
-import com.example.freshCart.domain.UserRepository;
-import com.example.freshCart.infrastructure.exception.PasswordDoesNotMatchException;
-import com.example.freshCart.infrastructure.exception.UserNotExistsException;
+import com.example.freshcart.application.command.LoginCommand;
+import com.example.freshcart.application.command.SignupCommand;
+import com.example.freshcart.domain.PasswordEncoder;
+import com.example.freshcart.domain.User;
+import com.example.freshcart.domain.UserRepository;
+import com.example.freshcart.infrastructure.exception.PasswordDoesNotMatchException;
+import com.example.freshcart.infrastructure.exception.UserNotExistsException;
 
+/**
+ * 회원 가입, 로그인 로직 실행.
+ */
 public class UserService {
 
   private UserRepository userRepository;
@@ -33,7 +36,6 @@ public class UserService {
     userRepository.save(user);
   }
 
-  // Login 아이디가 일치하는 값을 먼저 찾아오고 password 비교해서 가져오기. 일치하지 않을 경우 exception 반환.
   public LoginUser signIn(LoginCommand request) {
     User emailMatched = userRepository.findByUserEmail(request.getEmail()).orElse(null);
     if (emailMatched == null) {

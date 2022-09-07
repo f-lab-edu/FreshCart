@@ -1,14 +1,14 @@
-package com.example.freshCart.domain;
+package com.example.freshcart.domain;
 
 import java.time.LocalDateTime;
 import lombok.Builder;
 
 /**
- * 사용자에게 전달 될 에러 응답 형식 지정 spring boot에서 기본적으로 제공해주는 Basic Error controller - DefaultErrorAttributes을
- * 참고하여 변수 지정
- *
- * <p>변수가 많은 점을 고려하여, Builder 패턴 생성자 사용
+ * 사용자에게 전달 될 에러 응답 형식 지정.
+ * spring boot에서 기본적으로 제공해주는 Basic Error controller - DefaultErrorAttributes을 참고하여 변수 지정.
+ * 변수가 많은 점을 고려하여, Builder 패턴 생성자 사용.
  */
+
 @Builder
 public class ErrorResult {
 
