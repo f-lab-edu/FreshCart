@@ -6,26 +6,21 @@
 <!--
     Checkstyle configuration that checks the Google coding conventions from Google Java Style
     that can be found at https://google.github.io/styleguide/javaguide.html
-
     Checkstyle is very configurable. Be sure to read the documentation at
     http://checkstyle.org (or in your downloaded distribution).
-
     To completely disable a check, just comment it out or delete it from the file.
     To suppress certain violations please review suppression filters.
-
     Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
  -->
 
-<module name="Checker">
-  <module name="SuppressWarningsFilter"/>
-
+<module name = "Checker">
   <module name="BeforeExecutionExclusionFileFilter">
     <property name="fileNamePattern" value="module\-info\.java$"/>
   </module>
 
   <module name="SuppressionFilter">
     <property default="checkstyle-suppressions.xml" name="file"
-      value="${org.checkstyle.google.suppressionfilter.config}"/>
+      value="${org.checkstyle.google.suppressionfilter.config}" />
     <property name="optional" value="true"/>
   </module>
 
@@ -34,13 +29,6 @@
   </module>
   <!-- Excludes all 'module-info.java' files              -->
   <!-- See https://checkstyle.org/config_filefilters.html -->
-  <module name="LineLength">
-    <property name="fileExtensions" value="java"/>
-    <property name="max" value="100"/>
-    <property name="ignorePattern"
-      value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
-  </module>
-  <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
   <module name="TreeWalker">
     <module name="OuterTypeFilename"/>
     <module name="IllegalTokenText">
@@ -97,17 +85,15 @@
       <property name="query" value="//RCURLY[parent::SLIST[count(./*)=1]
                                      or preceding-sibling::*[last()][self::LCURLY]]"/>
     </module>
-    <module name="WhitespaceAfter">
+    <!-- <module name="WhitespaceAfter">
       <property name="tokens"
-        value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE, LITERAL_RETURN,
-                    LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, LITERAL_FINALLY, DO_WHILE, ELLIPSIS,
-                    LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_CATCH, LAMBDA,
-                    LITERAL_YIELD, LITERAL_CASE"/>
-    </module>
+               value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE,
+                    LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, DO_WHILE, ELLIPSIS,
+                    LITERAL_SWITCH, LAMBDA"/>
+    </module> -->
     <module name="WhitespaceAround">
       <message key="ws.notFollowed"
-        value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks
-               may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
+        value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
       <message key="ws.notPreceded"
         value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
       <property name="allowEmptyMethods" value="true"/>
@@ -212,11 +198,11 @@
         value="Class type name ''{0}'' must match pattern ''{1}''."/>
       <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
     </module>
-    <module name="RecordComponentName">
-      <message key="name.invalidPattern"
-        value="Record component name ''{0}'' must match pattern ''{1}''."/>
+    <!-- <module name="RecordComponentName">
       <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-    </module>
+      <message key="name.invalidPattern"
+               value="Record component name ''{0}'' must match pattern ''{1}''."/>
+    </module> -->
     <module name="RecordTypeParameterName">
       <message key="name.invalidPattern"
         value="Record type name ''{0}'' must match pattern ''{1}''."/>
@@ -259,7 +245,7 @@
                     PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF,
                     RECORD_COMPONENT_DEF"/>
     </module>
-    <module name="NoWhitespaceBeforeCaseDefaultColon"/>
+    <!-- <module name="NoWhitespaceBeforeCaseDefaultColon"/> -->
     <module name="OverloadMethodsDeclarationOrder"/>
     <module name="VariableDeclarationUsageDistance"/>
     <module name="CustomImportOrder">
@@ -320,7 +306,7 @@
         value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
     </module>
     <module name="JavadocMethod">
-      <property name="accessModifiers" value="public"/>
+      <!-- <property name="accessModifiers" value="public"/> -->
       <property name="allowMissingParamTags" value="true"/>
       <property name="allowMissingReturnTag" value="true"/>
       <property name="allowedAnnotations" value="Override, Test"/>
@@ -343,7 +329,7 @@
     <module name="MethodName">
       <message key="name.invalidPattern"
         value="Method name ''{0}'' must match pattern ''{1}''."/>
-      <property name="format" value="^[a-z][a-z0-9]\w*$"/>
+      <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
     </module>
     <module name="SingleLineJavadoc"/>
     <module name="EmptyCatchBlock">
@@ -355,29 +341,26 @@
     <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
     <module name="SuppressionXpathFilter">
       <property default="checkstyle-xpath-suppressions.xml" name="file"
-        value="${org.checkstyle.google.suppressionxpathfilter.config}"/>
+              value="${org.checkstyle.google.suppressionxpathfilter.config}" />
       <property name="optional" value="true"/>
     </module>
-    <module name="SuppressWarningsHolder"/>
-    <module name="SuppressionCommentFilter">
-      <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
-      <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
-      <property name="checkFormat" value="$1"/>
-    </module>
-    <module name="SuppressWithNearbyCommentFilter">
-      <property name="commentFormat" value="CHECKSTYLE.SUPPRESS\: ([\w\|]+)"/>
-      <!-- $1 refers to the first match group in the regex defined in commentFormat -->
-      <property name="checkFormat" value="$1"/>
-      <!-- The check is suppressed in the next line of code after the comment -->
-      <property name="influenceFormat" value="1"/>
-    </module>
+<!--    <module name="SuppressionFilter">-->
+<!--      <property name="file" value="${rootDir}/config/checkstyle/checkstyle-suppressions.xml"/>-->
+<!--&lt;!&ndash;      <property name="optional" value="true"/>&ndash;&gt;-->
+<!--    </module>-->
   </module>
+  <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
+  <property name="severity" value="warning"/>
 
   <!-- Checks for whitespace                               -->
   <!-- See http://checkstyle.org/config_whitespace.html -->
   <property name="fileExtensions" value="java, properties, xml"/>
 
-  <property name="charset" value="UTF-8"/>
+  <!-- <module name="LineLength">
+    <property name="fileExtensions" value="java"/>
+    <property name="max" value="100"/>
+    <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+  </module> -->
 
-  <property name="severity" value="warning"/>
+  <property name="charset" value="UTF-8"/>
 </module>
