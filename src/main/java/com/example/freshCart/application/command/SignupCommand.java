@@ -12,13 +12,17 @@ public class SignupCommand {
 
   @NotNull private String password;
 
+  @NotNull private String phoneNumber;
+
   @NotNull private String name;
 
   @NotNull private Role role;
 
-  public SignupCommand(String email, String password, String name, Role role) {
+  public SignupCommand(String email, String password, String phoneNumber, String name,
+      Role role) {
     this.email = email;
     this.password = password;
+    this.phoneNumber = phoneNumber;
     this.name = name;
     this.role = role;
   }
@@ -37,5 +41,9 @@ public class SignupCommand {
 
   public Role getRole() {
     return role;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
   }
 }

@@ -12,13 +12,17 @@ public class User {
 
   private String password;
 
+  private String phoneNumber;
+
   private String name;
 
   private Role role;
 
-  public User(String email, String password, String name, Role role) {
+  public User(String email, String password, String phoneNumber, String name,
+      Role role) {
     this.email = email;
     this.password = password;
+    this.phoneNumber = phoneNumber;
     this.name = name;
     this.role = role;
   }
@@ -45,5 +49,9 @@ public class User {
 
   public Role getRole() {
     return role;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
   }
 }
