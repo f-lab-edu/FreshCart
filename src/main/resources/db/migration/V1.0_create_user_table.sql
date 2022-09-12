@@ -1,5 +1,3 @@
-drop table if exists "user" CASCADE;
-
 create table "user"
 (
     id          int unsigned auto_increment primary key,
@@ -10,5 +8,4 @@ create table "user"
     role        varchar(10)  not null,
 
     primary key (id)
-) engine = InnoDB
-  default character set = utf8;
+) engine = InnoDB default character set = utf8;
