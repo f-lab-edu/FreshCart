@@ -1,0 +1,15 @@
+version: "3.1"
+services:
+  db:
+    image: mysql:8.0.28
+    cap_add:
+      - SYS_NICE
+    container_name: freshcart_db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: freshcart
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
