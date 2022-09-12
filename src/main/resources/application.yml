@@ -9,6 +9,3 @@ spring:
     password: password
     url: jdbc:mysql://localhost:3306/freshcart?characterEncoding=UTF-8
     username: admin
-  sql:
-    init:
-      mode: always
