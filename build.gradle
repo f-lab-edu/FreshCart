@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
-    id('checkstyle')
+    id 'checkstyle'
 }
 checkstyle {
     toolVersion = '9.3'
@@ -28,7 +28,6 @@ ext {
 }
 
 dependencies {
-    implementation 'org.flywaydb:flyway-core'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVersion}"
@@ -36,8 +35,15 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    runtimeOnly "mysql:mysql-connector-java"
+    implementation 'mysql:mysql-connector-java'
+    compileOnly "org.flywaydb:flyway-mysql"
+    runtimeOnly 'com.h2database:h2'
     implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
+
+    //test 관련
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testCompileOnly "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
 }
 
 tasks.named('test') {
