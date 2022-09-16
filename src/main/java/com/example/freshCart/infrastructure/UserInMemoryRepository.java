@@ -3,10 +3,11 @@ package com.example.freshcart.infrastructure;
 import com.example.freshcart.domain.UserRepository;
 import com.example.freshcart.domain.User;
 import com.example.freshcart.infrastructure.exception.EmailExistsException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.*;
 
 /**
  * store에서 User를 찾을 때, 고유값/중복 체크가 가능한 이메일 주소로 Key 설정.
