@@ -10,7 +10,6 @@
 <!--    <suppress checks="JavadocVariable" files="."/>-->
 <!--    <suppress checks="MissingJavadocMethod" files="."/>-->
 <!--    <suppress checks="MissingJavadocType" files="."/>-->
-<!--    <suppress checks="JavadocPackage" files="."/>-->
-<!--  &lt;!&ndash; global &ndash;&gt;-->
-<!--&lt;!&ndash;  <suppress files="." checks="JavadocPackage|FileLength|MissingJavadocMethod|LineLength"/>&ndash;&gt;-->
+  <!-- global -->
+<!--  <suppress files="." checks="JavadocPackage|FileLength|MissingJavadocMethod|LineLength"/>-->
 </suppressions>
