@@ -15,6 +15,7 @@
 
 <module name = "Checker">
   <module name="BeforeExecutionExclusionFileFilter">
+<!--    <property name="severity" value="error"/>-->
     <property name="fileNamePattern" value="module\-info\.java$"/>
   </module>
 
