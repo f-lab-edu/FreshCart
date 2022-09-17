@@ -2,14 +2,14 @@
 <!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
   "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
-<!--    <suppress checks="CustomImportOrder" files="."/>-->
-<!--    <suppress checks="JavadocPackage" files="."/>-->
-<!--    <suppress checks="SummaryJavadoc" files="."/>-->
-<!--    <suppress checks="AbbreviationAsWordInName" files="."/>-->
-<!--    <suppress checks="InvalidJavadocPosition" files="."/>-->
-<!--    <suppress checks="JavadocVariable" files="."/>-->
-<!--    <suppress checks="MissingJavadocMethod" files="."/>-->
-<!--    <suppress checks="MissingJavadocType" files="."/>-->
+    <suppress checks="CustomImportOrder" files="."/>
+    <suppress checks="JavadocPackage" files="."/>
+    <suppress checks="SummaryJavadoc" files="."/>
+    <suppress checks="AbbreviationAsWordInName" files="."/>
+    <suppress checks="InvalidJavadocPosition" files="."/>
+    <suppress checks="JavadocVariable" files="."/>
+    <suppress checks="MissingJavadocMethod" files="."/>
+    <suppress checks="MissingJavadocType" files="."/>
   <!-- global -->
-<!--  <suppress files="." checks="JavadocPackage|FileLength|MissingJavadocMethod|LineLength"/>-->
+<!--  <suppress checks="JavadocPackage|FileLength|MissingJavadocMethod|LineLength" files="."/>-->
 </suppressions>

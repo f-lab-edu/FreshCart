@@ -350,7 +350,7 @@
     <!--    </module>-->
   </module>
   <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
-  <property name="severity" value="warning"/>
+  <property name="severity" value="error"/>
 
   <!-- Checks for whitespace                               -->
   <!-- See http://checkstyle.org/config_whitespace.html -->
