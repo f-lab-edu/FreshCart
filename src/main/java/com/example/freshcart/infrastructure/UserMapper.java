@@ -1,12 +1,13 @@
-package com.example.freshcart.domain;
+package com.example.freshcart.infrastructure;
 
+import com.example.freshcart.domain.User;
 import java.util.List;
 import java.util.Optional;
+import org.apache.ibatis.annotations.Mapper;
 
-/**
- * DB가 정해지지 않았으므로 인터페이스에 의존하게 구현.
- */
-public interface UserRepository {
+@Mapper
+public interface UserMapper {
+
   void save(User user);
 
   User findEmailDuplicate(String email);

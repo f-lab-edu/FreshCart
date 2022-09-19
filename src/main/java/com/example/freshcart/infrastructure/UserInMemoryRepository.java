@@ -2,7 +2,6 @@ package com.example.freshcart.infrastructure;
 
 import com.example.freshcart.domain.UserRepository;
 import com.example.freshcart.domain.User;
-import com.example.freshcart.infrastructure.exception.EmailExistsException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +18,9 @@ public class UserInMemoryRepository implements UserRepository {
   private static Long sequence = 0L;
 
   @Override
-  public User save(User user) {
+  public void save(User user) {
     user.setId(++sequence);
     store.put(user.getEmail(), user);
-    return user;
   }
 
   /**
@@ -44,10 +42,8 @@ public class UserInMemoryRepository implements UserRepository {
   }
 
   @Override
-  public void findEmailDuplicate(String email) {
+  public User findEmailDuplicate(String email) {
     User user = store.getOrDefault(email, null);
-    if (user != null) {
-      throw new EmailExistsException();
-    }
+    return user;
   }
 }
