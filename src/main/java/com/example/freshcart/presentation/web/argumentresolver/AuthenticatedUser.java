@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * Retention: 런타임 시에도 User 객체를 찾아서 사용할 수 있도록 Annotation 유지
+ * Spring Security의 @AuthenticationPrincipal과 유사함.
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
