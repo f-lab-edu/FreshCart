@@ -4,7 +4,7 @@ import com.example.freshcart.user.domain.Role;
 import javax.validation.constraints.NotNull;
 
 /**
- 사용자가 필수 정보를 담아서 회원 가입 요청.
+ 사용자가 필수 정보를 담아서 회원 가입 요청. 필수이기 때문에 @NotNull과 @Valid로 확인
  */
 public class SignupCommand {
 
