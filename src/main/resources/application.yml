@@ -17,3 +17,4 @@ mybatis:
     map-underscore-to-camel-case: true #언더바를(sql문법) 카멜로(자바 객체) 자동 변경
   mapper-locations: classpath:/mapper/**/*.xml
   type-aliases-package: com.example.freshcart.domain #마이바티스에서 타입 정보를 사용할 때는 패키지 이름을 적어주어야 하는데, 패키지명 생략 가능
+  type-handlers-package: com.example.freshcart.infrastructure.handlers
