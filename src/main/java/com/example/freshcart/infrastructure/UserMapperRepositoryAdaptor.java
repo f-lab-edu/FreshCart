@@ -1,4 +1,4 @@
-package com.example.freshcart.infrastructure.config;
+package com.example.freshcart.infrastructure;
 
 import com.example.freshcart.domain.User;
 import com.example.freshcart.domain.UserRepository;
@@ -20,17 +20,14 @@ public class UserMapperRepositoryAdaptor implements UserRepository {
   }
 
   @Override
-  public void save(User user) {
-    userMapper.save(user);
+  public User save(User user) {
+    userMapper.insert(user);
+    return user;
   }
 
-  @Override
-  public User findEmailDuplicate(String email) {
-    return userMapper.findEmailDuplicate(email);
-  }
 
   @Override
-  public Optional<User> findByUserEmail(String email) {
+  public User findByUserEmail(String email) {
     return userMapper.findByUserEmail(email);
   }
 
