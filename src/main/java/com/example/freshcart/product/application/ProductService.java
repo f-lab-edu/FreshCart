@@ -1,7 +1,6 @@
 package com.example.freshcart.product.application;
 
 import com.example.freshcart.product.domain.ProductRepository;
-import com.example.freshcart.user.domain.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
