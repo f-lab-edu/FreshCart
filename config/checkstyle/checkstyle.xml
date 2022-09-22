@@ -13,14 +13,14 @@
     Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
  -->
 
-<module name = "Checker">
+<module name="Checker">
+
   <module name="BeforeExecutionExclusionFileFilter">
     <property name="fileNamePattern" value="module\-info\.java$"/>
   </module>
 
   <module name="SuppressionFilter">
-    <property default="checkstyle-suppressions.xml" name="file"
-      value="${org.checkstyle.google.suppressionfilter.config}" />
+    <property name="file" value="${config_loc}/checkstyle-suppressions.xml"/>
     <property name="optional" value="true"/>
   </module>
 
@@ -341,13 +341,13 @@
     <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
     <module name="SuppressionXpathFilter">
       <property default="checkstyle-xpath-suppressions.xml" name="file"
-              value="${org.checkstyle.google.suppressionxpathfilter.config}" />
+        value="${org.checkstyle.google.suppressionxpathfilter.config}"/>
       <property name="optional" value="true"/>
     </module>
-<!--    <module name="SuppressionFilter">-->
-<!--      <property name="file" value="${rootDir}/config/checkstyle/checkstyle-suppressions.xml"/>-->
-<!--&lt;!&ndash;      <property name="optional" value="true"/>&ndash;&gt;-->
-<!--    </module>-->
+    <!--    <module name="SuppressionFilter">-->
+    <!--      <property name="file" value="${rootDir}/config/checkstyle/checkstyle-suppressions.xml"/>-->
+    <!--&lt;!&ndash;      <property name="optional" value="true"/>&ndash;&gt;-->
+    <!--    </module>-->
   </module>
   <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
   <property name="severity" value="warning"/>

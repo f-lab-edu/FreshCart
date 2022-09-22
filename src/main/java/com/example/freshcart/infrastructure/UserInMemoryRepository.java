@@ -2,11 +2,11 @@ package com.example.freshcart.infrastructure;
 
 import com.example.freshcart.domain.UserRepository;
 import com.example.freshcart.domain.User;
-import com.example.freshcart.infrastructure.exception.EmailExistsException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.*;
 
 /**
  * store에서 User를 찾을 때, 고유값/중복 체크가 가능한 이메일 주소로 Key 설정.
@@ -21,15 +21,20 @@ public class UserInMemoryRepository implements UserRepository {
   public User save(User user) {
     user.setId(++sequence);
     store.put(user.getEmail(), user);
-    return user;
+    return store.get(user.getEmail());
   }
 
   /**
    * LoginId 와 일치하는 데이터가 있으면 꺼내올 것. FindFirst 를 붙여야, stream의 요소 중 조건에 맞는 첫 번째 결과를 반환함.
    */
   @Override
-  public Optional<User> findByUserEmail(String email) {
-    return findAll().stream().filter(u -> u.getEmail().equals(email)).findFirst();
+  public User findByUserEmail(String email) {
+    Optional<User> user = findAll().stream().filter(u -> u.getEmail().equals(email)).findFirst();
+    if (user.isPresent()) {
+      return user.get();
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -42,11 +47,4 @@ public class UserInMemoryRepository implements UserRepository {
     return new ArrayList<>(store.values());
   }
 
-  @Override
-  public void findEmailDuplicate(String email) {
-    User user = store.getOrDefault(email, null);
-    if (user != null) {
-      throw new EmailExistsException();
-    }
-  }
 }

@@ -12,6 +12,7 @@
 
 # Package Files #
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 *.war
 *.nar
 *.ear
@@ -46,6 +47,7 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+build/
 
 ### NetBeans ###
 /nbproject/private/

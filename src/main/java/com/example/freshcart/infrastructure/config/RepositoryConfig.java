@@ -1,7 +1,8 @@
 package com.example.freshcart.infrastructure.config;
 
 import com.example.freshcart.domain.UserRepository;
-import com.example.freshcart.infrastructure.UserInMemoryRepository;
+import com.example.freshcart.infrastructure.UserMapper;
+import com.example.freshcart.infrastructure.UserMapperRepositoryAdaptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,8 +14,16 @@ import org.springframework.context.annotation.Configuration;
 public class RepositoryConfig {
 
   @Bean
-  public UserRepository userRepository() {
-    return new UserInMemoryRepository();
+  public UserRepository userRepository(UserMapper userMapper) {
+    return new UserMapperRepositoryAdaptor(userMapper);
   }
+/**
+ * InMemoryRepo 사용 시 주석 제거하여 사용
+ */
 
+//  @Bean
+//  public UserRepository userRepository() {
+//  return new UserInMemoryRepository();
+//  }
 }
+

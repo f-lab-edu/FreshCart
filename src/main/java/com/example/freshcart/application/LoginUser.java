@@ -4,6 +4,7 @@ import com.example.freshcart.domain.Role;
 
 /**
  저장소에서 조회한 유저의 email/password 정보.
+ 스프링 시큐리티의 UserDetails 와 유사.
  */
 
 public class LoginUser {
