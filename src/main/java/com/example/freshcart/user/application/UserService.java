@@ -42,8 +42,9 @@ public class UserService {
     if (emailMatched == null) {
       throw new UserNotExistsException();
     }
-    LoginUser user = LoginUser.of(emailMatched.getEmail(), emailMatched.getPassword());
-    Boolean passwordMatch = passwordEncoder.isMatch(request.getPassword(), user.getPassword());
+    LoginUser user = LoginUser.of(emailMatched.getEmail(), emailMatched.getRole());
+    Boolean passwordMatch = passwordEncoder.isMatch(request.getPassword(),
+        emailMatched.getPassword());
     if (!passwordMatch) {
       throw new PasswordDoesNotMatchException();
     }

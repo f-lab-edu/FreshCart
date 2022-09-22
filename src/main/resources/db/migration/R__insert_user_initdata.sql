@@ -1,0 +1,1 @@
+# insert into user (id, email, password, phone_number, name, role) values(1, '1@gmail.com','1234','01011111111', '유저1', 'SELLER');
