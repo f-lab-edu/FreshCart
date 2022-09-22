@@ -52,7 +52,7 @@ public class SessionManager {
   /*
   세션 조회.
   (1) findCookie의 조회 결과가 없다면 null 처리를 하고,
-  (2) 일치할 경우 cookie 의 값과 일치하는 세션을 꺼내온다.
+  (2) 일치할 경우 cookie 의 값과(sessionId) 일치하는 세션을 꺼내온다.
   */
   public LoginUser getSession(HttpServletRequest request) {
     Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);

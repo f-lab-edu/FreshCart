@@ -4,6 +4,7 @@ import com.example.freshcart.application.LoginUser;
 import com.example.freshcart.application.UserService;
 import com.example.freshcart.application.command.LoginCommand;
 import com.example.freshcart.application.command.SignupCommand;
+import com.example.freshcart.domain.User;
 import com.example.freshcart.presentation.web.argumentresolver.AuthenticatedUser;
 import com.example.freshcart.presentation.web.argumentresolver.LoginCheck;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +34,10 @@ public class UserController {
   회원 가입
    */
   @PostMapping("/signup")
-  public void signup(@Valid @RequestBody SignupCommand request) {
-    userService.register(request);
+  public String signup(@Valid @RequestBody SignupCommand request) {
+    User user = userService.register(request);
+    log.info(user.getEmail() + "회원가입을 축하합니다");
+    return "회원가입을 축하합니다";
   }
 
   // 로그인 실패 시 예외처리가 되고, 성공 시 loginUser (ID, PW만 포함) 이 리턴됨.
