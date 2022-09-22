@@ -16,4 +16,5 @@ public class RepositoryConfig {
   public UserRepository userRepository() {
     return new UserInMemoryRepository();
   }
+
 }
