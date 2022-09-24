@@ -24,8 +24,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
   }
 
   /**
-   * preHandler의 응답값이 true 이면, 다음으로 진행한다. false 이면, 다른 인터셉터, 핸들러 어댑터 등이 호출되지 않는다. preHandler만 호출되고 끝남.
-   * Product 등록은 Seller만 가능하기 때문에 (1) 로그인인지 먼저 체크하고, (2) user 객체의 role 이 seller인지 확인.
+   * preHandler의 응답값이 true 이면, 다음으로 진행한다. false 이면, 다른 인터셉터, 핸들러 어댑터 등이 호출되지 않는다. preHandler만 호출되고
+   * 끝남. Product 등록은 Seller만 가능하기 때문에 (1) 로그인인지 먼저 체크하고, (2) user 객체의 role 이 seller인지 확인.
    */
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

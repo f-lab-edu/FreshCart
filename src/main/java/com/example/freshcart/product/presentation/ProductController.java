@@ -1,11 +1,12 @@
 package com.example.freshcart.product.presentation;
 
-
 import com.example.freshcart.product.application.command.ProductRegisterCommand;
 import com.example.freshcart.product.application.ProductService;
 import com.example.freshcart.user.application.LoginUser;
+import com.example.freshcart.user.domain.Role;
 import com.example.freshcart.user.presentation.web.argumentresolver.AuthenticatedUser;
 import com.example.freshcart.user.domain.LoginCheck;
+import com.example.freshcart.user.presentation.web.argumentresolver.Authentication;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ public class ProductController {
     this.productService = productService;
   }
 
+  @Authentication(authority = Role.SELLER)
   @LoginCheck
   @PostMapping("/register")
   public void register(@AuthenticatedUser LoginUser user, @RequestBody @Valid ProductRegisterCommand request){

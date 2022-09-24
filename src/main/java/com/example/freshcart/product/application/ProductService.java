@@ -18,6 +18,7 @@ public class ProductService {
   }
 
   public Product register(LoginUser user, ProductRegisterCommand request) {
+    log.info("인터셉터를 사용할 경우 서비스 로직 호출되지 않습니다");
     if (user.getRole() != Role.SELLER) {
       throw new NotSellerException();
     }
