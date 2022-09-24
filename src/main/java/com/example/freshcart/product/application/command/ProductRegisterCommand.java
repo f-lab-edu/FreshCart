@@ -1,34 +1,37 @@
-package com.example.freshcart.product.domain;
+package com.example.freshcart.product.application.command;
 
-import java.time.LocalDateTime;
+import com.example.freshcart.product.domain.Product.Status;
+import javax.validation.constraints.NotNull;
 
+/**
+ * 셀러가 필수 정보를 담아서 회원 가입 요청. 필수이기 때문에 @NotNull과 @Valid로 확인
+ */
+public class ProductRegisterCommand {
 
-public class Product {
-
-  private Long id;
+  @NotNull
   private String name;
+  @NotNull
   private int price;
+  @NotNull
   private Status status;
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
+  @NotNull
   private String description;
+  @NotNull
   private Boolean singleType;
+  @NotNull
   private int categoryId;
-  private Long userId;
 
-  public enum Status {
-    BEING_PREPARED, AVAILABLE, UNAVAILABLE,
-  }
-
-  public Product(String name, int price, Status status, String description, Boolean singleType,
-      int categoryId, Long userId) {
+  public ProductRegisterCommand(String name, int price,
+      Status status, String description, Boolean singleType, int categoryId) {
     this.name = name;
     this.price = price;
     this.status = status;
     this.description = description;
     this.singleType = singleType;
     this.categoryId = categoryId;
-    this.userId = userId;
+  }
+
+  public ProductRegisterCommand() {
   }
 
   public String getName() {
@@ -43,14 +46,6 @@ public class Product {
     return status;
   }
 
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public LocalDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
   public String getDescription() {
     return description;
   }
@@ -61,9 +56,5 @@ public class Product {
 
   public int getCategoryId() {
     return categoryId;
-  }
-
-  public Long getUserId() {
-    return userId;
   }
 }
