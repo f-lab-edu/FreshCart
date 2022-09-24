@@ -1,4 +1,4 @@
-package com.example.freshcart.presentation.web.argumentresolver;
+package com.example.freshcart.user.domain;
 
 /**
  * 해당 경로에는 사용자 인증이 강제됨.

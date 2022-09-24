@@ -1,11 +1,9 @@
-package com.example.freshcart.presentation.web;
+package com.example.freshcart.user.presentation.web;
 
-import com.example.freshcart.application.LoginUser;
-import com.example.freshcart.product.presentation.argumentresolver.SellerCheck;
-import com.example.freshcart.domain.Role;
-import com.example.freshcart.infrastructure.exception.UnauthorizedRequestException;
-import com.example.freshcart.presentation.SessionManager;
-import com.example.freshcart.presentation.web.argumentresolver.LoginCheck;
+import com.example.freshcart.user.application.LoginUser;
+import com.example.freshcart.user.infrastructure.exception.UnauthorizedRequestException;
+import com.example.freshcart.user.presentation.SessionManager;
+import com.example.freshcart.user.domain.LoginCheck;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -33,13 +31,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
     HandlerMethod method = (HandlerMethod) handler;
-    if (method.getMethodAnnotation(SellerCheck.class) != null) {
-      LoginUser user = authenticateLogin(request);
-      if (user != null & user.getRole() == Role.SELLER) {
-        return true;
-      }
-      return false;
-    }
 
     if (method.getMethodAnnotation(LoginCheck.class) != null) {
       authenticateLogin(request);
