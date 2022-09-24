@@ -1,1 +1,0 @@
-# insert into product(id, name, price, status, description, single_type, category_id, user_id) values();
