@@ -1,6 +1,8 @@
 package com.example.freshcart.product.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Product {
@@ -15,6 +17,8 @@ public class Product {
   private Boolean singleType;
   private int categoryId;
   private Long userId;
+
+  private List<OptionGroup> optionGroupSpecs = new ArrayList<>();
 
   public enum Status {
     BEING_PREPARED, AVAILABLE, UNAVAILABLE,

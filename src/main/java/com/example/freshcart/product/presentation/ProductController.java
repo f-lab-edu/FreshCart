@@ -28,7 +28,8 @@ public class ProductController {
   @Authentication(authority = Role.SELLER)
   @LoginCheck
   @PostMapping("/register")
-  public void register(@AuthenticatedUser LoginUser user, @RequestBody @Valid ProductRegisterCommand request){
+  public void register(@AuthenticatedUser LoginUser user,
+      @RequestBody @Valid ProductRegisterCommand request) {
     productService.register(user, request);
     log.info(user.getEmail() + "로그인된 유저임을 확인");
   }
