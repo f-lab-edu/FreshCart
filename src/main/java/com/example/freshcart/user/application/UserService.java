@@ -50,7 +50,8 @@ public class UserService {
     if (!passwordMatch) {
       throw new PasswordDoesNotMatchException();
     }
-    LoginUser user = LoginUser.of(emailMatched.getId(), emailMatched.getEmail(), emailMatched.getRole());
+    LoginUser user = LoginUser.of(emailMatched.getId(), emailMatched.getEmail(),
+        emailMatched.getRole());
     return user;
   }
 }
