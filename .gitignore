@@ -39,6 +39,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+build/
 .idea/
 *.iws
 *.iml
