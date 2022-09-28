@@ -1,7 +1,7 @@
 
 create table product_option
 (
-    id bigint unsigned not null,
+    id bigint unsigned auto_increment,
     name varchar(100) not null,
     price int not null,
     minimum_order smallint unsigned not null,
