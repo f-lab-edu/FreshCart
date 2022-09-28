@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface OptionGroupMapper {
+
   void insert(OptionGroup optionGroup);
+
   List<OptionGroup> findByProductId(Long id);
 }

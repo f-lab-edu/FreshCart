@@ -2,19 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.freshcart.product.infrastructure.ProductMapper">
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into product (name, price, status, description, single_type, category_id, user_id)
-    values (#{name}, #{price}, #{status}, #{description}, #{singleType}, #{categoryId}, #{userId});
-  </insert>
-
   <resultMap id="productResultMap" type="com.example.freshcart.product.domain.Product">
-    <id column="id" property="id"/>
     <result column="single_type" property="singleType"/>
     <result column="category_id" property="categoryId"/>
     <result column="user_Id" property="userId"/>
     <result column="created_at" property="createdAt"/>
     <result column="updated_at" property="updatedAt"/>
   </resultMap>
+
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into product (name, price, status, description, single_type, category_id, user_id)
+    values (#{name}, #{price}, #{status}, #{description}, #{singleType}, #{categoryId}, #{userId});
+  </insert>
 
   <select id="findAll" resultMap="productResultMap">
     select id, name, price, status, description, single_type, created_at, updated_at, category_id, user_id
