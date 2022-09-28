@@ -1,5 +1,7 @@
 package com.example.freshcart.user.domain;
 
+import com.example.freshcart.global.domain.Role;
+
 /**
  * NotNull + Valid(@RequestBody와 함께)로 필드가 입력되었는지 점검 .
  */

@@ -1,7 +1,7 @@
 package com.example.freshcart.user.application;
 
-import com.example.freshcart.user.application.command.LoginCommand;
-import com.example.freshcart.user.application.command.SignupCommand;
+import com.example.freshcart.user.presentation.request.LoginRequest;
+import com.example.freshcart.user.presentation.request.SignupRequest;
 import com.example.freshcart.user.domain.PasswordEncoder;
 import com.example.freshcart.user.domain.User;
 import com.example.freshcart.user.domain.UserRepository;
@@ -22,7 +22,7 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public User register(SignupCommand request) {
+  public User register(SignupRequest request) {
     // 이메일 중복 체크
     if (userRepository.findByUserEmail(request.getEmail()) != null) {
       throw new EmailExistsException();
@@ -40,12 +40,12 @@ public class UserService {
     return userRepository.save(user);
   }
 
-  public LoginUser signIn(LoginCommand request) {
+  public LoginUser signIn(LoginRequest request) {
     User emailMatched = userRepository.findByUserEmail(request.getEmail());
     if (emailMatched == null) {
       throw new UserNotExistsException();
     }
-    Boolean passwordMatch = passwordEncoder.isMatch(request.getPassword(),
+    boolean passwordMatch = passwordEncoder.isMatch(request.getPassword(),
         emailMatched.getPassword());
     if (!passwordMatch) {
       throw new PasswordDoesNotMatchException();

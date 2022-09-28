@@ -1,6 +1,6 @@
 package com.example.freshcart.product.infrastructure.exception;
 
-import com.example.freshcart.user.infrastructure.exception.BaseException;
+import com.example.freshcart.global.exception.BaseException;
 import org.springframework.http.HttpStatus;
 
 public class NotSellerException extends BaseException {
