@@ -14,7 +14,7 @@ public class Product {
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
   private String description;
-  private Boolean singleType;
+  private boolean singleType;
   private int categoryId;
   private Long userId;
 
@@ -39,6 +39,14 @@ public class Product {
     return name;
   }
 
+  public Long getId() {
+    return id;
+  }
+
+  public List<OptionGroup> getOptionGroupSpecs() {
+    return optionGroupSpecs;
+  }
+
   public int getPrice() {
     return price;
   }
@@ -59,7 +67,7 @@ public class Product {
     return description;
   }
 
-  public Boolean getSingleType() {
+  public boolean getSingleType() {
     return singleType;
   }
 
