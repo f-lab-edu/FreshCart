@@ -1,9 +1,8 @@
-package com.example.freshcart.user.presentation.web;
+package com.example.freshcart.global.infra;
 
 import com.example.freshcart.product.infrastructure.exception.NotSellerException;
-import com.example.freshcart.user.domain.Role;
-import com.example.freshcart.user.presentation.SessionManager;
-import com.example.freshcart.user.presentation.web.argumentresolver.Authentication;
+import com.example.freshcart.global.domain.Role;
+import com.example.freshcart.global.argumentresolver.Authentication;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

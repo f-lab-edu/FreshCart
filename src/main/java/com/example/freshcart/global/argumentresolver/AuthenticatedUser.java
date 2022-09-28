@@ -1,4 +1,4 @@
-package com.example.freshcart.user.presentation.web.argumentresolver;
+package com.example.freshcart.global.argumentresolver;
 
 
 import java.lang.annotation.ElementType;

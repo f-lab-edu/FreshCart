@@ -1,4 +1,4 @@
-package com.example.freshcart.user.infrastructure.exception;
+package com.example.freshcart.global.exception;
 
 import org.springframework.http.HttpStatus;
 
@@ -13,4 +13,10 @@ public class UnExpectedException extends BaseException {
   public UnExpectedException(Throwable cause) {
     super(HttpStatus.INTERNAL_SERVER_ERROR, message, cause);
   }
+
+  @Override
+  public String getMessage() {
+    return message;
+  }
 }
+

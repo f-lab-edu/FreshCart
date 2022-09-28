@@ -1,9 +1,8 @@
-package com.example.freshcart.user.presentation.web;
+package com.example.freshcart.global.infra;
 
 import com.example.freshcart.user.application.LoginUser;
-import com.example.freshcart.user.infrastructure.exception.UnauthorizedRequestException;
-import com.example.freshcart.user.presentation.SessionManager;
-import com.example.freshcart.user.domain.LoginCheck;
+import com.example.freshcart.global.exception.UnauthorizedRequestException;
+import com.example.freshcart.global.argumentresolver.LoginCheck;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

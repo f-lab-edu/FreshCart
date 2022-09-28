@@ -1,20 +1,21 @@
-package com.example.freshcart.user.presentation;
+package com.example.freshcart.global.web;
 
-import com.example.freshcart.user.domain.ErrorResult;
-import com.example.freshcart.user.infrastructure.exception.BaseException;
-import com.example.freshcart.user.infrastructure.exception.UnExpectedException;
+import com.example.freshcart.global.domain.ErrorResult;
+import com.example.freshcart.global.exception.BaseException;
+import com.example.freshcart.global.exception.UnExpectedException;
 import javax.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@Slf4j
 @RestControllerAdvice
 public class GlobalControllerAdvice {
   /*
   애플리케이션에서 만든 에러(baseException)처리
    */
+  private static Logger log = LoggerFactory.getLogger(GlobalControllerAdvice.class);
 
   @ExceptionHandler(BaseException.class)
   public ResponseEntity<ErrorResult> baseExceptionHandler(
@@ -29,6 +30,7 @@ public class GlobalControllerAdvice {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResult> unExpectedExceptionHandler(
       Exception e, HttpServletRequest request) {
+    log.error("unhandled exception", e);
     UnExpectedException exception = new UnExpectedException(e);
     return createErrorResult(exception, request);
   }

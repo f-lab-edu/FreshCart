@@ -1,4 +1,4 @@
-package com.example.freshcart.user.presentation;
+package com.example.freshcart.global.infra;
 
 import com.example.freshcart.user.application.LoginUser;
 import java.util.Arrays;
