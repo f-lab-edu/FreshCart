@@ -16,7 +16,7 @@ public class Product {
   private String description;
   private boolean singleType;
   private int categoryId;
-  private Long userId;
+  private Long sellerId;
 
   private List<OptionGroup> optionGroupSpecs = new ArrayList<>();
 
@@ -25,14 +25,14 @@ public class Product {
   }
 
   public Product(String name, int price, Status status, String description, Boolean singleType,
-      int categoryId, Long userId) {
+      int categoryId, Long sellerId) {
     this.name = name;
     this.price = price;
     this.status = status;
     this.description = description;
     this.singleType = singleType;
     this.categoryId = categoryId;
-    this.userId = userId;
+    this.sellerId = sellerId;
   }
 
   public String getName() {
@@ -75,7 +75,7 @@ public class Product {
     return categoryId;
   }
 
-  public Long getUserId() {
-    return userId;
+  public Long getSellerId() {
+    return sellerId;
   }
 }

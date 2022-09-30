@@ -36,35 +36,15 @@ public class ProductService {
     if (user.getRole() != Role.SELLER) {
       throw new NotSellerException();
     }
+    addProduct(user, request);
 
-    if (isSingleType(request)) {
-      singleRegister(user, request);
-    } else {
-      productWithOptionRegister(user, request);
-    }
   }
 
-  public boolean isSingleType(ProductRegisterRequest request) {
-    boolean answer = false;
-    if (request.getSingleType() == true) {
-      answer = true;
-    }
-    return answer;
-  }
 
-  public void singleRegister(LoginUser user, ProductRegisterRequest request) {
-    Product product = new Product(
-        request.getName(),
-        request.getPrice(),
-        request.getStatus(),
-        request.getDescription(),
-        request.getSingleType(),
-        request.getCategoryId(),
-        user.getId());
-    productRepository.save(product);
-  }
-
-  public void productWithOptionRegister(LoginUser user, ProductRegisterRequest request) {
+  /**
+   * 단일 제품일 경우 product만 저장하고 옵션이 있는 제품은 OptionGroupRegister와 Option 저장.
+   */
+  public void addProduct(LoginUser user, ProductRegisterRequest request) {
 
     Product product = new Product(
         request.getName(),
@@ -76,26 +56,28 @@ public class ProductService {
         user.getId());
 
     productRepository.save(product);
-    log.info(product.getId() + "product id확인");
+    log.info(" product id 확인: " + product.getId());
 
-    for (OptionSet optionSet : request.getOptionSet()) {
-      OptionGroupRegister optionGroupRegister = optionSet.getOptionGroupRegister();
-      OptionGroup optionGroup = new OptionGroup(
-          optionGroupRegister.getOptionGroupName(),
-          optionGroupRegister.isRequiredOption(),
-          optionGroupRegister.isMinimumOrderOption(),
-          product.getId());
-      optionGroupRepository.save(optionGroup);
+    if (request.getOptionSet() != null) {
+      for (OptionSet optionSet : request.getOptionSet()) {
+        OptionGroupRegister optionGroupRegister = optionSet.getOptionGroupRegister();
+        OptionGroup optionGroup = new OptionGroup(
+            optionGroupRegister.getOptionGroupName(),
+            optionGroupRegister.isRequiredOption(),
+            optionGroupRegister.isMinimumOrderOption(),
+            product.getId());
+        optionGroupRepository.save(optionGroup);
 
-      List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
-      for (OptionDetailRegister element : optionDetailRegisterList) {
-        Option option = new Option(
-            element.getOptionName(),
-            element.getPrice(),
-            element.getMinimumOrder(),
-            element.getMaximumOrder(),
-            optionGroup.getId());
-        optionRepository.save(option);
+        List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
+        for (OptionDetailRegister element : optionDetailRegisterList) {
+          Option option = new Option(
+              element.getOptionName(),
+              element.getPrice(),
+              element.getMinimumOrder(),
+              element.getMaximumOrder(),
+              optionGroup.getId());
+          optionRepository.save(option);
+        }
       }
     }
   }

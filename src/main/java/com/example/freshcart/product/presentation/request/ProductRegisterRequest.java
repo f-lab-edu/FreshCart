@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import org.springframework.lang.Nullable;
 
 /**
  * 셀러가 필수 정보를 담아서 회원 가입 요청. 필수이기 때문에 @NotNull과 @Valid로 확인
@@ -23,7 +24,7 @@ public class ProductRegisterRequest {
   private boolean singleType;
   @Positive()
   private int categoryId;
-
+  @Nullable
   private List<OptionSet> optionSet;
 
 
