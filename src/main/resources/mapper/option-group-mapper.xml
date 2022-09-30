@@ -15,9 +15,4 @@
     <result column="updated_at" property="updatedAt"/>
   </resultMap>
 
-  <select id="findByProductId" resultMap="optionGroupResultMap">
-    select id, name, is_required, is_count_required, product_id, created_at, updated_at
-    from option_group
-    where product_id = #{productId};
-  </select>
 </mapper>

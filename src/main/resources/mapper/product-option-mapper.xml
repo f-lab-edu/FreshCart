@@ -15,9 +15,4 @@
     <result column="option_group_id" property="optionGroupId"/>
   </resultMap>
 
-  <select id="findByOptionId" resultMap="optionResultMap">
-    select id, name, price, minimum_order, maximum_order, option_group_id, created_at, updated_at
-    from product_option
-    where product_id = #{productId};
-  </select>
 </mapper>
