@@ -1,37 +1,34 @@
-package com.example.freshcart.product.application.command;
+package com.example.freshcart.product.presentation.request;
 
 import com.example.freshcart.product.domain.Product.Status;
+import java.util.List;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import org.springframework.lang.Nullable;
 
 /**
  * 셀러가 필수 정보를 담아서 회원 가입 요청. 필수이기 때문에 @NotNull과 @Valid로 확인
  */
-public class ProductRegisterCommand {
+public class ProductRegisterRequest {
 
-  @NotNull
+  @NotBlank(message = "제품 이름을 입력해주세요")
   private String name;
-  @NotNull
+  @Positive(message = "제품가격은 0 이상이어야 합니다")
   private int price;
   @NotNull
   private Status status;
-  @NotNull
+  @NotBlank(message = "상품 설명을 입력해주세요")
   private String description;
-  @NotNull
-  private Boolean singleType;
-  @NotNull
+  @NotNull(message = "단일 상품 여부를 입력해주세요")
+  private boolean singleType;
+  @Positive()
   private int categoryId;
+  @Nullable
+  private List<OptionSet> optionSet;
 
-  public ProductRegisterCommand(String name, int price,
-      Status status, String description, Boolean singleType, int categoryId) {
-    this.name = name;
-    this.price = price;
-    this.status = status;
-    this.description = description;
-    this.singleType = singleType;
-    this.categoryId = categoryId;
-  }
 
-  public ProductRegisterCommand() {
+  public ProductRegisterRequest() {
   }
 
   public String getName() {
@@ -56,5 +53,9 @@ public class ProductRegisterCommand {
 
   public int getCategoryId() {
     return categoryId;
+  }
+
+  public List<OptionSet> getOptionSet() {
+    return optionSet;
   }
 }

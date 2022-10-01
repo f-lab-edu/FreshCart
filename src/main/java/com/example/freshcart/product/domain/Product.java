@@ -1,6 +1,8 @@
 package com.example.freshcart.product.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Product {
@@ -12,27 +14,37 @@ public class Product {
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
   private String description;
-  private Boolean singleType;
+  private boolean singleType;
   private int categoryId;
-  private Long userId;
+  private Long sellerId;
+
+  private List<OptionGroup> optionGroupSpecs = new ArrayList<>();
 
   public enum Status {
     BEING_PREPARED, AVAILABLE, UNAVAILABLE,
   }
 
   public Product(String name, int price, Status status, String description, Boolean singleType,
-      int categoryId, Long userId) {
+      int categoryId, Long sellerId) {
     this.name = name;
     this.price = price;
     this.status = status;
     this.description = description;
     this.singleType = singleType;
     this.categoryId = categoryId;
-    this.userId = userId;
+    this.sellerId = sellerId;
   }
 
   public String getName() {
     return name;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public List<OptionGroup> getOptionGroupSpecs() {
+    return optionGroupSpecs;
   }
 
   public int getPrice() {
@@ -55,7 +67,7 @@ public class Product {
     return description;
   }
 
-  public Boolean getSingleType() {
+  public boolean getSingleType() {
     return singleType;
   }
 
@@ -63,7 +75,7 @@ public class Product {
     return categoryId;
   }
 
-  public Long getUserId() {
-    return userId;
+  public Long getSellerId() {
+    return sellerId;
   }
 }

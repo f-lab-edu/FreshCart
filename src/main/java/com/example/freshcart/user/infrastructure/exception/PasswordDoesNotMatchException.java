@@ -1,5 +1,6 @@
 package com.example.freshcart.user.infrastructure.exception;
 
+import com.example.freshcart.global.exception.BaseException;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 public class PasswordDoesNotMatchException extends BaseException {
 
   private static final String message = "아이디 또는 비밀번호가 일치하지 않습니다";
+
 
   public PasswordDoesNotMatchException() {
     super(HttpStatus.BAD_REQUEST, message);

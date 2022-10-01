@@ -20,8 +20,8 @@ public class BCryptEncoder implements PasswordEncoder {
   }
 
   @Override
-  public Boolean isMatch(String candidatePassword, String storedPassword) {
-    Boolean result = BCrypt.checkpw(candidatePassword, storedPassword);
+  public boolean isMatch(String candidatePassword, String storedPassword) {
+    boolean result = BCrypt.checkpw(candidatePassword, storedPassword);
     return result;
   }
 }

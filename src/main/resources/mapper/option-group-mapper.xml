@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.freshcart.product.infrastructure.OptionGroupMapper">
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into option_group (name, is_required, is_count_required, product_id)
+    values (#{optionGroupName}, #{isRequired}, #{isCountRequired}, #{productId});
+  </insert>
+
+  <resultMap id="optionGroupResultMap" type="com.example.freshcart.product.domain.OptionGroup">
+    <result column="is_required" property="isRequired"/>
+    <result column="is_count_required" property="isCountRequired"/>
+    <result column="product_id" property="productId"/>
+    <result column="created_at" property="createdAt"/>
+    <result column="updated_at" property="updatedAt"/>
+  </resultMap>
+
+</mapper>

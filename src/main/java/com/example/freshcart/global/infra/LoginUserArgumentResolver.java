@@ -1,12 +1,10 @@
-package com.example.freshcart.user.presentation.web;
+package com.example.freshcart.global.infra;
 
 import com.example.freshcart.user.application.LoginUser;
-import com.example.freshcart.user.presentation.SessionManager;
-import com.example.freshcart.user.presentation.web.argumentresolver.AuthenticatedUser;
+import com.example.freshcart.global.argumentresolver.AuthenticatedUser;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -16,7 +14,6 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * 로그인 객체를 보다 편리하게 가져올 수 있음.
  */
 
-//@Component
 @Slf4j
 public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver {
 

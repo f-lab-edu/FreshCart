@@ -1,11 +1,14 @@
-package com.example.freshcart.user.presentation.web;
+package com.example.freshcart.global.config;
 
 /*
  * InterceptorRegistry: 인터셉터 목록
  * addInterceptor 메서드로 인터셉터를 하나씩 등록 / 패턴 지정
  */
 
-import com.example.freshcart.user.presentation.SessionManager;
+import com.example.freshcart.global.infra.SessionManager;
+import com.example.freshcart.global.infra.LoginCheckInterceptor;
+import com.example.freshcart.global.infra.LoginUserArgumentResolver;
+import com.example.freshcart.global.infra.RoleCheckInterceptor;
 import java.util.List;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

@@ -1,4 +1,4 @@
-package com.example.freshcart.user.domain;
+package com.example.freshcart.global.domain;
 
 import java.time.LocalDateTime;
 import lombok.Builder;

@@ -23,7 +23,6 @@ public class UserMapperRepositoryAdaptor implements UserRepository {
     return user;
   }
 
-
   @Override
   public User findByUserEmail(String email) {
     return userMapper.findByUserEmail(email);
