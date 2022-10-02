@@ -1,6 +1,6 @@
-package com.example.freshcart.user.presentation.web.argumentresolver;
+package com.example.freshcart.global.argumentresolver;
 
-import com.example.freshcart.user.domain.Role;
+import com.example.freshcart.global.domain.Role;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

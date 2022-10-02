@@ -1,12 +1,13 @@
 package com.example.freshcart.user.presentation;
 
+import com.example.freshcart.global.infra.SessionManager;
 import com.example.freshcart.user.application.LoginUser;
 import com.example.freshcart.user.application.UserService;
-import com.example.freshcart.user.application.command.LoginCommand;
-import com.example.freshcart.user.application.command.SignupCommand;
+import com.example.freshcart.user.presentation.request.LoginRequest;
+import com.example.freshcart.user.presentation.request.SignupRequest;
 import com.example.freshcart.user.domain.User;
-import com.example.freshcart.user.presentation.web.argumentresolver.AuthenticatedUser;
-import com.example.freshcart.user.domain.LoginCheck;
+import com.example.freshcart.global.argumentresolver.LoginCheck;
+import com.example.freshcart.global.argumentresolver.AuthenticatedUser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -34,7 +35,7 @@ public class UserController {
   회원 가입
    */
   @PostMapping("/signup")
-  public String signup(@Valid @RequestBody SignupCommand request) {
+  public String signup(@Valid @RequestBody SignupRequest request) {
     User user = userService.register(request);
     log.info(user.getEmail() + "회원가입을 축하합니다");
     return "회원가입을 축하합니다";
@@ -42,7 +43,7 @@ public class UserController {
 
   // 로그인 실패 시 예외처리가 되고, 성공 시 loginUser (ID, PW만 포함) 이 리턴됨.
   @PostMapping("/login")
-  public void login(@RequestBody LoginCommand request, HttpServletResponse servletResponse) {
+  public void login(@RequestBody LoginRequest request, HttpServletResponse servletResponse) {
     LoginUser check = userService.signIn(request);
     sessionManager.createSession(check, servletResponse);
   }

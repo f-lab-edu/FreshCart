@@ -1,6 +1,8 @@
 package com.example.freshcart.user.infrastructure.exception;
 
+import com.example.freshcart.global.exception.BaseException;
 import org.springframework.http.HttpStatus;
+
 
 public class EnumNotPresentException extends BaseException {
 

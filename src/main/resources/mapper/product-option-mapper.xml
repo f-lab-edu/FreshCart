@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.freshcart.product.infrastructure.OptionMapper">
+
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into product_option (name, price, minimum_order, maximum_order, option_group_id)
+    values (#{optionName}, #{price}, #{minimumOrder}, #{maximumOrder}, #{optionGroupId});
+  </insert>
+
+  <resultMap id="optionResultMap" type="com.example.freshcart.product.domain.Option">
+    <result column="option_name" property="optionName"/>
+    <result column="minimum_order" property="minimumOrder"/>
+    <result column="maximum_order" property="maximumOrder"/>
+    <result column="option_group_id" property="optionGroupId"/>
+  </resultMap>
+
+</mapper>

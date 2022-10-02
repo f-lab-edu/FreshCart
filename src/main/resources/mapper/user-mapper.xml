@@ -4,7 +4,6 @@
 <mapper namespace="com.example.freshcart.user.infrastructure.UserMapper">
 
   <resultMap id="userResultMap" type="com.example.freshcart.user.domain.User">
-    <id column="id" property="id"/>
     <result column="phone_number" property="phoneNumber"/>
   </resultMap>
 

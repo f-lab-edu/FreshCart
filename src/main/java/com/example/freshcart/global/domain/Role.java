@@ -1,4 +1,4 @@
-package com.example.freshcart.user.domain;
+package com.example.freshcart.global.domain;
 
 /**
  * 가입 유형: 유저, 판매자, 관리자
