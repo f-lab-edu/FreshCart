@@ -13,3 +13,14 @@ services:
       MYSQL_DATABASE: freshcart
       MYSQL_USER: admin
       MYSQL_PASSWORD: password
+
+  redis:
+    image: redis:latest
+    command: ["redis-server", "--port", "6379"]
+    container_name: freshcart_redis
+    hostname: freshcart_redis
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - "6379:6379"
