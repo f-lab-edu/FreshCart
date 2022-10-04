@@ -31,12 +31,16 @@ services:
       - elastic
   apm:
     image: docker.elastic.co/apm/apm-server:7.15.0
+    container_name: apm
     ports:
       - "8200:8200"
+    environment:
+      output.elasticsearch.hosts: '["http://elasticsearch:9200"]'
+    networks:
+      - elastic
 #    volumes:
 #      - ./volume/apm-server:/usr/share/apm-server/data"
-    environment:
-      output.elasticsearch.hosts: '["elasticsearch:9200"]'
+
 
 #volumes:
 #  elasticsearch-volume:
