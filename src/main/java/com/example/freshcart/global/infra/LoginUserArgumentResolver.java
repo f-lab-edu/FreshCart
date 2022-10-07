@@ -1,7 +1,8 @@
 package com.example.freshcart.global.infra;
 
-import com.example.freshcart.user.application.LoginUser;
 import com.example.freshcart.global.argumentresolver.AuthenticatedUser;
+import com.example.freshcart.global.domain.SessionManager;
+import com.example.freshcart.user.application.LoginUser;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
