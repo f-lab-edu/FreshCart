@@ -1,14 +1,13 @@
 package com.example.freshcart.user.presentation;
 
-import com.example.freshcart.global.infra.SessionManager;
-import com.example.freshcart.user.application.LoginUser;
-import com.example.freshcart.user.application.UserService;
+import com.example.freshcart.global.argumentresolver.AuthenticatedUser;
+import com.example.freshcart.global.argumentresolver.LoginCheck;
+import com.example.freshcart.global.domain.SessionManager;
+import com.example.freshcart.user.domain.User;
 import com.example.freshcart.user.presentation.request.LoginRequest;
 import com.example.freshcart.user.presentation.request.SignupRequest;
-import com.example.freshcart.user.domain.User;
-import com.example.freshcart.global.argumentresolver.LoginCheck;
-import com.example.freshcart.global.argumentresolver.AuthenticatedUser;
-import javax.servlet.http.HttpServletRequest;
+import com.example.freshcart.user.application.LoginUser;
+import com.example.freshcart.user.application.UserService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +49,8 @@ public class UserController {
 
   @LoginCheck
   @PostMapping("/logout")
-  public void logout(HttpServletRequest request) {
-    sessionManager.expireSession(request);
+  public void logout(HttpServletResponse response) {
+    sessionManager.expireSession(response);
   }
 
   //LoginCheck가 요구되는 로직 테스트용 - 추후 기능 개발 시 삭제 예정
