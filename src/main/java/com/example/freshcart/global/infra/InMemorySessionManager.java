@@ -1,5 +1,6 @@
 package com.example.freshcart.global.infra;
 
+import com.example.freshcart.global.domain.SessionManager;
 import com.example.freshcart.user.application.LoginUser;
 import java.util.Arrays;
 import java.util.Map;
@@ -13,10 +14,11 @@ import org.springframework.stereotype.Component;
 
 /*
 HttpSession 객체를 직접 구현
+HashMap - 세션 저장소
  */
 @Component
 @Slf4j
-public class SessionManager {
+public class InMemorySessionManager implements SessionManager {
 
   public static final String SESSION_COOKIE_NAME = "MySessionId";
   private Map<String, LoginUser> sessionStore = new ConcurrentHashMap<>();
@@ -68,11 +70,11 @@ public class SessionManager {
   클라이언트가 요청한 sessionId 쿠키의 값으로, 세션 저장소에 보관한 sessionId와 값 제거
    */
 
-  public void expireSession(HttpServletRequest request) {
-    Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
-    if (sessionCookie != null) {
-      sessionStore.remove(sessionCookie.getValue());
-      log.info("세션이 만료되었습니다");
-    }
+  public void expireSession(HttpServletResponse response) {
+    Cookie cookie = new Cookie(SESSION_COOKIE_NAME, null);
+    cookie.setMaxAge(0);
+    cookie.setPath("/");
+    response.addCookie(cookie);
+    log.info("세션이 만료되었습니다");
   }
 }
