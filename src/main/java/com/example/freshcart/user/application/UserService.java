@@ -8,6 +8,8 @@ import com.example.freshcart.user.domain.UserRepository;
 import com.example.freshcart.user.infrastructure.exception.EmailExistsException;
 import com.example.freshcart.user.infrastructure.exception.PasswordDoesNotMatchException;
 import com.example.freshcart.user.infrastructure.exception.UserNotExistsException;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * 회원 가입, 로그인 로직 실행.
@@ -50,8 +52,11 @@ public class UserService {
     if (!passwordMatch) {
       throw new PasswordDoesNotMatchException();
     }
-    LoginUser user = LoginUser.of(emailMatched.getId(), emailMatched.getEmail(),
-        emailMatched.getRole());
+
+    //세션을 저장할 때, 세션의 Id로 쓰일 값.
+    String sessionId = UUID.randomUUID().toString();
+    LoginUser user = LoginUser.of(sessionId, emailMatched.getUserId(), emailMatched.getEmail(),
+        emailMatched.getRole(), LocalDateTime.now());
     return user;
   }
 }
