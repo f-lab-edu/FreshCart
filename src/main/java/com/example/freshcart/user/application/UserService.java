@@ -54,8 +54,7 @@ public class UserService {
     }
 
     //세션을 저장할 때, 세션의 Id로 쓰일 값.
-    String sessionId = UUID.randomUUID().toString();
-    LoginUser user = LoginUser.of(sessionId, emailMatched.getUserId(), emailMatched.getEmail(),
+    LoginUser user = LoginUser.of("", emailMatched.getId(), emailMatched.getEmail(),
         emailMatched.getRole(), LocalDateTime.now());
     return user;
   }

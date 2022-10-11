@@ -66,4 +66,8 @@ public class LoginUser {
   public String getId() {
     return id;
   }
+
+  public void setSessionId(String sessionId) {
+    this.sessionId = sessionId;
+  }
 }

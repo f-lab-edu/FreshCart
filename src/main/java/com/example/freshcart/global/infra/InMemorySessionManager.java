@@ -28,9 +28,10 @@ public class InMemorySessionManager implements SessionManager {
   (2) 쿠키 생성. Response 할 때, 쿠키를 담아서 보냄.
    */
 
-  public void createSession(LoginUser check, HttpServletResponse response) {
+  public void createSession(LoginUser loginUser, HttpServletResponse response) {
     String sessionId = UUID.randomUUID().toString();
-    sessionStore.put(sessionId, check);
+    loginUser.setSessionId(sessionId);
+    sessionStore.put(sessionId, loginUser);
     Cookie cookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
     cookie.setPath("/");
     response.addCookie(cookie);

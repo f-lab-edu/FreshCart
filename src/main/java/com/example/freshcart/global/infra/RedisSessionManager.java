@@ -3,6 +3,7 @@ package com.example.freshcart.global.infra;
 import com.example.freshcart.global.domain.SessionManager;
 import com.example.freshcart.user.application.LoginUser;
 import java.util.Arrays;
+import java.util.UUID;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,13 +25,15 @@ public class RedisSessionManager implements SessionManager {
 
   public void createSession(LoginUser loginUser, HttpServletResponse response) {
 
+    String sessionId = UUID.randomUUID().toString();
+    loginUser.setSessionId(sessionId);
+    redisRepository.save(loginUser);
+    log.info("@ID가 자동으로 생성한 ID 확인:" + loginUser.getId());
+
     Cookie cookie = new Cookie(SESSION_COOKIE_NAME, loginUser.getSessionId());
     cookie.setMaxAge(2 * 60 * 60); //2시간.
     cookie.setPath("/");
     response.addCookie(cookie);
-    redisRepository.save(loginUser);
-    log.info("@ID가 자동으로 생성한 ID 확인:" + loginUser.getId());
-
     log.info("redis session manager 동작 중입니다");
   }
 
