@@ -53,7 +53,7 @@ public class ProductService {
         request.getDescription(),
         request.getSingleType(),
         request.getCategoryId(),
-        user.getId());
+        user.getUserId());
 
     productRepository.save(product);
     log.info(" product id 확인: " + product.getId());

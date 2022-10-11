@@ -5,7 +5,7 @@ package com.example.freshcart.global.config;
  * addInterceptor 메서드로 인터셉터를 하나씩 등록 / 패턴 지정
  */
 
-import com.example.freshcart.global.infra.SessionManager;
+import com.example.freshcart.global.domain.SessionManager;
 import com.example.freshcart.global.infra.LoginCheckInterceptor;
 import com.example.freshcart.global.infra.LoginUserArgumentResolver;
 import com.example.freshcart.global.infra.RoleCheckInterceptor;

@@ -5,6 +5,7 @@ import com.example.freshcart.global.domain.Role;
 import com.example.freshcart.global.argumentresolver.Authentication;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.example.freshcart.global.domain.SessionManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -34,6 +35,7 @@ public class RoleCheckInterceptor implements HandlerInterceptor {
     //Authentication 어노테이션이 없다면 RoleCheckInterCeptor 를 통과할 필요가 없으니 true 로 반환.
     Authentication authentication = method.getMethodAnnotation(Authentication.class);
     if (authentication == null) {
+      log.info("@Authentication이 없으므로 RoleCheckInterCeptor 를 통과할 필요가 없습니다");
       return true;
     }
 

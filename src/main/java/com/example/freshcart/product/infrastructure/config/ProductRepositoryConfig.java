@@ -21,12 +21,12 @@ public class ProductRepositoryConfig {
   }
 
   @Bean
-  public OptionGroupRepository optionGroupRepository(OptionGroupMapper optionGroupMapper){
+  public OptionGroupRepository optionGroupRepository(OptionGroupMapper optionGroupMapper) {
     return new OptionGroupMapperRepositoryAdaptor(optionGroupMapper);
   }
 
   @Bean
-  public OptionRepository optionRepository(OptionMapper optionMapper){
+  public OptionRepository optionRepository(OptionMapper optionMapper) {
     return new OptionMapperRepositoryAdaptor(optionMapper);
   }
 }
