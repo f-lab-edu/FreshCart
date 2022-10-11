@@ -14,10 +14,12 @@ import org.springframework.data.redis.core.index.Indexed;
  * 트랜잭션을 지원하지 않기 때문에 만약 트랜잭션을 적용하고 싶다면 RedisTemplate 을 사용해야 합니다.
  */
 
-public class LoginUser {
+@RedisHash(value = "LoginUser", timeToLive = 120)
+public class RedisHashLoginUser {
 
   @Id
   private String id;
+  @Indexed
   private String sessionId;
   private Long userId;
   private String email;
@@ -25,7 +27,7 @@ public class LoginUser {
   private LocalDateTime createdAt;
 
 
-  public LoginUser(String sessionId, Long userId, String email,
+  public RedisHashLoginUser(String sessionId, Long userId, String email,
       Role role, LocalDateTime createdAt) {
     this.sessionId = sessionId;
     this.userId = userId;
@@ -34,10 +36,9 @@ public class LoginUser {
     this.createdAt = createdAt;
   }
 
-
-  public static LoginUser of(String sessionId, Long userId, String email, Role role,
+  public static RedisHashLoginUser of(String sessionId, Long userId, String email, Role role,
       LocalDateTime createdAt) {
-    return new LoginUser(sessionId, userId, email, role, createdAt);
+    return new RedisHashLoginUser(sessionId, userId, email, role, createdAt);
   }
 
 
@@ -47,6 +48,10 @@ public class LoginUser {
 
   public String getSessionId() {
     return sessionId;
+  }
+
+  public void setSessionId(String sessionId) {
+    this.sessionId = sessionId;
   }
 
   public String getEmail() {
@@ -64,8 +69,5 @@ public class LoginUser {
   public String getId() {
     return id;
   }
-
-  public void setSessionId(String sessionId) {
-    this.sessionId = sessionId;
-  }
 }
+

@@ -2,6 +2,7 @@ package com.example.freshcart.global.infra;
 
 import com.example.freshcart.global.domain.SessionManager;
 import com.example.freshcart.user.application.LoginUser;
+import com.example.freshcart.user.application.RedisHashLoginUser;
 import java.util.Arrays;
 import java.util.UUID;
 import javax.servlet.http.Cookie;
@@ -10,6 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+/**
+ * RedisSessionManager에서는 LoginUser가 아닌 RedisHashLoginUser를 저장한다. 둘은 필드가 같지만, 사용되는 어노테이션이 달라서 다른
+ * 객체이다. 저장하기 전에 형변환을 해주고, (loginUser를 RedisHashLoginUser로) 조회한 후에 형변환을 해준다. (RedisHashLoginUser ->
+ * LoginUser) 이렇게 함으로써 Controller 이후의 코드 변경을 최소화 한다.
+ */
 @Component
 @Slf4j
 public class RedisSessionManager implements SessionManager {
@@ -27,8 +33,10 @@ public class RedisSessionManager implements SessionManager {
 
     String sessionId = UUID.randomUUID().toString();
     loginUser.setSessionId(sessionId);
-    redisRepository.save(loginUser);
-    log.info("@ID가 자동으로 생성한 ID 확인:" + loginUser.getId());
+    RedisHashLoginUser hashLoginUser = RedisHashLoginUser.of(loginUser.getSessionId(),
+        loginUser.getUserId(), loginUser.getEmail(), loginUser.getRole(), loginUser.getCreatedAt());
+    redisRepository.save(hashLoginUser);
+    log.info("@ID가 자동으로 생성한 ID 확인:" + hashLoginUser.getId());
 
     Cookie cookie = new Cookie(SESSION_COOKIE_NAME, loginUser.getSessionId());
     cookie.setMaxAge(2 * 60 * 60); //2시간.
@@ -57,6 +65,7 @@ public class RedisSessionManager implements SessionManager {
   세션 조회.
   (1) findCookie의 조회 결과가 없다면 null 처리를 하고,
   (2) 일치할 경우 cookie 의 값과(sessionId) 일치하는 세션을 꺼내온다.
+  (3) Controller 에서 Redis 도입 후에도 LoginUser의 형태로 쓸 수 있도록, 꺼내온 RedisHashLoginUser의 타입을 바꿔준다.
   */
   public LoginUser getSession(HttpServletRequest request) {
     Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
@@ -65,7 +74,10 @@ public class RedisSessionManager implements SessionManager {
     }
     log.info("sessionCookie 값 입니다" + sessionCookie.getValue());
 
-    return redisRepository.findBySessionId(sessionCookie.getValue()).get();
+    RedisHashLoginUser user = redisRepository.findBySessionId(sessionCookie.getValue()).get();
+    LoginUser loginUser = LoginUser.of(user.getSessionId(), user.getUserId(), user.getEmail(),
+        user.getRole(), user.getCreatedAt());
+    return loginUser;
   }
 
   /*
