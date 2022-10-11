@@ -8,7 +8,7 @@ import com.example.freshcart.global.domain.Role;
 
 public class User {
 
-  private Long userId;
+  private Long id;
 
   private String email;
 
@@ -32,8 +32,8 @@ public class User {
     this.role = role;
   }
 
-  public Long getUserId() {
-    return userId;
+  public Long getId() {
+    return id;
   }
 
   public String getEmail() {
@@ -56,7 +56,7 @@ public class User {
     return phoneNumber;
   }
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
+  public void setId(Long id) {
+    this.id = id;
   }
 }
