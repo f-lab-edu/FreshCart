@@ -19,7 +19,7 @@ public class UserInMemoryRepository implements UserRepository {
 
   @Override
   public User save(User user) {
-    user.setUserId(++sequence);
+    user.setId(++sequence);
     store.put(user.getEmail(), user);
     return store.get(user.getEmail());
   }
