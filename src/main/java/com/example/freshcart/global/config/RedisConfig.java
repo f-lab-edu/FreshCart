@@ -35,6 +35,10 @@ public class RedisConfig {
   @Bean
   public SessionManager sessionManager(SessionRedisRepository redisRepository) {
     return new RedisSessionManager(redisRepository);
-//    return new InMemorySessionManager();
   }
+
+//  @Bean
+//  public SessionManager sessionManager() {
+//    return new InMemorySessionManager();
+//  }
 }
