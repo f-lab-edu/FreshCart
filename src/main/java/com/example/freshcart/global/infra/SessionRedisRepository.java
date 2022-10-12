@@ -1,17 +1,17 @@
 package com.example.freshcart.global.infra;
 
-import com.example.freshcart.user.application.LoginUser;
+import com.example.freshcart.user.application.RedisHashLoginUser;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
-public interface SessionRedisRepository extends CrudRepository<LoginUser, String> {
+public interface SessionRedisRepository extends CrudRepository<RedisHashLoginUser, String> {
 
   @Override
-  LoginUser save(LoginUser user);
+  RedisHashLoginUser save(RedisHashLoginUser user);
 
   @Override
-  List<LoginUser> findAll();
+  List<RedisHashLoginUser> findAll();
 
-  Optional<LoginUser> findBySessionId(String value);
+  RedisHashLoginUser findBySessionId(String value);
 }

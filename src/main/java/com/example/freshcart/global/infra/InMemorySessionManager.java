@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 HttpSession 객체를 직접 구현
 HashMap - 세션 저장소
  */
-@Component
 @Slf4j
 public class InMemorySessionManager implements SessionManager {
 
