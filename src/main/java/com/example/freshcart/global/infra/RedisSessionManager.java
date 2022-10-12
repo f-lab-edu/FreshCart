@@ -1,6 +1,7 @@
 package com.example.freshcart.global.infra;
 
 import com.example.freshcart.global.domain.SessionManager;
+import com.example.freshcart.global.exception.UnauthorizedRequestException;
 import com.example.freshcart.user.application.LoginUser;
 import com.example.freshcart.user.application.RedisHashLoginUser;
 import java.util.Arrays;
@@ -9,14 +10,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * RedisSessionManager에서는 LoginUser가 아닌 RedisHashLoginUser를 저장한다. 둘은 필드가 같지만, 사용되는 어노테이션이 달라서 다른
  * 객체이다. 저장하기 전에 형변환을 해주고, (loginUser를 RedisHashLoginUser로) 조회한 후에 형변환을 해준다. (RedisHashLoginUser ->
  * LoginUser) 이렇게 함으로써 Controller 이후의 코드 변경을 최소화 한다.
  */
-@Component
 @Slf4j
 public class RedisSessionManager implements SessionManager {
 
@@ -74,9 +73,15 @@ public class RedisSessionManager implements SessionManager {
     }
     log.info("sessionCookie 값 입니다" + sessionCookie.getValue());
 
-    RedisHashLoginUser user = redisRepository.findBySessionId(sessionCookie.getValue()).get();
+    RedisHashLoginUser user = redisRepository.findBySessionId(sessionCookie.getValue());
+    if (user == null) {
+      log.info("RedisSessionManager - 유저 정보가 없어서 반환이 불가합니다");
+      throw new UnauthorizedRequestException();
+    }
+
     LoginUser loginUser = LoginUser.of(user.getSessionId(), user.getUserId(), user.getEmail(),
         user.getRole(), user.getCreatedAt());
+
     return loginUser;
   }
 
