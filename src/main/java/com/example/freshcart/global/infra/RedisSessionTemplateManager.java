@@ -3,9 +3,7 @@ package com.example.freshcart.global.infra;
 import com.example.freshcart.global.domain.SessionManager;
 import com.example.freshcart.user.application.LoginUser;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,63 +11,56 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * HttpSession 객체를 직접 구현 초기 버전 - Redis 도입 전 HashMap으로 세션 저장소 구현
+ * RedisTemplate을 변수로 활용한 SessionManager 구현체
  */
+
 @Component
 @Slf4j
-public class InMemorySessionManager implements SessionManager {
+public class RedisSessionTemplateManager implements SessionManager {
 
   public static final String SESSION_COOKIE_NAME = "MySessionId";
-  private Map<String, LoginUser> sessionStore = new ConcurrentHashMap<>();
+  private SessionRedisTemplate redisTemplate;
 
-  /*
-  (1) 세션 저장소에 세션 아이디/로그인 객체를 저장.
-  (2) 쿠키 생성. Response 할 때, 쿠키를 담아서 보냄.
-   */
+  public RedisSessionTemplateManager(
+      SessionRedisTemplate redisTemplate) {
+    this.redisTemplate = redisTemplate;
+  }
 
+  @Override
   public void createSession(LoginUser loginUser, HttpServletResponse response) {
     String sessionId = UUID.randomUUID().toString();
     loginUser.setSessionId(sessionId);
-    sessionStore.put(sessionId, loginUser);
-    Cookie cookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
+    redisTemplate.save(loginUser);
+    log.info("redisSessionManager 동작 중 - @ID가 자동으로 생성한 ID 확인:" + loginUser.getId());
+    Cookie cookie = new Cookie(SESSION_COOKIE_NAME, loginUser.getSessionId());
+    cookie.setMaxAge(2 * 60 * 60); //2시간.
     cookie.setPath("/");
     response.addCookie(cookie);
   }
 
-  /*
-  (1) 쿠키가 아예 없다면 null 처리를 하고,
-  (2) request 의 쿠키가 Session 저장소에 저장되었는지 조회하고 반환.
-  (Session Id를 키로 일치하는 지 확인 가능)
-  */
   private Cookie findCookie(HttpServletRequest request, String cookieName) {
     final Cookie[] cookies = request.getCookies();
     if (cookies == null) {
       return null;
     }
     return Arrays.stream(cookies)
-        .filter(c -> c.getName().equals(cookieName))
+        .filter(c -> (c.getName().equals(cookieName)) && (c.getMaxAge() != 0))
         .findFirst()
         .get();
   }
 
-  /*
-  세션 조회.
-  (1) findCookie의 조회 결과가 없다면 null 처리를 하고,
-  (2) 일치할 경우 cookie 의 값과(sessionId) 일치하는 세션을 꺼내온다.
-  */
+  @Override
   public LoginUser getSession(HttpServletRequest request) {
     Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
     if (sessionCookie == null) {
       return null;
     }
-    return sessionStore.get(sessionCookie.getValue());
+    log.info("sessionCookie 값 입니다" + sessionCookie.getValue());
+
+    return redisTemplate.findBySessionId(sessionCookie.getValue());
   }
 
-  /*
-  세션 만료
-  클라이언트가 요청한 sessionId 쿠키의 값으로, 세션 저장소에 보관한 sessionId와 값 제거
-   */
-
+  @Override
   public void expireSession(HttpServletResponse response) {
     Cookie cookie = new Cookie(SESSION_COOKIE_NAME, null);
     cookie.setMaxAge(0);
@@ -78,3 +69,4 @@ public class InMemorySessionManager implements SessionManager {
     log.info("세션이 만료되었습니다");
   }
 }
+

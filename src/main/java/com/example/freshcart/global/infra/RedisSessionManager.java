@@ -9,14 +9,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * RedisSessionManager에서는 LoginUser가 아닌 RedisHashLoginUser를 저장한다. 둘은 필드가 같지만, 사용되는 어노테이션이 달라서 다른
  * 객체이다. 저장하기 전에 형변환을 해주고, (loginUser를 RedisHashLoginUser로) 조회한 후에 형변환을 해준다. (RedisHashLoginUser ->
  * LoginUser) 이렇게 함으로써 Controller 이후의 코드 변경을 최소화 한다.
  */
-@Component
 @Slf4j
 public class RedisSessionManager implements SessionManager {
 
