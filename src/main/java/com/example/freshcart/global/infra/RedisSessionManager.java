@@ -26,7 +26,6 @@ public class RedisSessionManager implements SessionManager {
     this.redisRepository = redisRepository;
   }
 
-
   public void createSession(LoginUser loginUser, HttpServletResponse response) {
 
     String sessionId = UUID.randomUUID().toString();
@@ -75,6 +74,8 @@ public class RedisSessionManager implements SessionManager {
     RedisHashLoginUser user = redisRepository.findBySessionId(sessionCookie.getValue()).get();
     LoginUser loginUser = LoginUser.of(user.getSessionId(), user.getUserId(), user.getEmail(),
         user.getRole(), user.getCreatedAt());
+//    LoginUser.of(user);
+
     return loginUser;
   }
 

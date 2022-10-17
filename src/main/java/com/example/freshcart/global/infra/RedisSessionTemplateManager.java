@@ -14,23 +14,23 @@ import org.springframework.stereotype.Component;
  * RedisTemplate을 변수로 활용한 SessionManager 구현체
  */
 
-@Component
+//@Component
 @Slf4j
 public class RedisSessionTemplateManager implements SessionManager {
 
   public static final String SESSION_COOKIE_NAME = "MySessionId";
-  private SessionRedisTemplate redisTemplate;
+  private SessionRedisTemplate sessionRedisTemplate;
 
   public RedisSessionTemplateManager(
-      SessionRedisTemplate redisTemplate) {
-    this.redisTemplate = redisTemplate;
+      SessionRedisTemplate sessionRedisTemplate) {
+    this.sessionRedisTemplate = sessionRedisTemplate;
   }
 
   @Override
   public void createSession(LoginUser loginUser, HttpServletResponse response) {
     String sessionId = UUID.randomUUID().toString();
     loginUser.setSessionId(sessionId);
-    redisTemplate.save(loginUser);
+    sessionRedisTemplate.save(loginUser);
     log.info("redisSessionManager 동작 중 - @ID가 자동으로 생성한 ID 확인:" + loginUser.getId());
     Cookie cookie = new Cookie(SESSION_COOKIE_NAME, loginUser.getSessionId());
     cookie.setMaxAge(2 * 60 * 60); //2시간.
@@ -56,8 +56,8 @@ public class RedisSessionTemplateManager implements SessionManager {
       return null;
     }
     log.info("sessionCookie 값 입니다" + sessionCookie.getValue());
-
-    return redisTemplate.findBySessionId(sessionCookie.getValue());
+    log.info(sessionRedisTemplate.findBySessionId(sessionCookie.getValue()).getEmail());
+    return sessionRedisTemplate.findBySessionId(sessionCookie.getValue());
   }
 
   @Override

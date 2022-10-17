@@ -11,7 +11,7 @@ import com.example.freshcart.user.application.LoginUser;
 
 public class SessionRedisTemplate {
 
-  public static final long TimeToLive = 2; // 테스트 용. 10분으로 세션 유효기간 설정.
+  public static final long TimeToLive = 1000; // 테스트 용. 10분으로 세션 유효기간 설정.
   private JsonParsingUtil jsonParsingUtil;
 
   public SessionRedisTemplate(JsonParsingUtil jsonParsingUtil) {

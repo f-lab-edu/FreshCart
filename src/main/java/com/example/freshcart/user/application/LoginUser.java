@@ -14,6 +14,7 @@ import org.springframework.data.annotation.Id;
  */
 
 public class LoginUser implements Serializable {
+//public class LoginUser implements Serializable {
 
   @Id
   private String id;
@@ -40,6 +41,10 @@ public class LoginUser implements Serializable {
       LocalDateTime createdAt) {
     return new LoginUser(sessionId, userId, email, role, createdAt);
   }
+//
+//  public static LoginUser of(RedisHashLoginUser userfromRedis) {
+//    return new LoginUser(userfromRedis.getSessionId(), userfromRedis.getuserId, email, role, createdAt);
+//  }
 
 
   public Long getUserId() {
