@@ -13,5 +13,5 @@ public interface SessionRedisRepository extends CrudRepository<RedisHashLoginUse
   @Override
   List<RedisHashLoginUser> findAll();
 
-  Optional<RedisHashLoginUser> findBySessionId(String value);
+  RedisHashLoginUser findBySessionId(String value);
 }
