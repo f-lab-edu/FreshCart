@@ -7,9 +7,8 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
-@Component
+
 public class JsonParsingUtil {
 
   private static Logger log = LoggerFactory.getLogger(JsonParsingUtil.class);
@@ -22,6 +21,7 @@ public class JsonParsingUtil {
 
 
   public <T> boolean saveData(String key, T data) {
+
     try {
       ObjectMapper mapper = new ObjectMapper();
       mapper.registerModule(new JavaTimeModule());

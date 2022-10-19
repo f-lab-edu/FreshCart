@@ -10,11 +10,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * HttpSession 객체를 직접 구현 초기 버전 - Redis 도입 전 HashMap으로 세션 저장소 구현
  */
+
 @Slf4j
 public class InMemorySessionManager implements SessionManager {
 

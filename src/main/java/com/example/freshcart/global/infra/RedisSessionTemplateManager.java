@@ -8,13 +8,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * RedisTemplate을 변수로 활용한 SessionManager 구현체
  */
 
-//@Component
 @Slf4j
 public class RedisSessionTemplateManager implements SessionManager {
 
@@ -28,6 +26,7 @@ public class RedisSessionTemplateManager implements SessionManager {
 
   @Override
   public void createSession(LoginUser loginUser, HttpServletResponse response) {
+
     String sessionId = UUID.randomUUID().toString();
     loginUser.setSessionId(sessionId);
     sessionRedisTemplate.save(loginUser);
@@ -56,7 +55,9 @@ public class RedisSessionTemplateManager implements SessionManager {
       return null;
     }
     log.info("sessionCookie 값 입니다" + sessionCookie.getValue());
-    log.info(sessionRedisTemplate.findBySessionId(sessionCookie.getValue()).getEmail());
+    log.info(
+        "redisTemplate에서 찾아온 값" + sessionRedisTemplate.findBySessionId(sessionCookie.getValue()));
+
     return sessionRedisTemplate.findBySessionId(sessionCookie.getValue());
   }
 

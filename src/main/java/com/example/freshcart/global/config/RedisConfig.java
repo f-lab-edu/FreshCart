@@ -49,15 +49,15 @@ public class RedisConfig {
 //    return new RedisSessionManager(redisRepository);
 //  }
 
-  //  @Bean
+//  @Bean
 //  public SessionManager sessionManager() {
 //    return new InMemorySessionManager();
 //  }
 
 
   @Bean
-  public SessionManager sessionManager(SessionRedisTemplate redisTemplate) {
-    return new RedisSessionTemplateManager(redisTemplate);
+  public SessionManager sessionManager(SessionRedisTemplate sessionRedisTemplate) {
+    return new RedisSessionTemplateManager(sessionRedisTemplate);
   }
 
   @Bean
@@ -66,11 +66,17 @@ public class RedisConfig {
   }
 
   @Bean
-  public RedisTemplate<String, Object> redisTemplate() {
+  public JsonParsingUtil jsonParsingUtil(RedisTemplate redisTemplate) {
+    return new JsonParsingUtil(redisTemplate);
+  }
+
+  @Bean
+  public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
     RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-    redisTemplate.setConnectionFactory(redisConnectionFactory());
+    redisTemplate.setConnectionFactory(connectionFactory);
     redisTemplate.setKeySerializer(new StringRedisSerializer());
     redisTemplate.setValueSerializer(new StringRedisSerializer());
     return redisTemplate;
   }
+
 }
