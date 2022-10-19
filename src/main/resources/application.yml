@@ -1,7 +1,7 @@
 ## localhost:6379는 기본값이지만, 운영서버에서 별도 host 사용을 감안해서 별도로 지정해줌.
 spring:
   redis:
-    host: localhost
+    host: 127.0.0.1
     port: 6379
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
