@@ -14,7 +14,7 @@ import org.springframework.data.redis.core.index.Indexed;
  * 트랜잭션을 지원하지 않기 때문에 만약 트랜잭션을 적용하고 싶다면 RedisTemplate 을 사용해야 합니다.
  */
 
-@RedisHash(value = "LoginUser", timeToLive = 120)
+@RedisHash(value = "LoginUser", timeToLive = 1200)
 public class LoginUser {
 
   @Id

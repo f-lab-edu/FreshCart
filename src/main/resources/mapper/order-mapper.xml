@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.freshcart.order.infrastructure.OrderMapper">
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into `order` (user_id, receiver_name, receiver_phone, receiver_address, order_status)
+    values (#{userId}, #{receiverName}, #{receiverPhone}, #{receiverAddress}, #{orderStatus});
+  </insert>
+
+  <resultMap id="orderResultMap" type="com.example.freshcart.order.domain.Order">
+    <result column="user_id" property="userId"/>
+    <result column="receiver_name" property="receiverName"/>
+    <result column="receiver_phone" property="receiverPhone"/>
+    <result column="receiver_address" property="receiverAddress"/>
+    <result column="order_status" property="orderStatus"/>
+    <result column="created_at" property="createdAt"/>
+    <result column="updated_at" property="updatedAt"/>
+  </resultMap>
+</mapper>
