@@ -64,7 +64,9 @@ public class ProductService {
         OptionGroup optionGroup = new OptionGroup(
             optionGroupRegister.getOptionGroupName(),
             optionGroupRegister.isRequiredOption(),
-            optionGroupRegister.isMinimumOrderOption(),
+            optionGroupRegister.isExclusive(),
+            optionGroupRegister.getMinimumOrder(),
+            optionGroupRegister.getMaximumOrder(),
             product.getId());
         optionGroupRepository.save(optionGroup);
 
@@ -73,8 +75,6 @@ public class ProductService {
           Option option = new Option(
               element.getOptionName(),
               element.getPrice(),
-              element.getMinimumOrder(),
-              element.getMaximumOrder(),
               optionGroup.getId());
           optionRepository.save(option);
         }
