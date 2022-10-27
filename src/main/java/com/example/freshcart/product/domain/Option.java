@@ -7,22 +7,19 @@ public class Option {
   private Long id;
   private String optionName;
   private int price;
-  private int minimumOrder;
-  private int maximumOrder;
   private Long optionGroupId;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
+  public Option() {
+  }
 
-  public Option(String optionName, int price, int minimumOrder, int maximumOrder,
+  public Option(String optionName, int price,
       Long optionGroupId) {
     this.optionName = optionName;
     this.price = price;
-    this.minimumOrder = minimumOrder;
-    this.maximumOrder = maximumOrder;
     this.optionGroupId = optionGroupId;
   }
-
 
 
   public Long getId() {
@@ -37,13 +34,6 @@ public class Option {
     return price;
   }
 
-  public int getMinimumOrder() {
-    return minimumOrder;
-  }
-
-  public int getMaximumOrder() {
-    return maximumOrder;
-  }
 
   public Long getOptionGroupId() {
     return optionGroupId;
