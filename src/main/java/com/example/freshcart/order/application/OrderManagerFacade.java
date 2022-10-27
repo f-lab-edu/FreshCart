@@ -2,6 +2,7 @@ package com.example.freshcart.order.application;
 
 import com.example.freshcart.order.presentation.request.Cart;
 import com.example.freshcart.user.application.LoginUser;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -16,6 +17,7 @@ public class OrderManagerFacade {
     this.orderRegisterProcessor = orderRegisterProcessor;
   }
 
+  @Transactional
   public void register(LoginUser user, Cart cart) {
     orderRegisterProcessor.place(user, cart);
   }

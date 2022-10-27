@@ -4,6 +4,7 @@ import com.example.freshcart.order.domain.Order;
 import com.example.freshcart.order.domain.OrderRepository;
 import com.example.freshcart.order.presentation.request.Cart;
 import com.example.freshcart.user.application.LoginUser;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**

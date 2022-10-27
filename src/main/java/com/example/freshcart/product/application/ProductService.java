@@ -15,6 +15,7 @@ import com.example.freshcart.user.application.LoginUser;
 import com.example.freshcart.global.domain.Role;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 public class ProductService {
@@ -31,6 +32,8 @@ public class ProductService {
     this.optionRepository = optionRepository;
   }
 
+
+  @Transactional
   public void register(LoginUser user, ProductRegisterRequest request) {
     //Seller 가 아닐 경우 재확인 - 예외처리
     if (user.getRole() != Role.SELLER) {
