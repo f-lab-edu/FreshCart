@@ -1,5 +1,6 @@
 package com.example.freshcart.product.infrastructure;
 
+import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.product.domain.Product;
 import com.example.freshcart.product.domain.ProductRepository;
 import java.util.List;
@@ -23,5 +24,10 @@ public class ProductMapperRepositoryAdaptor implements ProductRepository {
   @Override
   public List<Product> findAll() {
     return productMapper.findAll();
+  }
+
+  @Override
+  public Product findById(Long productId) {
+    return productMapper.findById(productId);
   }
 }

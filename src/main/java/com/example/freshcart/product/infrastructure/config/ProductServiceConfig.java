@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public class ProductServiceConfig {
 
   @Bean
-  public ProductService productService(ProductRepository productRepository, OptionGroupRepository optionGroupRepository, OptionRepository optionRepository) {
+  public ProductService productService(ProductRepository productRepository,
+      OptionGroupRepository optionGroupRepository, OptionRepository optionRepository) {
     return new ProductService(productRepository, optionGroupRepository, optionRepository);
   }
 }

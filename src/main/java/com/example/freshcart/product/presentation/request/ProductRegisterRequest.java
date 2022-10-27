@@ -4,7 +4,7 @@ import com.example.freshcart.product.domain.Product.Status;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.lang.Nullable;
 
 /**
@@ -14,7 +14,7 @@ public class ProductRegisterRequest {
 
   @NotBlank(message = "제품 이름을 입력해주세요")
   private String name;
-  @Positive(message = "제품가격은 0 이상이어야 합니다")
+  @Range(min = 10, message = "제품가격은 최소 10원 이상이어야 합니다")
   private int price;
   @NotNull
   private Status status;
@@ -22,7 +22,7 @@ public class ProductRegisterRequest {
   private String description;
   @NotNull(message = "단일 상품 여부를 입력해주세요")
   private boolean singleType;
-  @Positive()
+  @Range(min = 1, message = "ID는 최소 1이상 입니다.")
   private int categoryId;
   @Nullable
   private List<OptionSet> optionSet;
