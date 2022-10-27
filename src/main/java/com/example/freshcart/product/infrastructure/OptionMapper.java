@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface OptionMapper {
 
   void insert(Option option);
+
+  Option findById(Long productOptionId);
 }
