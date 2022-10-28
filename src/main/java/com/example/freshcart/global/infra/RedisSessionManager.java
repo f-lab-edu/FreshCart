@@ -1,6 +1,7 @@
 package com.example.freshcart.global.infra;
 
 import com.example.freshcart.global.domain.SessionManager;
+import com.example.freshcart.global.exception.UnauthorizedRequestException;
 import com.example.freshcart.user.application.LoginUser;
 import com.example.freshcart.user.application.RedisHashLoginUser;
 import java.util.Arrays;
@@ -71,10 +72,14 @@ public class RedisSessionManager implements SessionManager {
     }
     log.info("sessionCookie 값 입니다" + sessionCookie.getValue());
 
-    RedisHashLoginUser user = redisRepository.findBySessionId(sessionCookie.getValue()).get();
+    RedisHashLoginUser user = redisRepository.findBySessionId(sessionCookie.getValue());
+    if (user == null) {
+      log.info("RedisSessionManager - 유저 정보가 없어서 반환이 불가합니다");
+      throw new UnauthorizedRequestException();
+    }
+
     LoginUser loginUser = LoginUser.of(user.getSessionId(), user.getUserId(), user.getEmail(),
         user.getRole(), user.getCreatedAt());
-//    LoginUser.of(user);
 
     return loginUser;
   }
