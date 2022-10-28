@@ -3,8 +3,7 @@ e-commerce 서비스 입니다
 
 # Elastic APM Java Agent 설정
 
-인텔리제이 Edit Configurations -> VM Options 에 추가
-Run 시 실행됨
+#APM 설정 - 인텔리제이 Edit Configurations -> VM Options 에 추가 (Run 시 실행됨)
 
 -javaagent:/{jar 파일의 위치}/elastic-apm-agent-1.34.1.jar
 -Delastic.apm.disable_send=false
