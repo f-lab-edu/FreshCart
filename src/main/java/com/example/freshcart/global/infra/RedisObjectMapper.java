@@ -8,13 +8,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
+/**
+ * 클래스의 목적이 Serialization/Deserialization 이므로 RedisObjectMapper 로 변경.
+ */
 
-public class JsonParsingUtil {
+public class RedisObjectMapper {
 
-  private static Logger log = LoggerFactory.getLogger(JsonParsingUtil.class);
+  private static Logger log = LoggerFactory.getLogger(RedisObjectMapper.class);
   private final RedisTemplate<String, Object> redisTemplate;
+  private static ObjectMapper objectMapper = new ObjectMapper();
 
-  public JsonParsingUtil(
+
+  public RedisObjectMapper(
       RedisTemplate<String, Object> redisTemplate) {
     this.redisTemplate = redisTemplate;
   }
@@ -23,9 +28,8 @@ public class JsonParsingUtil {
   public <T> boolean saveData(String key, T data) {
 
     try {
-      ObjectMapper mapper = new ObjectMapper();
-      mapper.registerModule(new JavaTimeModule());
-      String value = mapper.writeValueAsString(data);
+      this.objectMapper.registerModule(new JavaTimeModule());
+      String value = this.objectMapper.writeValueAsString(data);
       redisTemplate.opsForValue()
           .set(key, value, SessionRedisTemplate.TimeToLive, TimeUnit.MINUTES);
       return true;
@@ -41,9 +45,7 @@ public class JsonParsingUtil {
   public <T> T getData(String key, Class<T> classType) {
     try {
       String jsonResult = (String) redisTemplate.opsForValue().get(key);
-      ObjectMapper mapper = new ObjectMapper();
-      mapper.registerModule(new JavaTimeModule());
-      T object = mapper.readValue(jsonResult, classType);
+      T object = this.objectMapper.readValue(jsonResult, classType);
       return object;
 
     } catch (JsonProcessingException e) {

@@ -12,18 +12,19 @@ import com.example.freshcart.user.application.LoginUser;
 public class SessionRedisTemplate {
 
   public static final long TimeToLive = 10; // 테스트 용. 10분으로 세션 유효기간 설정.
-  private JsonParsingUtil jsonParsingUtil;
+  private RedisObjectMapper redisObjectMapper;
 
-  public SessionRedisTemplate(JsonParsingUtil jsonParsingUtil) {
-    this.jsonParsingUtil = jsonParsingUtil;
+
+  public SessionRedisTemplate(RedisObjectMapper redisObjectMapper) {
+    this.redisObjectMapper = redisObjectMapper;
   }
 
   public void save(LoginUser loginUser) {
-    jsonParsingUtil.saveData(loginUser.getSessionId(), loginUser);
+    redisObjectMapper.saveData(loginUser.getSessionId(), loginUser);
   }
 
   public LoginUser findBySessionId(String sessionId) {
-    Object object = jsonParsingUtil.getData(sessionId, LoginUser.class);
+    Object object = redisObjectMapper.getData(sessionId, LoginUser.class);
     if (object == null) {
       throw new JsonProcessingException();
     }
