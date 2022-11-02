@@ -1,5 +1,6 @@
 package com.example.freshcart.global.infra;
 
+import com.example.freshcart.user.application.LoginUser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -9,27 +10,27 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
- * 클래스의 목적이 Serialization/Deserialization 이므로 RedisObjectMapper 로 변경.
+ * 클래스의 목적이 Serialization/Deserialization 이므로 RedisObjectMapper 로 클래스명 변경. writeValueAsString으로 직렬화
+ * 하여 저장. ReadValue()로 String 형태의 JSON 데이터를 JSON으로 Deserialize
  */
 
 public class RedisObjectMapper {
 
   private static Logger log = LoggerFactory.getLogger(RedisObjectMapper.class);
-  private final RedisTemplate<String, Object> redisTemplate;
+
+  private final RedisTemplate<String, String> redisTemplate;
   private static ObjectMapper objectMapper = new ObjectMapper();
 
-
   public RedisObjectMapper(
-      RedisTemplate<String, Object> redisTemplate) {
+      RedisTemplate<String, String> redisTemplate) {
     this.redisTemplate = redisTemplate;
   }
-
 
   public <T> boolean saveData(String key, T data) {
 
     try {
-      this.objectMapper.registerModule(new JavaTimeModule());
-      String value = this.objectMapper.writeValueAsString(data);
+      objectMapper.registerModule(new JavaTimeModule());
+      String value = objectMapper.writeValueAsString(data);
       redisTemplate.opsForValue()
           .set(key, value, SessionRedisTemplate.TimeToLive, TimeUnit.MINUTES);
       return true;
@@ -39,18 +40,10 @@ public class RedisObjectMapper {
     }
   }
 
-  /**
-   * writeValueAsString으로 직렬화 하여 저장. ReadValue()로 String 형태의 JSON 데이터를 JSON으로 Deserialize
-   */
-  public <T> T getData(String key, Class<T> classType) {
-    try {
-      String jsonResult = (String) redisTemplate.opsForValue().get(key);
-      T object = this.objectMapper.readValue(jsonResult, classType);
-      return object;
-
-    } catch (JsonProcessingException e) {
-      log.error("JsonProcessingException", e);
-      return null;
-    }
+  public LoginUser getData(String sessionId) throws JsonProcessingException {
+    String jsonResult = redisTemplate.opsForValue().get(sessionId);
+    LoginUser loginUser = objectMapper.readValue(jsonResult, LoginUser.class);
+    return loginUser;
   }
+
 }

@@ -1,8 +1,8 @@
 package com.example.freshcart.global.infra;
 
-import com.example.freshcart.global.exception.JsonProcessingException;
+import com.example.freshcart.global.exception.JsonDeserializationIssueException;
 import com.example.freshcart.user.application.LoginUser;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * SessionRedisRepository, SessionRedisTemplate 을 구현체로 만들고 인터페이스에 의존하고자 했으나, Repository 가 인터페이스여야 해서
@@ -23,12 +23,14 @@ public class SessionRedisTemplate {
     redisObjectMapper.saveData(loginUser.getSessionId(), loginUser);
   }
 
+
   public LoginUser findBySessionId(String sessionId) {
-    Object object = redisObjectMapper.getData(sessionId, LoginUser.class);
-    if (object == null) {
-      throw new JsonProcessingException();
+    try {
+      LoginUser loginUser = redisObjectMapper.getData(sessionId);
+      return loginUser;
+    } catch (JsonProcessingException e) {
+      throw new JsonDeserializationIssueException();
     }
-    return (LoginUser) object;
   }
 
 }
