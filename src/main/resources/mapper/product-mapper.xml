@@ -20,4 +20,10 @@
     from product
   </select>
 
+  <select id="findById" resultMap="productResultMap">
+    select id, name, price, status, description, single_type, created_at, updated_at, category_id, seller_id
+    from product
+    where id = #{id};
+  </select>
+
 </mapper>

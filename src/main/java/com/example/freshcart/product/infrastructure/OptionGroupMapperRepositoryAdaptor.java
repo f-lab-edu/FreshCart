@@ -2,7 +2,6 @@ package com.example.freshcart.product.infrastructure;
 
 import com.example.freshcart.product.domain.OptionGroup;
 import com.example.freshcart.product.domain.OptionGroupRepository;
-import java.util.List;
 
 public class OptionGroupMapperRepositoryAdaptor implements OptionGroupRepository {
 
@@ -20,7 +19,7 @@ public class OptionGroupMapperRepositoryAdaptor implements OptionGroupRepository
   }
 
   @Override
-  public List<OptionGroup> findByProductId(Long id) {
-    return optionGroupMapper.findByProductId(id);
+  public OptionGroup findById(Long productOptionGroupId) {
+    return optionGroupMapper.findById(productOptionGroupId);
   }
 }

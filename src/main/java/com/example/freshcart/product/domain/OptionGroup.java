@@ -7,20 +7,31 @@ public class OptionGroup {
 
   private Long id;
   private String optionGroupName;
+  //필수 옵션 선택 여부
   private boolean isRequired;
-  private boolean isCountRequired;
+  //배타 선택 여부: true 일 경우 min max order 모두 1임.
+  private boolean exclusive;
+  private int minimumOrder;
+  private int maximumOrder;
   private Long productId;
   private List<Option> options;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
-  public OptionGroup(String optionGroupName, boolean isRequired, boolean isCountRequired,
-      Long productId) {
+
+  public OptionGroup() {
+  }
+
+  public OptionGroup(String optionGroupName, boolean isRequired, boolean exclusive,
+      int minimumOrder, int maximumOrder, Long productId) {
     this.optionGroupName = optionGroupName;
     this.isRequired = isRequired;
-    this.isCountRequired = isCountRequired;
+    this.exclusive = exclusive;
+    this.minimumOrder = minimumOrder;
+    this.maximumOrder = maximumOrder;
     this.productId = productId;
   }
+
 
   public Long getId() {
     return id;
@@ -34,8 +45,8 @@ public class OptionGroup {
     return isRequired;
   }
 
-  public boolean isCountRequired() {
-    return isCountRequired;
+  public boolean exclusive() {
+    return exclusive;
   }
 
   public Long getProductId() {
@@ -52,5 +63,13 @@ public class OptionGroup {
 
   public LocalDateTime getUpdatedAt() {
     return updatedAt;
+  }
+
+  public int getMinimumOrder() {
+    return minimumOrder;
+  }
+
+  public int getMaximumOrder() {
+    return maximumOrder;
   }
 }

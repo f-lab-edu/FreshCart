@@ -10,4 +10,6 @@ public interface ProductMapper {
   void insert(Product product);
 
   List<Product> findAll();
+
+  Product findById(Long productId);
 }

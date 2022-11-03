@@ -24,6 +24,9 @@ public class Product {
     BEING_PREPARED, AVAILABLE, UNAVAILABLE,
   }
 
+  public Product() {
+  }
+
   public Product(String name, int price, Status status, String description, Boolean singleType,
       int categoryId, Long sellerId) {
     this.name = name;
@@ -34,6 +37,7 @@ public class Product {
     this.categoryId = categoryId;
     this.sellerId = sellerId;
   }
+
 
   public String getName() {
     return name;
