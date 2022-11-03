@@ -1,10 +1,9 @@
 package com.example.freshcart.user.application;
 
 import com.example.freshcart.global.domain.Role;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.index.Indexed;
 
 /**
  * 용도: 장소에서 조회한 유저의 email, Role 정보. 서비스 이용 시 권한 확인 위함 Redis Repository로 이용하기 위해서는 @Redishash 어노테이션을
@@ -14,7 +13,7 @@ import org.springframework.data.redis.core.index.Indexed;
  * 트랜잭션을 지원하지 않기 때문에 만약 트랜잭션을 적용하고 싶다면 RedisTemplate 을 사용해야 합니다.
  */
 
-public class LoginUser {
+public class LoginUser implements Serializable {
 
   @Id
   private String id;
@@ -34,12 +33,23 @@ public class LoginUser {
     this.createdAt = createdAt;
   }
 
+  public LoginUser(String id, String sessionId, Long userId, String email,
+      Role role, LocalDateTime createdAt) {
+    this.id = id;
+    this.sessionId = sessionId;
+    this.userId = userId;
+    this.email = email;
+    this.role = role;
+    this.createdAt = createdAt;
+  }
+
+  public LoginUser() {
+  }
 
   public static LoginUser of(String sessionId, Long userId, String email, Role role,
       LocalDateTime createdAt) {
     return new LoginUser(sessionId, userId, email, role, createdAt);
   }
-
 
   public Long getUserId() {
     return userId;
