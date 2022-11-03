@@ -5,12 +5,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 
-
 /**
  * 용도: 장소에서 조회한 유저의 email, Role 정보. 서비스 이용 시 권한 확인 위함
  * RedisRepository아닌 RedisTemplate 사용 시 LoginUser 형태로 저장
  */
-
 
 public class LoginUser implements Serializable {
 

@@ -27,7 +27,6 @@ public class RedisSessionManager implements SessionManager {
     this.redisRepository = redisRepository;
   }
 
-
   public void createSession(LoginUser loginUser, HttpServletResponse response) {
 
     String sessionId = UUID.randomUUID().toString();

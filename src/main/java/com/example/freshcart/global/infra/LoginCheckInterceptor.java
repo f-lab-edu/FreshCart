@@ -4,6 +4,7 @@ import com.example.freshcart.user.application.LoginUser;
 import com.example.freshcart.global.exception.UnauthorizedRequestException;
 import com.example.freshcart.global.argumentresolver.LoginCheck;
 import com.example.freshcart.global.domain.SessionManager;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
   }
 
 
-  public LoginUser authenticateLogin(HttpServletRequest request) {
+  public LoginUser authenticateLogin(HttpServletRequest request) throws JsonProcessingException {
     String requestURI = request.getRequestURI();
     log.info(requestURI + "인터셉터 - 인증 체크 적용");
     LoginUser user = sessionManager.getSession(request);
