@@ -1,21 +1,18 @@
 package com.example.freshcart.user.application;
 
 import com.example.freshcart.global.domain.Role;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.index.Indexed;
+
 
 /**
- * 용도: 장소에서 조회한 유저의 email, Role 정보. 서비스 이용 시 권한 확인 위함 Redis Repository로 이용하기 위해서는 @Redishash 어노테이션을
- * 이용해 key를 설정해줘야함. 최종적으로 Redis에 들어가는 key는 @RedisHash의 value + @Id가 붙어있는 맴버변수
- * <p>
- * * Spring Data Redis 의 Redis Repository 를 이용하면 간단하게 Domain Entity 를 Redis Hash 로 만들 수 있음. * 다만
- * 트랜잭션을 지원하지 않기 때문에 만약 트랜잭션을 적용하고 싶다면 RedisTemplate 을 사용해야 합니다.
+ * 용도: 장소에서 조회한 유저의 email, Role 정보. 서비스 이용 시 권한 확인 위함
+ * RedisRepository아닌 RedisTemplate 사용 시 LoginUser 형태로 저장
  */
 
-@RedisHash(value = "LoginUser", timeToLive = 1200)
-public class LoginUser {
+
+public class LoginUser implements Serializable {
 
   @Id
   private String id;
@@ -35,12 +32,23 @@ public class LoginUser {
     this.createdAt = createdAt;
   }
 
+  public LoginUser(String id, String sessionId, Long userId, String email,
+      Role role, LocalDateTime createdAt) {
+    this.id = id;
+    this.sessionId = sessionId;
+    this.userId = userId;
+    this.email = email;
+    this.role = role;
+    this.createdAt = createdAt;
+  }
+
+  public LoginUser() {
+  }
 
   public static LoginUser of(String sessionId, Long userId, String email, Role role,
       LocalDateTime createdAt) {
     return new LoginUser(sessionId, userId, email, role, createdAt);
   }
-
 
   public Long getUserId() {
     return userId;
