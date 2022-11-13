@@ -1,20 +1,19 @@
-package com.example.freshcart.order.infrastructure.exception;
+package com.example.freshcart.user.domain.exception;
 
 import com.example.freshcart.global.exception.BaseException;
 import org.springframework.http.HttpStatus;
 
-public class OrderItemNotFoundException extends BaseException {
+public class UserNotExistsException extends BaseException {
 
   // static 변수 할당으로 인스턴스를 생성하지 않고도 사용 가능하게 함. 변수가 super() 생성자에서도 참조되기 위함.
-  private static final String message = "상품이 변경되었습니다. 다시 주문해주세요";
+  private static final String message = "존재하지 않는 유저입니다";
 
-  public OrderItemNotFoundException() {
+  public UserNotExistsException() {
     super(HttpStatus.NOT_FOUND, message);
   }
 
   @Override
   public String getMessage() {
     return message;
-
   }
 }
