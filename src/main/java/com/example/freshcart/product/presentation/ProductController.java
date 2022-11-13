@@ -1,12 +1,12 @@
 package com.example.freshcart.product.presentation;
 
+import com.example.freshcart.authentication.application.LoginUser;
 import com.example.freshcart.product.application.ProductService;
 import com.example.freshcart.product.presentation.request.ProductRegisterRequest;
-import com.example.freshcart.user.application.LoginUser;
-import com.example.freshcart.global.domain.Role;
-import com.example.freshcart.global.argumentresolver.AuthenticatedUser;
-import com.example.freshcart.global.argumentresolver.LoginCheck;
-import com.example.freshcart.global.argumentresolver.Authentication;
+import com.example.freshcart.authentication.Role;
+import com.example.freshcart.authentication.annotation.AuthenticatedUser;
+import com.example.freshcart.authentication.annotation.LoginCheck;
+import com.example.freshcart.authentication.annotation.Authentication;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
