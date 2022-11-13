@@ -1,5 +1,11 @@
 package com.example.freshcart.order.presentation.request;
 
+import static java.util.stream.Collectors.toList;
+
+import com.example.freshcart.order.application.command.CartCommand;
+import com.example.freshcart.order.application.command.CartCommand.CartItemCommand;
+import com.example.freshcart.order.application.command.CartCommand.CartItemOptionCommand;
+import com.example.freshcart.order.application.command.CartCommand.CartItemOptionGroupCommand;
 import java.util.List;
 
 /**
@@ -39,6 +45,11 @@ public class Cart {
     return cartItems;
   }
 
+  public CartCommand toCommand() {
+    return new CartCommand(this.receiverName, this.receiverPhone, this.receiverAddress,
+        this.cartItems.stream().map(CartItem::toCartItemCommand).collect(toList()));
+  }
+
   /**
    * CartItem은 Product, OrderLineItem과 매칭
    */
@@ -59,6 +70,7 @@ public class Cart {
       this.groups = groups;
     }
 
+
     public Long getProductId() {
       return productId;
     }
@@ -78,6 +90,11 @@ public class Cart {
     public List<CartItemOptionGroup> getGroups() {
       return groups;
     }
+
+    public CartItemCommand toCartItemCommand() {
+      return new CartItemCommand(this.productId, this.name, this.price, this.count, this.groups.stream().map(CartItemOptionGroup::toCartItemOptionGroupCommand).collect(toList()));
+    }
+
   }
 
   public static class CartItemOptionGroup {
@@ -105,7 +122,10 @@ public class Cart {
       return options;
     }
 
-
+    public CartItemOptionGroupCommand toCartItemOptionGroupCommand() {
+      return new CartItemOptionGroupCommand(this.productOptionGroupId, this.name,
+          this.options.stream().map(CartItemOption::toCartItemOptionCommand).collect(toList()));
+    }
   }
 
   public static class CartItemOption {
@@ -132,7 +152,11 @@ public class Cart {
       return price;
     }
 
+    public CartItemOptionCommand toCartItemOptionCommand() {
+      return new CartItemOptionCommand(this.productOptionId, this.name, this.price);
+    }
 
   }
+
 
 }

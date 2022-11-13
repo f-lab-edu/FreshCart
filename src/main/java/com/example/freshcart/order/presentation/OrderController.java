@@ -1,12 +1,12 @@
 package com.example.freshcart.order.presentation;
 
-import com.example.freshcart.global.argumentresolver.AuthenticatedUser;
-import com.example.freshcart.global.argumentresolver.Authentication;
-import com.example.freshcart.global.argumentresolver.LoginCheck;
-import com.example.freshcart.global.domain.Role;
+import com.example.freshcart.authentication.annotation.AuthenticatedUser;
+import com.example.freshcart.authentication.annotation.Authentication;
+import com.example.freshcart.authentication.annotation.LoginCheck;
+import com.example.freshcart.authentication.Role;
+import com.example.freshcart.authentication.application.LoginUser;
 import com.example.freshcart.order.application.OrderManagerFacade;
 import com.example.freshcart.order.presentation.request.Cart;
-import com.example.freshcart.user.application.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +29,7 @@ public class OrderController {
   @LoginCheck
   @PostMapping("/register")
   public void register(@RequestBody Cart cart, @AuthenticatedUser LoginUser user) {
-    orderManagerFacade.register(user, cart);
+    orderManagerFacade.register(user, cart.toCommand());
     log.info(user.getEmail() + "로그인된 유저임을 확인");
   }
 }

@@ -1,6 +1,7 @@
 package com.example.freshcart.order.domain;
 
-import com.example.freshcart.user.application.LoginUser;
+
+import com.example.freshcart.authentication.application.LoginUser;
 
 public interface OrderRepository {
 

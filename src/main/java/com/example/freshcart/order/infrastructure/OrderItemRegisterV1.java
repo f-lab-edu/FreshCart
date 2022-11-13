@@ -1,6 +1,6 @@
 package com.example.freshcart.order.infrastructure;
 
-import com.example.freshcart.order.application.OrderItemService;
+import com.example.freshcart.order.application.OrderItemRegister;
 import com.example.freshcart.order.domain.Order;
 import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.order.domain.OrderItemOption;
@@ -8,15 +8,16 @@ import com.example.freshcart.order.domain.OrderItemOptionGroup;
 
 
 /**
- * MyBatis 전용 구현체 책임: Mapper를 통해 Order에 담긴 OrderItem 객체들을 각 테이블에 맞는 Mapper로 처리
+ * MyBatis 전용 구현체 책임:
+ * Mapper를 통해 Order에 담긴 OrderItem 객체들을 각 테이블에 맞는 Mapper로 처리
  */
-public class OrderItemServiceV1 implements OrderItemService {
+public class OrderItemRegisterV1 implements OrderItemRegister {
 
   private final OrderItemMapper orderItemMapper;
   private final OrderItemOptionMapper orderItemOptionMapper;
   private final OrderItemOptionGroupMapper orderItemOptionGroupMapper;
 
-  public OrderItemServiceV1(
+  public OrderItemRegisterV1(
       OrderItemMapper orderItemMapper,
       OrderItemOptionMapper orderItemOptionMapper,
       OrderItemOptionGroupMapper orderItemOptionGroupMapper) {

@@ -1,19 +1,18 @@
 package com.example.freshcart.order.application;
 
+import com.example.freshcart.authentication.application.LoginUser;
+import com.example.freshcart.order.application.command.CartCommand;
 import com.example.freshcart.order.domain.Order;
 import com.example.freshcart.order.domain.OrderRepository;
-import com.example.freshcart.order.presentation.request.Cart;
-import com.example.freshcart.user.application.LoginUser;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
  * 역할: 주문을 등록
  * 협력
- * (1)  CartToOrderMapper: 주문 요청 객체인 Cart를 Order로 변환.
+ * (1) CartToOrderMapper: 주문 요청 객체인 Cart를 Order로 변환.
  * (2) orderValidator: 카트에 담은 이후 제품 정보 등이 바뀌었을 경우를 대비하여, 옵션과 일치하는지 체크
  * (3) OrderRepository: 저장소와 data operation 작업 위임
- * OrderRepository와 OrderItemServiceImpl은 다른 구현체로 바뀔 가능성이 있다.
+ * OrderRepository와 OrderItemRegisterV1은 다른 구현체로 바뀔 가능성이 있다.
  */
 
 public class OrderRegisterProcessor {
@@ -31,7 +30,7 @@ public class OrderRegisterProcessor {
     this.orderRepository = orderRepository;
   }
 
-  public void place(LoginUser user, Cart cart) {
+  public void place(LoginUser user, CartCommand cart) {
     Order order = cartToOrderMapper.mapFrom(user, cart);
     orderValidator.validate(order);
     checkInventory(); // Inventory 별도 필요
