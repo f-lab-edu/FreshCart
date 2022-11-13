@@ -1,15 +1,15 @@
 package com.example.freshcart.user.application;
 
-import com.example.freshcart.user.presentation.request.LoginRequest;
-import com.example.freshcart.user.presentation.request.SignupRequest;
+import com.example.freshcart.authentication.application.LoginUser;
+import com.example.freshcart.user.application.command.LoginCommand;
+import com.example.freshcart.user.application.command.SignupCommand;
 import com.example.freshcart.user.domain.PasswordEncoder;
 import com.example.freshcart.user.domain.User;
 import com.example.freshcart.user.domain.UserRepository;
-import com.example.freshcart.user.infrastructure.exception.EmailExistsException;
-import com.example.freshcart.user.infrastructure.exception.PasswordDoesNotMatchException;
-import com.example.freshcart.user.infrastructure.exception.UserNotExistsException;
+import com.example.freshcart.user.domain.exception.EmailExistsException;
+import com.example.freshcart.user.domain.exception.PasswordDoesNotMatchException;
+import com.example.freshcart.user.domain.exception.UserNotExistsException;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * 회원 가입, 로그인 로직 실행.
@@ -24,30 +24,30 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public User register(SignupRequest request) {
+  public User register(SignupCommand command) {
     // 이메일 중복 체크
-    if (userRepository.findByUserEmail(request.getEmail()) != null) {
+    if (userRepository.findByUserEmail(command.getEmail()) != null) {
       throw new EmailExistsException();
     }
 
-    String password = request.getPassword();
+    String password = command.getPassword();
     // passwordEncoder로 암호화된 비밀번호를 리턴
     User user =
         new User(
-            request.getEmail(),
+            command.getEmail(),
             passwordEncoder.encrypt(password),
-            request.getPhoneNumber(),
-            request.getName(),
-            request.getRole());
+            command.getPhoneNumber(),
+            command.getName(),
+            command.getRole());
     return userRepository.save(user);
   }
 
-  public LoginUser signIn(LoginRequest request) {
-    User emailMatched = userRepository.findByUserEmail(request.getEmail());
+  public LoginUser signIn(LoginCommand command) {
+    User emailMatched = userRepository.findByUserEmail(command.getEmail());
     if (emailMatched == null) {
       throw new UserNotExistsException();
     }
-    boolean passwordMatch = passwordEncoder.isMatch(request.getPassword(),
+    boolean passwordMatch = passwordEncoder.isMatch(command.getPassword(),
         emailMatched.getPassword());
     if (!passwordMatch) {
       throw new PasswordDoesNotMatchException();

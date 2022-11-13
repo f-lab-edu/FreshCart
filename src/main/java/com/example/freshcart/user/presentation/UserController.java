@@ -1,12 +1,11 @@
 package com.example.freshcart.user.presentation;
 
-import com.example.freshcart.global.argumentresolver.AuthenticatedUser;
-import com.example.freshcart.global.argumentresolver.LoginCheck;
-import com.example.freshcart.global.domain.SessionManager;
-import com.example.freshcart.user.domain.User;
+import com.example.freshcart.authentication.annotation.AuthenticatedUser;
+import com.example.freshcart.authentication.annotation.LoginCheck;
+import com.example.freshcart.authentication.application.LoginUser;
+import com.example.freshcart.authentication.application.SessionManager;
 import com.example.freshcart.user.presentation.request.LoginRequest;
 import com.example.freshcart.user.presentation.request.SignupRequest;
-import com.example.freshcart.user.application.LoginUser;
 import com.example.freshcart.user.application.UserService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -35,15 +34,14 @@ public class UserController {
    */
   @PostMapping("/signup")
   public String signup(@Valid @RequestBody SignupRequest request) {
-    User user = userService.register(request);
-    log.info(user.getEmail() + "회원가입을 축하합니다");
+    userService.register(request.toCommand());
     return "회원가입을 축하합니다";
   }
 
   // 로그인 실패 시 예외처리가 되고, 성공 시 loginUser (ID, PW만 포함) 이 리턴됨.
   @PostMapping("/login")
   public void login(@RequestBody LoginRequest request, HttpServletResponse servletResponse) {
-    LoginUser check = userService.signIn(request);
+    LoginUser check = userService.signIn(request.toCommand());
     sessionManager.createSession(check, servletResponse);
   }
 
