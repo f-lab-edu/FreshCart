@@ -1,14 +1,8 @@
-package com.example.freshcart.user.domain;
+package com.example.freshcart.user.application.command;
 
 import com.example.freshcart.authentication.Role;
 
-/**
- * NotNull + Valid(@RequestBody와 함께)로 필드가 입력되었는지 점검 .
- */
-
-public class User {
-
-  private Long id;
+public class SignupCommand {
 
   private String email;
 
@@ -20,20 +14,13 @@ public class User {
 
   private Role role;
 
-  public User() {
-  }
-
-  public User(String email, String password, String phoneNumber, String name,
+  public SignupCommand(String email, String password, String phoneNumber, String name,
       Role role) {
     this.email = email;
     this.password = password;
     this.phoneNumber = phoneNumber;
     this.name = name;
     this.role = role;
-  }
-
-  public Long getId() {
-    return id;
   }
 
   public String getEmail() {
@@ -56,7 +43,4 @@ public class User {
     return phoneNumber;
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
 }

@@ -1,7 +1,7 @@
 package com.example.freshcart.order.application;
 
-import com.example.freshcart.order.presentation.request.Cart;
-import com.example.freshcart.user.application.LoginUser;
+import com.example.freshcart.authentication.application.LoginUser;
+import com.example.freshcart.order.application.command.CartCommand;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -18,7 +18,8 @@ public class OrderManagerFacade {
   }
 
   @Transactional
-  public void register(LoginUser user, Cart cart) {
+  public void register(LoginUser user, CartCommand cart) {
     orderRegisterProcessor.place(user, cart);
   }
+
 }

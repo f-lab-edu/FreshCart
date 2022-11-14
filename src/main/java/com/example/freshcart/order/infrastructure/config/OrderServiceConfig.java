@@ -1,7 +1,7 @@
 package com.example.freshcart.order.infrastructure.config;
 
 import com.example.freshcart.order.application.CartToOrderMapper;
-import com.example.freshcart.order.application.OrderItemService;
+import com.example.freshcart.order.application.OrderItemRegister;
 import com.example.freshcart.order.application.OrderManagerFacade;
 import com.example.freshcart.order.application.OrderRegisterProcessor;
 import com.example.freshcart.order.application.OrderValidator;
@@ -9,7 +9,7 @@ import com.example.freshcart.order.domain.OrderRepository;
 import com.example.freshcart.order.infrastructure.OrderItemMapper;
 import com.example.freshcart.order.infrastructure.OrderItemOptionGroupMapper;
 import com.example.freshcart.order.infrastructure.OrderItemOptionMapper;
-import com.example.freshcart.order.infrastructure.OrderItemServiceV1;
+import com.example.freshcart.order.infrastructure.OrderItemRegisterV1;
 import com.example.freshcart.product.domain.OptionGroupRepository;
 import com.example.freshcart.product.domain.OptionRepository;
 import com.example.freshcart.product.domain.ProductRepository;
@@ -25,10 +25,10 @@ public class OrderServiceConfig {
   }
 
   @Bean
-  public OrderItemService orderItemService(OrderItemMapper orderItemMapper,
+  public OrderItemRegister orderItemService(OrderItemMapper orderItemMapper,
       OrderItemOptionMapper orderItemOptionMapper,
       OrderItemOptionGroupMapper orderItemOptionGroupMapper) {
-    return new OrderItemServiceV1(orderItemMapper, orderItemOptionMapper,
+    return new OrderItemRegisterV1(orderItemMapper, orderItemOptionMapper,
         orderItemOptionGroupMapper);
   }
 

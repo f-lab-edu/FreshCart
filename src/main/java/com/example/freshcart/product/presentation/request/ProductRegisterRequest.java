@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * 셀러가 필수 정보를 담아서 회원 가입 요청. 필수이기 때문에 @NotNull과 @Valid로 확인
+ * Command 로 변환하여 전달 필요. Product-Status를 참조하고 있음.
  */
 public class ProductRegisterRequest {
 

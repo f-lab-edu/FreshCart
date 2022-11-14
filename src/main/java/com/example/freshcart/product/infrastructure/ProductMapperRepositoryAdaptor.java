@@ -1,6 +1,5 @@
 package com.example.freshcart.product.infrastructure;
 
-import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.product.domain.Product;
 import com.example.freshcart.product.domain.ProductRepository;
 import java.util.List;

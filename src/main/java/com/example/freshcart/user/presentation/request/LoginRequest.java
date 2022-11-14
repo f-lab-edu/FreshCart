@@ -1,5 +1,6 @@
 package com.example.freshcart.user.presentation.request;
 
+import com.example.freshcart.user.application.command.LoginCommand;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -29,5 +30,9 @@ public class LoginRequest {
 
   public String getPassword() {
     return password;
+  }
+
+  public LoginCommand toCommand(){
+    return new LoginCommand(this.email, this.password);
   }
 }

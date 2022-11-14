@@ -1,6 +1,7 @@
 package com.example.freshcart.user.presentation.request;
 
-import com.example.freshcart.global.domain.Role;
+import com.example.freshcart.authentication.Role;
+import com.example.freshcart.user.application.command.SignupCommand;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -52,5 +53,9 @@ public class SignupRequest {
 
   public String getPhoneNumber() {
     return phoneNumber;
+  }
+
+  public SignupCommand toCommand(){
+    return new SignupCommand(this.email, this.password,this.phoneNumber,this.name,this.role);
   }
 }

@@ -1,5 +1,7 @@
 package com.example.freshcart.product.application;
 
+import com.example.freshcart.authentication.application.LoginUser;
+import com.example.freshcart.product.domain.exception.NotSellerException;
 import com.example.freshcart.product.presentation.request.OptionDetailRegister;
 import com.example.freshcart.product.presentation.request.OptionGroupRegister;
 import com.example.freshcart.product.presentation.request.OptionSet;
@@ -10,9 +12,7 @@ import com.example.freshcart.product.domain.OptionGroupRepository;
 import com.example.freshcart.product.domain.OptionRepository;
 import com.example.freshcart.product.domain.Product;
 import com.example.freshcart.product.domain.ProductRepository;
-import com.example.freshcart.product.infrastructure.exception.NotSellerException;
-import com.example.freshcart.user.application.LoginUser;
-import com.example.freshcart.global.domain.Role;
+import com.example.freshcart.authentication.Role;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
