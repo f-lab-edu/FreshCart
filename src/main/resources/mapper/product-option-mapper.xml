@@ -4,19 +4,20 @@
 <mapper namespace="com.example.freshcart.product.infrastructure.OptionMapper">
 
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into product_option (name, price, option_group_id)
-    values (#{optionName}, #{price}, #{optionGroupId});
+    insert into product_option (name, price, option_group_id, seller_id)
+    values (#{optionName}, #{price}, #{optionGroupId}, #{sellerId});
   </insert>
 
   <resultMap id="optionResultMap" type="com.example.freshcart.product.domain.Option">
     <result column="name" property="optionName"/>
     <result column="option_group_id" property="optionGroupId"/>
+    <result column="seller_id" property="sellerId"/>
     <result column="created_at" property="createdAt"/>
     <result column="updated_at" property="updatedAt"/>
   </resultMap>
 
   <select id="findById" resultMap="optionResultMap">
-    select id, name, price, option_group_id, created_at, updated_at
+    select id, name, price, option_group_id, seller_id, created_at, updated_at
     from product_option
     where id = #{productOptionId};
   </select>
