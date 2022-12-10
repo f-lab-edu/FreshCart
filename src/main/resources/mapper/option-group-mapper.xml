@@ -3,8 +3,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.freshcart.product.infrastructure.OptionGroupMapper">
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into option_group (name, is_required, exclusive, minimum_order, maximum_order, product_id)
-    values (#{optionGroupName}, #{isRequired}, #{exclusive}, #{minimumOrder}, #{maximumOrder}, #{productId});
+    insert into option_group (name, is_required, exclusive, minimum_order, maximum_order, product_id, seller_id)
+    values (#{optionGroupName}, #{isRequired}, #{exclusive}, #{minimumOrder}, #{maximumOrder}, #{productId}, #{sellerId});
   </insert>
 
   <resultMap id="optionGroupResultMap" type="com.example.freshcart.product.domain.OptionGroup">
@@ -13,12 +13,13 @@
     <result column="minimum_order" property="minimumOrder"/>
     <result column="maximum_order" property="maximumOrder"/>
     <result column="product_id" property="productId"/>
+    <result column="seller_id" property="sellerId"/>
     <result column="created_at" property="createdAt"/>
     <result column="updated_at" property="updatedAt"/>
   </resultMap>
 
   <select id="findById" resultMap="optionGroupResultMap">
-    select id, name, is_required, exclusive, minimum_order, maximum_order, product_id, created_at, updated_at
+    select id, name, is_required, exclusive, minimum_order, maximum_order, product_id, created_at, seller_id, updated_at
     from option_group
     where id = #{productOptionGroupId};
   </select>
