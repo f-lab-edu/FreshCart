@@ -70,7 +70,8 @@ public class ProductService {
             optionGroupRegister.isExclusive(),
             optionGroupRegister.getMinimumOrder(),
             optionGroupRegister.getMaximumOrder(),
-            product.getId());
+            product.getId(),
+            user.getUserId());
         optionGroupRepository.save(optionGroup);
 
         List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
@@ -78,10 +79,16 @@ public class ProductService {
           Option option = new Option(
               element.getOptionName(),
               element.getPrice(),
-              optionGroup.getId());
+              optionGroup.getId(),
+              user.getUserId());
           optionRepository.save(option);
         }
       }
     }
+  }
+
+  //OptionId가 주어지면, Option을 찾는다.
+  public Option getOption(Long optionId){
+    return optionRepository.findById(optionId);
   }
 }
