@@ -13,7 +13,8 @@ import com.example.freshcart.product.domain.ProductRepository;
 
 
 /**
- * OrderValidator 역할: 제품의 이름, 옵션 그룹 등과 일치하는 이름으로 주문서를 작성했는지 등 확인 (중간에 제품이 수정되어 잘못된 데이터로 주문하는 것을 방지하기
+ * OrderValidator
+ * 역할: 제품의 이름, 옵션 그룹 등과 일치하는 이름으로 주문서를 작성했는지 등 확인 (중간에 제품이 수정되어 잘못된 데이터로 주문하는 것을 방지하기
  * 위해서)
  */
 
