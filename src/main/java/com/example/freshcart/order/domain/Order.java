@@ -2,7 +2,9 @@ package com.example.freshcart.order.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.Getter;
 
+@Getter
 public class Order {
 
   private Long id;
@@ -36,42 +38,6 @@ public class Order {
     this.receiverAddress = receiverAddress;
     this.orderStatus = orderStatus;
     this.orderItemList = orderItemList;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public Long getUserId() {
-    return userId;
-  }
-
-  public String getReceiverName() {
-    return receiverName;
-  }
-
-  public String getReceiverPhone() {
-    return receiverPhone;
-  }
-
-  public String getReceiverAddress() {
-    return receiverAddress;
-  }
-
-  public OrderStatus getOrderStatus() {
-    return orderStatus;
-  }
-
-  public List<OrderItem> getOrderItemList() {
-    return orderItemList;
-  }
-
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public LocalDateTime getUpdatedAt() {
-    return updatedAt;
   }
 
   public enum OrderStatus {

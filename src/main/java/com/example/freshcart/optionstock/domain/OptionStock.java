@@ -8,10 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "option_inventory")
 @Getter
+@NoArgsConstructor
 public class OptionStock extends Timestamped {
 
   @Id
@@ -34,11 +36,12 @@ public class OptionStock extends Timestamped {
     this.stock = stock;
   }
 
-  public OptionStock() {
 
+  public void changeStock(int stock) {
+    this.stock = stock;
   }
 
-  public void changeStock(int stock){
-    this.stock = stock;
+  public void reduceStock(int stock) {
+    this.stock -= stock;
   }
 }
