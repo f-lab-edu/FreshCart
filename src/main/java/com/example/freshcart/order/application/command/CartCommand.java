@@ -1,10 +1,13 @@
 package com.example.freshcart.order.application.command;
 
 import java.util.List;
+import lombok.Getter;
 
 /**
  * presentation 계층의 Cart를 바로 쓰지 않고, application 층 내에서 Command 로 변환해서 사용
  */
+
+@Getter
 public class CartCommand {
 
   private String receiverName;
@@ -23,23 +26,6 @@ public class CartCommand {
     this.receiverAddress = receiverAddress;
     this.cartItems = cartItems;
   }
-
-  public String getReceiverName() {
-    return receiverName;
-  }
-
-  public String getReceiverPhone() {
-    return receiverPhone;
-  }
-
-  public String getReceiverAddress() {
-    return receiverAddress;
-  }
-
-  public List<CartItemCommand> getCartItemCommands() {
-    return cartItems;
-  }
-
 
   /**
    * CartItem은 Product, OrderLineItem과 매칭

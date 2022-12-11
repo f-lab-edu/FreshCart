@@ -7,10 +7,15 @@ import com.example.freshcart.order.application.command.CartCommand.CartItemComma
 import com.example.freshcart.order.application.command.CartCommand.CartItemOptionCommand;
 import com.example.freshcart.order.application.command.CartCommand.CartItemOptionGroupCommand;
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Order Command에 필요한 정보가 모두 담겼는지 확인 필요.
  */
+
+@Getter
+@NoArgsConstructor
 public class Cart {
 
   private String receiverName;
@@ -29,22 +34,6 @@ public class Cart {
     this.cartItems = cartItems;
   }
 
-  public String getReceiverName() {
-    return receiverName;
-  }
-
-  public String getReceiverPhone() {
-    return receiverPhone;
-  }
-
-  public String getReceiverAddress() {
-    return receiverAddress;
-  }
-
-  public List<CartItem> getCartItems() {
-    return cartItems;
-  }
-
   public CartCommand toCommand() {
     return new CartCommand(this.receiverName, this.receiverPhone, this.receiverAddress,
         this.cartItems.stream().map(CartItem::toCartItemCommand).collect(toList()));
@@ -53,6 +42,8 @@ public class Cart {
   /**
    * CartItem은 Product, OrderLineItem과 매칭
    */
+  @Getter
+  @NoArgsConstructor
   public static class CartItem {
 
     private Long productId;
@@ -70,33 +61,16 @@ public class Cart {
       this.groups = groups;
     }
 
-
-    public Long getProductId() {
-      return productId;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public int getCount() {
-      return count;
-    }
-
-    public int getPrice() {
-      return price;
-    }
-
-    public List<CartItemOptionGroup> getGroups() {
-      return groups;
-    }
-
     public CartItemCommand toCartItemCommand() {
-      return new CartItemCommand(this.productId, this.name, this.price, this.count, this.groups.stream().map(CartItemOptionGroup::toCartItemOptionGroupCommand).collect(toList()));
+      return new CartItemCommand(this.productId, this.name, this.price, this.count,
+          this.groups.stream().map(CartItemOptionGroup::toCartItemOptionGroupCommand)
+              .collect(toList()));
     }
 
   }
 
+  @Getter
+  @NoArgsConstructor
   public static class CartItemOptionGroup {
 
     private Long productOptionGroupId;
@@ -110,17 +84,6 @@ public class Cart {
       this.options = options;
     }
 
-    public Long getProductOptionGroupId() {
-      return productOptionGroupId;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public List<CartItemOption> getOptions() {
-      return options;
-    }
 
     public CartItemOptionGroupCommand toCartItemOptionGroupCommand() {
       return new CartItemOptionGroupCommand(this.productOptionGroupId, this.name,
@@ -128,6 +91,8 @@ public class Cart {
     }
   }
 
+  @Getter
+  @NoArgsConstructor
   public static class CartItemOption {
 
     private Long productOptionId;
@@ -140,17 +105,6 @@ public class Cart {
       this.price = price;
     }
 
-    public Long getProductOptionId() {
-      return productOptionId;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public int getPrice() {
-      return price;
-    }
 
     public CartItemOptionCommand toCartItemOptionCommand() {
       return new CartItemOptionCommand(this.productOptionId, this.name, this.price);
