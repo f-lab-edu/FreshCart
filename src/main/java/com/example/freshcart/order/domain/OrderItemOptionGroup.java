@@ -3,19 +3,19 @@ package com.example.freshcart.order.domain;
 import java.util.List;
 
 /**
- * productOptionGroupId가 꼭 필요한가? 넣은 이유: 테이블 생성 시 외래 키 참조 위해.
+ * optionGroupId가 꼭 필요한가? 넣은 이유: 테이블 생성 시 외래 키 참조 위해.
  */
 public class OrderItemOptionGroup {
 
   private Long id;
-  private Long productOptionGroupId;
+  private Long optionGroupId;
   private String name;
   private Long orderItemId;
   private List<OrderItemOption> orderItemOptions;
 
-  public OrderItemOptionGroup(Long productOptionGroupId, String name,
+  public OrderItemOptionGroup(Long optionGroupId, String name,
       List<OrderItemOption> orderItemOptions) {
-    this.productOptionGroupId = productOptionGroupId;
+    this.optionGroupId = optionGroupId;
     this.name = name;
     this.orderItemOptions = orderItemOptions;
   }
@@ -25,8 +25,8 @@ public class OrderItemOptionGroup {
     return id;
   }
 
-  public Long getProductOptionGroupId() {
-    return productOptionGroupId;
+  public Long getoptionGroupId() {
+    return optionGroupId;
   }
 
   public String getName() {

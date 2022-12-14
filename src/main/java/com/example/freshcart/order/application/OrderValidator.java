@@ -71,7 +71,7 @@ public class OrderValidator {
    */
   public void validateOrderOptionGroup(OrderItemOptionGroup orderItemOptionGroup) {
     String optionGroupName = optionGroupRepository.findById(
-            orderItemOptionGroup.getProductOptionGroupId())
+            orderItemOptionGroup.getoptionGroupId())
         .getOptionGroupName();
 
     if (!orderItemOptionGroup.getName().equals(optionGroupName)) {
@@ -88,7 +88,7 @@ public class OrderValidator {
   }
 
   public void validateOrderOption(OrderItemOption orderItemOption) {
-    String optionName = optionRepository.findById(orderItemOption.getProductOptionId())
+    String optionName = optionRepository.findById(orderItemOption.getOptionId())
         .getOptionName();
     if (!orderItemOption.getName().equals(optionName)) {
       throw new OrderItemOptionNotFoundException();

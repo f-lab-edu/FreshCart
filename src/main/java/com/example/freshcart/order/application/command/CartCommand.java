@@ -70,19 +70,19 @@ public class CartCommand {
 
   public static class CartItemOptionGroupCommand {
 
-    private Long productOptionGroupId;
+    private Long optionGroupId;
     private String name;
     private List<CartItemOptionCommand> options;
 
-    public CartItemOptionGroupCommand(Long productOptionGroupId, String name,
+    public CartItemOptionGroupCommand(Long optionGroupId, String name,
         List<CartItemOptionCommand> options) {
-      this.productOptionGroupId = productOptionGroupId;
+      this.optionGroupId = optionGroupId;
       this.name = name;
       this.options = options;
     }
 
-    public Long getProductOptionGroupId() {
-      return productOptionGroupId;
+    public Long getOptionGroupId() {
+      return optionGroupId;
     }
 
     public String getName() {
@@ -98,18 +98,18 @@ public class CartCommand {
 
   public static class CartItemOptionCommand {
 
-    private Long productOptionId;
+    private Long optionId;
     private String name;
     private int price;
 
-    public CartItemOptionCommand(Long productOptionId, String name, int price) {
-      this.productOptionId = productOptionId;
+    public CartItemOptionCommand(Long optionId, String name, int price) {
+      this.optionId = optionId;
       this.name = name;
       this.price = price;
     }
 
-    public Long getProductOptionId() {
-      return productOptionId;
+    public Long getOptionId() {
+      return optionId;
     }
 
     public String getName() {

@@ -66,7 +66,7 @@ public class OrderRegisterProcessor {
   }
 
   public void checkInventory(OrderItemOption option, int count) {
-    OptionStock optionStock = optionStockRepository.findById(option.getProductOptionId());
+    OptionStock optionStock = optionStockRepository.findById(option.getOptionId());
     if (optionStock == null) {
       throw new OptionStockNotFoundException();
     }

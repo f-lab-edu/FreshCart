@@ -3,13 +3,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.freshcart.order.infrastructure.OrderItemOptionMapper">
   <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into order_item_option (product_option_id, order_item_option_group_id, name, price)
-    values (#{productOptionId}, #{orderItemOptionGroupId}, #{name}, #{price});
+    insert into order_item_option (option_id, order_item_option_group_id, name, price)
+    values (#{optionId}, #{orderItemOptionGroupId}, #{name}, #{price});
 
   </insert>
   <resultMap id="orderItemOptionResultMap"
     type="com.example.freshcart.order.domain.OrderItemOption">
-    <result column="product_option_id" property="productOptionId"/>
+    <result column="option_id" property="optionId"/>
     <result column="order_item_option_group_id" property="orderItemOptionGroupId"/>
   </resultMap>
 </mapper>

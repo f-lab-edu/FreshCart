@@ -19,7 +19,7 @@ public class OptionGroupMapperRepositoryAdaptor implements OptionGroupRepository
   }
 
   @Override
-  public OptionGroup findById(Long productOptionGroupId) {
-    return optionGroupMapper.findById(productOptionGroupId);
+  public OptionGroup findById(Long optionGroupId) {
+    return optionGroupMapper.findById(optionGroupId);
   }
 }

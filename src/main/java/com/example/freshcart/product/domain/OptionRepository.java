@@ -4,5 +4,5 @@ public interface OptionRepository {
 
   Option save(Option option);
 
-  Option findById(Long productOptionId);
+  Option findById(Long optionId);
 }

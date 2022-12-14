@@ -39,13 +39,13 @@ public class CartToOrderMapper {
 
   public OrderItemOptionGroup toOrderItemOptionGroup(CartCommand.CartItemOptionGroupCommand cartItemOptionGroup) {
     return new OrderItemOptionGroup(
-        cartItemOptionGroup.getProductOptionGroupId(),
+        cartItemOptionGroup.getOptionGroupId(),
         cartItemOptionGroup.getName(),
         cartItemOptionGroup.getOptions().stream().map(this::toOrderItemOption).collect(toList()));
   }
 
   public OrderItemOption toOrderItemOption(CartCommand.CartItemOptionCommand cartItemOption) {
-    return new OrderItemOption(cartItemOption.getProductOptionId(),
+    return new OrderItemOption(cartItemOption.getOptionId(),
         cartItemOption.getName(),
         cartItemOption.getPrice());
   }

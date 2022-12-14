@@ -16,12 +16,6 @@ public class Option {
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
-  public Option(String optionName, int price,
-      Long optionGroupId) {
-    this.optionName = optionName;
-    this.price = price;
-    this.optionGroupId = optionGroupId;
-  }
 
   public Option(String optionName, int price, Long optionGroupId, Long sellerId) {
     this.optionName = optionName;

@@ -73,20 +73,20 @@ public class Cart {
   @NoArgsConstructor
   public static class CartItemOptionGroup {
 
-    private Long productOptionGroupId;
+    private Long optionGroupId;
     private String name;
     private List<CartItemOption> options;
 
-    public CartItemOptionGroup(String name, Long productOptionGroupId,
+    public CartItemOptionGroup(String name, Long optionGroupId,
         List<CartItemOption> options) {
       this.name = name;
-      this.productOptionGroupId = productOptionGroupId;
+      this.optionGroupId = optionGroupId;
       this.options = options;
     }
 
 
     public CartItemOptionGroupCommand toCartItemOptionGroupCommand() {
-      return new CartItemOptionGroupCommand(this.productOptionGroupId, this.name,
+      return new CartItemOptionGroupCommand(this.optionGroupId, this.name,
           this.options.stream().map(CartItemOption::toCartItemOptionCommand).collect(toList()));
     }
   }
@@ -95,19 +95,19 @@ public class Cart {
   @NoArgsConstructor
   public static class CartItemOption {
 
-    private Long productOptionId;
+    private Long optionId;
     private String name;
     private int price;
 
-    public CartItemOption(Long productOptionId, String name, int price) {
-      this.productOptionId = productOptionId;
+    public CartItemOption(Long optionId, String name, int price) {
+      this.optionId = optionId;
       this.name = name;
       this.price = price;
     }
 
 
     public CartItemOptionCommand toCartItemOptionCommand() {
-      return new CartItemOptionCommand(this.productOptionId, this.name, this.price);
+      return new CartItemOptionCommand(this.optionId, this.name, this.price);
     }
 
   }
