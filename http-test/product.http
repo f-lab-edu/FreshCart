@@ -1,0 +1,72 @@
+POST http://localhost:8080/products/register
+Content-Type: application/json
+
+{
+    "name":"샐러드",
+    "price": 2000,
+    "status":"AVAILABLE",
+    "description":"맛나요",
+    "singleType": false,
+    "categoryId": 1,
+    "optionSet":
+    [
+        {   "optionGroupRegister":{
+            "optionGroupName": "중량",
+            "requiredOption": true,
+            "exclusive":true,
+            "minimumOrder": 1,
+            "maximumOrder":1
+            },
+            "optionDetailRegisterList":
+            [
+            {
+            "optionName": "30g",
+            "price": 0
+            },
+
+            {
+            "optionName": "60g",
+            "price": 2000
+            }
+            ]
+        },
+        {   "optionGroupRegister":{
+            "optionGroupName": "맛",
+            "requiredOption": true,
+            "exclusive":true,
+            "minimumOrder": 1,
+            "maximumOrder":1},
+            "optionDetailRegisterList":
+            [
+            {
+            "optionName": "닭가슴살",
+            "price": 0
+            },
+
+            {
+            "optionName": "오리훈제",
+            "price": 500
+            }
+            ]
+            },
+                    {   "optionGroupRegister":{
+            "optionGroupName": "토핑",
+            "requiredOption": true,
+            "exclusive":false,
+            "minimumOrder": 1,
+            "maximumOrder":10},
+            "optionDetailRegisterList":
+            [
+            {
+            "optionName": "견과류",
+            "price": 1000
+            },
+
+            {
+            "optionName": "크랜베리",
+            "price": 500
+            }
+            ]
+            }
+    ]
+    }

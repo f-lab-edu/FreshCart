@@ -1,0 +1,20 @@
+#회원가입
+POST http://localhost:8080/users/signup
+Content-Type: application/json
+
+{
+  "email": "seller@gmail.com",
+  "password": "aaaaa",
+  "phoneNumber":"123456",
+  "name": "SELLER",
+  "role": "SELLER"
+}
+
+###
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "seller@gmail.com",
+  "password": "aaaaa"
+}

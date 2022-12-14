@@ -1,0 +1,17 @@
+//재고 초기화 추가
+POST http://localhost:8080/stocks/1
+Content-Type: application/json
+
+{
+    "stock": 5
+}
+
+
+### 재고 수량 수정
+
+PATCH http://localhost:8080/stocks/1
+Content-Type: application/json
+
+{
+    "stock": 4
+}
