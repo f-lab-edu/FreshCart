@@ -10,13 +10,14 @@ import java.util.Arrays;
  *
  */
 public class OrderFixture {
-//  public static Cart.CartBuilder aCart() {
-//    return Cart.builder()
-//        .receiverName("유저1")
-//        .receiverPhone("01000000000")
-//        .receiverAddress("서울시 강남구 강남대로 22 교보빌딩 1층")
-//        .cartItems(Arrays.asList(aCartItems().build(), aCartItems().));
-//  }
+  //여러 제품 등록 필요. 현재는 한 item만 있음.
+  public static Cart.CartBuilder aCart() {
+    return Cart.builder()
+        .receiverName("유저1")
+        .receiverPhone("01000000000")
+        .receiverAddress("서울시 강남구 강남대로 22 교보빌딩 1층")
+        .cartItems(Arrays.asList(aCartItems().build()));
+  }
 
   public static CartItem.CartItemBuilder aCartItems(){
     return CartItem.builder()
