@@ -37,6 +37,16 @@ public class UserInMemoryRepository implements UserRepository {
     }
   }
 
+  @Override
+  public User findById(Long id) {
+    Optional<User> user = findAll().stream().filter(u -> u.getId().equals(id)).findFirst();
+    if (user.isPresent()) {
+      return user.get();
+    } else {
+      return null;
+    }
+  }
+
   /**
    * Collections를 리턴하기 때문에 ArrayList(Collections c)로 value를 직접 입력. 검색을 위해 User 객체 전부 (store의 값 전체)를
    * ArrayList에 넣는다.

@@ -18,6 +18,12 @@
     where email = #{email};
   </select>
 
+  <select id="findById" resultMap="userResultMap">
+    select id, email, password, phone_number, name, role
+    from user
+    where id = #{id};
+  </select>
+
   <select id="findAll" resultMap="userResultMap">
     select id, email, password, phone_number, name, role
     from user
