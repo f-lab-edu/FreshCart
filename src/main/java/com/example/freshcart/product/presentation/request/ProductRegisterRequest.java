@@ -4,6 +4,9 @@ import com.example.freshcart.product.domain.Product.Status;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Singular;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.lang.Nullable;
 
@@ -11,6 +14,8 @@ import org.springframework.lang.Nullable;
  * 셀러가 필수 정보를 담아서 회원 가입 요청. 필수이기 때문에 @NotNull과 @Valid로 확인
  * Command 로 변환하여 전달 필요. Product-Status를 참조하고 있음.
  */
+
+@Getter
 public class ProductRegisterRequest {
 
   @NotBlank(message = "제품 이름을 입력해주세요")
@@ -25,38 +30,20 @@ public class ProductRegisterRequest {
   private boolean singleType;
   @Range(min = 1, message = "ID는 최소 1이상 입니다.")
   private int categoryId;
-  @Nullable
   private List<OptionSet> optionSet;
 
 
   public ProductRegisterRequest() {
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public int getPrice() {
-    return price;
-  }
-
-  public Status getStatus() {
-    return status;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public Boolean getSingleType() {
-    return singleType;
-  }
-
-  public int getCategoryId() {
-    return categoryId;
-  }
-
-  public List<OptionSet> getOptionSet() {
-    return optionSet;
+  @Builder
+  public ProductRegisterRequest(String name, int price, Status status,String description, boolean singleType,int categoryId, List<OptionSet> optionSet){
+    this.name = name;
+    this.price = price;
+    this.status = status;
+    this.description = description;
+    this.singleType = singleType;
+    this.categoryId = categoryId;
+    this.optionSet = optionSet;
   }
 }

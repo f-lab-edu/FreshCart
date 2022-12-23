@@ -1,7 +1,10 @@
 package com.example.freshcart.user.application.command;
 
 import com.example.freshcart.authentication.Role;
+import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class SignupCommand {
 
   private String email;
@@ -14,6 +17,7 @@ public class SignupCommand {
 
   private Role role;
 
+  @Builder
   public SignupCommand(String email, String password, String phoneNumber, String name,
       Role role) {
     this.email = email;
@@ -21,26 +25,6 @@ public class SignupCommand {
     this.phoneNumber = phoneNumber;
     this.name = name;
     this.role = role;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public Role getRole() {
-    return role;
-  }
-
-  public String getPhoneNumber() {
-    return phoneNumber;
   }
 
 }

@@ -3,6 +3,7 @@ package com.example.freshcart.product.presentation.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.Builder;
 import org.hibernate.validator.constraints.Range;
 
 /**
@@ -22,13 +23,6 @@ public class OptionGroupRegister {
   @Range(min = 1, message = "최대 주문 수량은 1개 이상이어야 합니다.")
   private int maximumOrder;
 
-  public OptionGroupRegister(String optionGroupName, boolean requiredOption,
-      boolean exclusive) {
-    this.optionGroupName = optionGroupName;
-    this.requiredOption = requiredOption;
-    this.exclusive = exclusive;
-  }
-
   public String getOptionGroupName() {
     return optionGroupName;
   }
@@ -47,5 +41,18 @@ public class OptionGroupRegister {
 
   public int getMaximumOrder() {
     return maximumOrder;
+  }
+
+  public OptionGroupRegister() {
+  }
+
+  @Builder
+  public OptionGroupRegister(String optionGroupName, boolean requiredOption, boolean exclusive,
+      int minimumOrder, int maximumOrder) {
+    this.optionGroupName = optionGroupName;
+    this.requiredOption = requiredOption;
+    this.exclusive = exclusive;
+    this.minimumOrder = minimumOrder;
+    this.maximumOrder = maximumOrder;
   }
 }
