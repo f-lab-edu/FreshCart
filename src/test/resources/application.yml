@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true #언더바를(sql문법) 카멜로(자바 객체) 자동 변경
+  mapper-locations: classpath:/mapper/**/*.xml
