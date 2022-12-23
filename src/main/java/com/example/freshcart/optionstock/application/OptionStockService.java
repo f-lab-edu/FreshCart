@@ -6,10 +6,8 @@ import com.example.freshcart.optionstock.application.command.OptionStockAddComma
 import com.example.freshcart.optionstock.application.command.OptionStockUpdateCommand;
 import com.example.freshcart.optionstock.domain.OptionStock;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
-import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.product.application.ProductService;
 import com.example.freshcart.product.domain.Option;
-import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,9 +37,4 @@ public class OptionStockService {
     optionStockRepository.save(optionStock);
   }
 
-  //주문으로 Stock이 줄어듦.
-  public void reduceStock(List<OrderItem> orderItemList){
-    //재고가 없다면, 재고 없다 exception
-    //Order orderItem의 Id 확인
-  }
 }

@@ -23,7 +23,7 @@ public class CartToOrderMapper {
         cart.getReceiverPhone(),
         cart.getReceiverAddress(),
         OrderStatus.ORDER_CREATED,
-        cart.getCartItemCommands().stream().map(this::toOrderItem)
+        cart.getCartItems().stream().map(this::toOrderItem)
             .collect(toList()));
 
   }
