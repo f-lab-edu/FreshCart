@@ -6,6 +6,70 @@ Content-Type: application/json
     "stock": 5
 }
 
+### 재고 초기화 추가
+POST http://localhost:8080/stocks/2
+Content-Type: application/json
+
+{
+"stock": 5
+}
+
+
+### 재고 초기화 추가
+POST http://localhost:8080/stocks/3
+Content-Type: application/json
+
+{
+  "stock": 5
+}
+
+### 재고 초기화 추가
+POST http://localhost:8080/stocks/4
+Content-Type: application/json
+
+{
+  "stock": 5
+}
+
+### 재고 초기화 추가
+POST http://localhost:8080/stocks/5
+Content-Type: application/json
+
+{
+  "stock": 5
+}
+
+### 재고 초기화 추가
+POST http://localhost:8080/stocks/6
+Content-Type: application/json
+
+{
+  "stock": 5
+}
+
+### 재고 초기화 추가
+POST http://localhost:8080/stocks/7
+Content-Type: application/json
+
+{
+  "stock": 5
+}
+
+### 재고 초기화 추가
+POST http://localhost:8080/stocks/8
+Content-Type: application/json
+
+{
+  "stock": 5
+}
+
+### 재고 초기화 추가
+POST http://localhost:8080/stocks/9
+Content-Type: application/json
+
+{
+  "stock": 5
+}
 
 ### 재고 수량 수정
 
