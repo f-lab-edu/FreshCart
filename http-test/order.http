@@ -1,0 +1,68 @@
+POST http://localhost:8080/orders/register
+Content-Type: application/json
+
+{
+  "receiverName": "유저1",
+  "receiverPhone": "01000000000",
+  "receiverAddress": "서울시 강남구 강남대로 22 교보빌딩 1층",
+  "cartItems":[
+    {
+      "productId":1,
+      "name":"샐러드",
+      "price":2000,
+      "count":1,
+      "groups":[
+        {"optionGroupId": 1,
+          "name":"중량",
+          "options": [
+            {"optionId":1,
+              "name": "30g",
+              "price": 0}
+          ]
+        },
+
+        {"optionGroupId": 2,
+          "name":"토핑",
+          "options": [
+            {"optionId":3,
+              "name": "견과류",
+              "price": 1000},
+            {"optionId":4,
+              "name": "크랜베리",
+              "price": 500}
+          ]
+        }
+
+      ]
+    }, {
+      "productId":2,
+      "name":"샤브샤브밀키트",
+      "price":5000,
+      "count":2,
+      "groups":[
+        {"optionGroupId": 3,
+          "name":"중량",
+          "options": [
+            {"optionId":6,
+              "name": "200g",
+              "price": 4000}
+          ]
+        },
+
+        {"optionGroupId": 4,
+          "name":"야채",
+          "options": [
+            {"optionId":7,
+              "name": "청경채",
+              "price": 1000},
+            {"optionId":8,
+              "name": "알배추",
+              "price": 500}
+          ]
+        }
+
+      ]
+    }
+
+  ]
+}

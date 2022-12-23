@@ -31,30 +31,11 @@ Content-Type: application/json
             ]
         },
         {   "optionGroupRegister":{
-            "optionGroupName": "맛",
-            "requiredOption": true,
-            "exclusive":true,
-            "minimumOrder": 1,
-            "maximumOrder":1},
-            "optionDetailRegisterList":
-            [
-            {
-            "optionName": "닭가슴살",
-            "price": 0
-            },
-
-            {
-            "optionName": "오리훈제",
-            "price": 500
-            }
-            ]
-            },
-                    {   "optionGroupRegister":{
             "optionGroupName": "토핑",
-            "requiredOption": true,
+            "requiredOption": false,
             "exclusive":false,
             "minimumOrder": 1,
-            "maximumOrder":10},
+            "maximumOrder":2},
             "optionDetailRegisterList":
             [
             {
@@ -70,3 +51,64 @@ Content-Type: application/json
             }
     ]
     }
+
+### 두 번째 상품 등록
+
+POST http://localhost:8080/products/register
+Content-Type: application/json
+
+{
+  "name":"샤브샤브밀키트",
+  "price": 5000,
+  "status":"AVAILABLE",
+  "description":"맛나요",
+  "singleType": false,
+  "categoryId": 4,
+  "optionSet":
+  [
+    {   "optionGroupRegister":{
+      "optionGroupName": "중량",
+      "requiredOption": true,
+      "exclusive":true,
+      "minimumOrder": 1,
+      "maximumOrder":1
+    },
+      "optionDetailRegisterList":
+      [
+        {
+          "optionName": "100g",
+          "price": 0
+        },
+
+        {
+          "optionName": "200g",
+          "price": 4000
+        }
+      ]
+    },
+    {   "optionGroupRegister":{
+      "optionGroupName": "야채",
+      "requiredOption": false,
+      "exclusive":false,
+      "minimumOrder": 1,
+      "maximumOrder":3},
+      "optionDetailRegisterList":
+      [
+        {
+          "optionName": "청경채",
+          "price": 1000
+        },
+
+        {
+          "optionName": "알배추",
+          "price": 500
+        },
+
+        {
+          "optionName": "버섯",
+          "price": 2000
+        }
+      ]
+    }
+  ]
+}
