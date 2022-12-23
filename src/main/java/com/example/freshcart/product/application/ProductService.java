@@ -40,7 +40,6 @@ public class ProductService {
       throw new NotSellerException();
     }
     addProduct(user, request);
-
   }
 
 
@@ -54,7 +53,7 @@ public class ProductService {
         request.getPrice(),
         request.getStatus(),
         request.getDescription(),
-        request.getSingleType(),
+        request.isSingleType(),
         request.getCategoryId(),
         user.getUserId());
 
