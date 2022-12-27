@@ -1,0 +1,114 @@
+POST http://localhost:8080/products/register
+Content-Type: application/json
+
+{
+    "name":"샐러드",
+    "price": 2000,
+    "status":"AVAILABLE",
+    "description":"맛나요",
+    "singleType": false,
+    "categoryId": 1,
+    "optionSet":
+    [
+        {   "optionGroupRegister":{
+            "optionGroupName": "중량",
+            "requiredOption": true,
+            "exclusive":true,
+            "minimumOrder": 1,
+            "maximumOrder":1
+            },
+            "optionDetailRegisterList":
+            [
+            {
+            "optionName": "30g",
+            "price": 0
+            },
+
+            {
+            "optionName": "60g",
+            "price": 2000
+            }
+            ]
+        },
+        {   "optionGroupRegister":{
+            "optionGroupName": "토핑",
+            "requiredOption": false,
+            "exclusive":false,
+            "minimumOrder": 1,
+            "maximumOrder":2},
+            "optionDetailRegisterList":
+            [
+            {
+            "optionName": "견과류",
+            "price": 1000
+            },
+
+            {
+            "optionName": "크랜베리",
+            "price": 500
+            }
+            ]
+            }
+    ]
+    }
+
+### 두 번째 상품 등록
+
+POST http://localhost:8080/products/register
+Content-Type: application/json
+
+{
+  "name":"샤브샤브밀키트",
+  "price": 5000,
+  "status":"AVAILABLE",
+  "description":"맛나요",
+  "singleType": false,
+  "categoryId": 4,
+  "optionSet":
+  [
+    {   "optionGroupRegister":{
+      "optionGroupName": "중량",
+      "requiredOption": true,
+      "exclusive":true,
+      "minimumOrder": 1,
+      "maximumOrder":1
+    },
+      "optionDetailRegisterList":
+      [
+        {
+          "optionName": "100g",
+          "price": 0
+        },
+
+        {
+          "optionName": "200g",
+          "price": 4000
+        }
+      ]
+    },
+    {   "optionGroupRegister":{
+      "optionGroupName": "야채",
+      "requiredOption": false,
+      "exclusive":false,
+      "minimumOrder": 1,
+      "maximumOrder":3},
+      "optionDetailRegisterList":
+      [
+        {
+          "optionName": "청경채",
+          "price": 1000
+        },
+
+        {
+          "optionName": "알배추",
+          "price": 500
+        },
+
+        {
+          "optionName": "버섯",
+          "price": 2000
+        }
+      ]
+    }
+  ]
+}

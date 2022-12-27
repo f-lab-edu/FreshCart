@@ -20,7 +20,7 @@ public class OptionMapperRepositoryAdaptor implements OptionRepository {
   }
 
   @Override
-  public Option findById(Long productOptionId) {
-    return optionMapper.findById(productOptionId);
+  public Option findById(Long optionId) {
+    return optionMapper.findById(optionId);
   }
 }

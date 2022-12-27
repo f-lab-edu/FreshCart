@@ -3,8 +3,9 @@ package com.example.freshcart.product.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
-
+@Getter
 public class Product {
 
   private Long id;
@@ -36,50 +37,5 @@ public class Product {
     this.singleType = singleType;
     this.categoryId = categoryId;
     this.sellerId = sellerId;
-  }
-
-
-  public String getName() {
-    return name;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public List<OptionGroup> getOptionGroupSpecs() {
-    return optionGroupSpecs;
-  }
-
-  public int getPrice() {
-    return price;
-  }
-
-  public Status getStatus() {
-    return status;
-  }
-
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public LocalDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public boolean getSingleType() {
-    return singleType;
-  }
-
-  public int getCategoryId() {
-    return categoryId;
-  }
-
-  public Long getSellerId() {
-    return sellerId;
   }
 }

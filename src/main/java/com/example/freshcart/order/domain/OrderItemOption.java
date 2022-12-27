@@ -2,13 +2,13 @@ package com.example.freshcart.order.domain;
 
 public class OrderItemOption {
   private Long id;
-  private Long productOptionId;
+  private Long optionId;
   private Long orderItemOptionGroupId;
   private String name;
   private int price;
 
-  public OrderItemOption(Long productOptionId, String name, int price) {
-    this.productOptionId = productOptionId;
+  public OrderItemOption(Long optionId, String name, int price) {
+    this.optionId = optionId;
     this.name = name;
     this.price = price;
   }
@@ -20,8 +20,8 @@ public class OrderItemOption {
     return id;
   }
 
-  public Long getProductOptionId() {
-    return productOptionId;
+  public Long getOptionId() {
+    return optionId;
   }
 
   public Long getOrderItemOptionGroupId() {

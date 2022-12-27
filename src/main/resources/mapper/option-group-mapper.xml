@@ -21,7 +21,7 @@
   <select id="findById" resultMap="optionGroupResultMap">
     select id, name, is_required, exclusive, minimum_order, maximum_order, product_id, created_at, seller_id, updated_at
     from option_group
-    where id = #{productOptionGroupId};
+    where id = #{optionGroupId};
   </select>
 
 </mapper>

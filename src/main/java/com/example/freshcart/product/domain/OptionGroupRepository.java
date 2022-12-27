@@ -5,5 +5,5 @@ public interface OptionGroupRepository {
 
   OptionGroup save(OptionGroup optionGroup);
 
-  OptionGroup findById(Long productOptionGroupId);
+  OptionGroup findById(Long optionGroupId);
 }

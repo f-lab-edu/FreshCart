@@ -4,5 +4,5 @@ public interface OptionStockRepository {
 
   void save(OptionStock optionStock);
 
-  OptionStock findById(Long productOptionId);
+  OptionStock findById(Long optionId);
 }

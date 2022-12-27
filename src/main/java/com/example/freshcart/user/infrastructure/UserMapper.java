@@ -12,4 +12,6 @@ public interface UserMapper {
   User findByUserEmail(String email);
 
   List<User> findAll();
+
+  User findById(Long id);
 }

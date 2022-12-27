@@ -7,6 +7,7 @@ import com.example.freshcart.order.application.command.CartCommand.CartItemComma
 import com.example.freshcart.order.application.command.CartCommand.CartItemOptionCommand;
 import com.example.freshcart.order.application.command.CartCommand.CartItemOptionGroupCommand;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,7 @@ public class Cart {
 
   private List<CartItem> cartItems;
 
+  @Builder
   public Cart(String receiverName, String receiverPhone, String receiverAddress,
       List<CartItem> cartItems) {
     this.receiverName = receiverName;
@@ -52,6 +54,7 @@ public class Cart {
     private int count;
     private List<CartItemOptionGroup> groups;
 
+    @Builder
     public CartItem(Long productId, String name, int price, int count,
         List<CartItemOptionGroup> groups) {
       this.productId = productId;
@@ -73,20 +76,21 @@ public class Cart {
   @NoArgsConstructor
   public static class CartItemOptionGroup {
 
-    private Long productOptionGroupId;
+    private Long optionGroupId;
     private String name;
     private List<CartItemOption> options;
 
-    public CartItemOptionGroup(String name, Long productOptionGroupId,
+    @Builder
+    public CartItemOptionGroup(Long optionGroupId, String name,
         List<CartItemOption> options) {
+      this.optionGroupId = optionGroupId;
       this.name = name;
-      this.productOptionGroupId = productOptionGroupId;
       this.options = options;
     }
 
 
     public CartItemOptionGroupCommand toCartItemOptionGroupCommand() {
-      return new CartItemOptionGroupCommand(this.productOptionGroupId, this.name,
+      return new CartItemOptionGroupCommand(this.optionGroupId, this.name,
           this.options.stream().map(CartItemOption::toCartItemOptionCommand).collect(toList()));
     }
   }
@@ -95,19 +99,20 @@ public class Cart {
   @NoArgsConstructor
   public static class CartItemOption {
 
-    private Long productOptionId;
+    private Long optionId;
     private String name;
     private int price;
 
-    public CartItemOption(Long productOptionId, String name, int price) {
-      this.productOptionId = productOptionId;
+    @Builder
+    public CartItemOption(Long optionId, String name, int price) {
+      this.optionId = optionId;
       this.name = name;
       this.price = price;
     }
 
 
     public CartItemOptionCommand toCartItemOptionCommand() {
-      return new CartItemOptionCommand(this.productOptionId, this.name, this.price);
+      return new CartItemOptionCommand(this.optionId, this.name, this.price);
     }
 
   }

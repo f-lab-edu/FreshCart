@@ -29,6 +29,11 @@ public class UserMapperRepositoryAdaptor implements UserRepository {
   }
 
   @Override
+  public User findById(Long id) {
+    return userMapper.findById(id);
+  }
+
+  @Override
   public List<User> findAll() {
     return userMapper.findAll();
   }

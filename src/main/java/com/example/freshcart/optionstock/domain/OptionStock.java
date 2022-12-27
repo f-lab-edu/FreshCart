@@ -21,7 +21,7 @@ public class OptionStock extends Timestamped {
   private Long id;
 
   @Column(name = "option_id")
-  private Long productOptionId;
+  private Long optionId;
 
   @Column
   private int stock;
@@ -30,9 +30,9 @@ public class OptionStock extends Timestamped {
   private Long sellerId;
 
 
-  public OptionStock(Long sellerId, Long productOptionId, int stock) {
+  public OptionStock(Long sellerId, Long optionId, int stock) {
     this.sellerId = sellerId;
-    this.productOptionId = productOptionId;
+    this.optionId = optionId;
     this.stock = stock;
   }
 
