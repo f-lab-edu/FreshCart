@@ -3,6 +3,8 @@ package com.example.freshcart.authentication.application;
 import com.example.freshcart.authentication.Role;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Builder;
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -10,6 +12,7 @@ import org.springframework.data.annotation.Id;
  * RedisRepository아닌 RedisTemplate 사용 시 LoginUser 형태로 저장
  */
 
+@Getter
 public class LoginUser implements Serializable {
 
   @Id
@@ -30,6 +33,7 @@ public class LoginUser implements Serializable {
     this.createdAt = createdAt;
   }
 
+  @Builder
   public LoginUser(String id, String sessionId, Long userId, String email,
       Role role, LocalDateTime createdAt) {
     this.id = id;
@@ -48,31 +52,8 @@ public class LoginUser implements Serializable {
     return new LoginUser(sessionId, userId, email, role, createdAt);
   }
 
-  public Long getUserId() {
-    return userId;
-  }
-
-  public String getSessionId() {
-    return sessionId;
-  }
-
   public void setSessionId(String sessionId) {
     this.sessionId = sessionId;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public Role getRole() {
-    return role;
-  }
-
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public String getId() {
-    return id;
-  }
 }
