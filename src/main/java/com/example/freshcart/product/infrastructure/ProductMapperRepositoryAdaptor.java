@@ -29,4 +29,10 @@ public class ProductMapperRepositoryAdaptor implements ProductRepository {
   public Product findById(Long productId) {
     return productMapper.findById(productId);
   }
+
+  @Override
+  public Product saveWithOptions(Product product) {
+    productMapper.insertWithOptions(product);
+    return product;
+  }
 }
