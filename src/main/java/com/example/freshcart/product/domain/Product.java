@@ -3,8 +3,11 @@ package com.example.freshcart.product.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class Product {
 
@@ -25,9 +28,7 @@ public class Product {
     BEING_PREPARED, AVAILABLE, UNAVAILABLE,
   }
 
-  public Product() {
-  }
-
+  @Builder
   public Product(String name, int price, Status status, String description, Boolean singleType,
       int categoryId, Long sellerId) {
     this.name = name;

@@ -1,6 +1,9 @@
 package com.example.freshcart.product.presentation.request;
 
 
+import com.example.freshcart.authentication.application.LoginUser;
+import com.example.freshcart.product.domain.OptionGroup;
+import com.example.freshcart.product.domain.Product;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -54,5 +57,11 @@ public class OptionGroupRegister {
     this.exclusive = exclusive;
     this.minimumOrder = minimumOrder;
     this.maximumOrder = maximumOrder;
+  }
+
+  public OptionGroup toOptionGroup(LoginUser user,
+      Product product) {
+    return new OptionGroup(this.optionGroupName, this.requiredOption, this.exclusive, this.minimumOrder, this.maximumOrder,
+        product.getId(),user.getUserId());
   }
 }
