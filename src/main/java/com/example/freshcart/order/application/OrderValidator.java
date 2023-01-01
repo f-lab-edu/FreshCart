@@ -88,9 +88,9 @@ public class OrderValidator {
   }
 
   public void validateOrderOption(OrderItemOption orderItemOption) {
-    String optionName = optionRepository.findById(orderItemOption.getOptionId())
-        .getOptionName();
-    if (!orderItemOption.getName().equals(optionName)) {
+    String name = optionRepository.findById(orderItemOption.getOptionId())
+        .getName();
+    if (!orderItemOption.getName().equals(name)) {
       throw new OrderItemOptionNotFoundException();
     }
   }

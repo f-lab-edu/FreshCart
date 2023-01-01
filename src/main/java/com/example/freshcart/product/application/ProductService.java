@@ -47,44 +47,21 @@ public class ProductService {
    * 단일 제품일 경우 product만 저장하고 옵션이 있는 제품은 OptionGroupRegister와 Option 저장.
    */
   public void addProduct(LoginUser user, ProductRegisterRequest request) {
-
-    Product product = new Product(
-        request.getName(),
-        request.getPrice(),
-        request.getStatus(),
-        request.getDescription(),
-        request.isSingleType(),
-        request.getCategoryId(),
-        user.getUserId());
-
+    Product product = request.toProduct(user);
     productRepository.save(product);
-    log.info(" product id 확인: " + product.getId());
 
     if (request.getOptionSet() != null) {
       for (OptionSet optionSet : request.getOptionSet()) {
         OptionGroupRegister optionGroupRegister = optionSet.getOptionGroupRegister();
-        OptionGroup optionGroup = new OptionGroup(
-            optionGroupRegister.getOptionGroupName(),
-            optionGroupRegister.isRequiredOption(),
-            optionGroupRegister.isExclusive(),
-            optionGroupRegister.getMinimumOrder(),
-            optionGroupRegister.getMaximumOrder(),
-            product.getId(),
-            user.getUserId());
+        OptionGroup optionGroup = optionGroupRegister.toOptionGroup(user, product);
         optionGroupRepository.save(optionGroup);
 
         List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
-        for (OptionDetailRegister element : optionDetailRegisterList) {
-          Option option = new Option(
-              element.getOptionName(),
-              element.getPrice(),
-              optionGroup.getId(),
-              user.getUserId());
-          optionRepository.save(option);
-        }
+        List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
+        optionRepository.save(options);
+      }
       }
     }
-  }
 
   //OptionId가 주어지면, Option을 찾는다.
   public Option getOption(Long optionId){
