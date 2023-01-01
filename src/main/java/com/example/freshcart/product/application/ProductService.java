@@ -74,14 +74,8 @@ public class ProductService {
         optionGroupRepository.save(optionGroup);
 
         List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
-        for (OptionDetailRegister element : optionDetailRegisterList) {
-          Option option = new Option(
-              element.getOptionName(),
-              element.getPrice(),
-              optionGroup.getId(),
-              user.getUserId());
-          optionRepository.save(option);
-        }
+        List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
+        optionRepository.save(options);
       }
     }
   }

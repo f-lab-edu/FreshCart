@@ -34,7 +34,7 @@ public class ProductFixture {
             anOptionDetailRegister()
                 .build(),
             anOptionDetailRegister()
-                .optionName("60g")
+                .name("60g")
                 .price(2000)
                 .build()))
         .optionGroupRegister(
@@ -42,11 +42,11 @@ public class ProductFixture {
                 .minimumOrder(1).maximumOrder(2).build()).
         optionDetailRegisterList(Arrays.asList(
             anOptionDetailRegister()
-                .optionName("견과류")
+                .name("견과류")
                 .price(1000)
                 .build(),
             anOptionDetailRegister()
-                .optionName("크랜베리")
+                .name("크랜베리")
                 .price(500)
                 .build()));
 
@@ -63,7 +63,7 @@ public class ProductFixture {
 
   public static OptionDetailRegister.OptionDetailRegisterBuilder anOptionDetailRegister() {
     return OptionDetailRegister.builder()
-        .optionName("30g")
+        .name("30g")
         .price(0);
   }
 
@@ -83,11 +83,11 @@ public class ProductFixture {
         optionGroupRegister(anOptionGroupRegister().build()).
         optionDetailRegisterList(Arrays.asList(
             anOptionDetailRegister()
-                .optionName("100g")
+                .name("100g")
                 .price(0)
                 .build(),
             anOptionDetailRegister()
-                .optionName("200g")
+                .name("200g")
                 .price(4000)
                 .build()))
         .optionGroupRegister(
@@ -95,15 +95,15 @@ public class ProductFixture {
                 .minimumOrder(1).maximumOrder(3).build()).
         optionDetailRegisterList(Arrays.asList(
             anOptionDetailRegister()
-                .optionName("청경채")
+                .name("청경채")
                 .price(1000)
                 .build(),
             anOptionDetailRegister()
-                .optionName("알배추")
+                .name("알배추")
                 .price(500)
                 .build(),
             anOptionDetailRegister()
-                .optionName("버섯")
+                .name("버섯")
                 .price(2000)
                 .build()));
 

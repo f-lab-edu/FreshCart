@@ -15,13 +15,13 @@ import org.hibernate.validator.constraints.Range;
 public class OptionDetailRegister {
 
   @NotBlank(message = "옵션 이름을 입력해주세요")
-  private String optionName;
+  private String name;
   @Range(min = 10, message = "상품 가격은 10원 이상이어야 합니다.")
   private int price;
 
   @Builder
-  public OptionDetailRegister(String optionName, int price) {
-    this.optionName = optionName;
+  public OptionDetailRegister(String name, int price) {
+    this.name = name;
     this.price = price;
   }
 

@@ -20,12 +20,12 @@ Content-Type: application/json
             "optionDetailRegisterList":
             [
             {
-            "optionName": "30g",
+            "name": "30g",
             "price": 0
             },
 
             {
-            "optionName": "60g",
+            "name": "60g",
             "price": 2000
             }
             ]
@@ -39,12 +39,12 @@ Content-Type: application/json
             "optionDetailRegisterList":
             [
             {
-            "optionName": "견과류",
+            "name": "견과류",
             "price": 1000
             },
 
             {
-            "optionName": "크랜베리",
+            "name": "크랜베리",
             "price": 500
             }
             ]
@@ -76,12 +76,12 @@ Content-Type: application/json
       "optionDetailRegisterList":
       [
         {
-          "optionName": "100g",
+          "name": "100g",
           "price": 0
         },
 
         {
-          "optionName": "200g",
+          "name": "200g",
           "price": 4000
         }
       ]
@@ -95,17 +95,17 @@ Content-Type: application/json
       "optionDetailRegisterList":
       [
         {
-          "optionName": "청경채",
+          "name": "청경채",
           "price": 1000
         },
 
         {
-          "optionName": "알배추",
+          "name": "알배추",
           "price": 500
         },
 
         {
-          "optionName": "버섯",
+          "name": "버섯",
           "price": 2000
         }
       ]

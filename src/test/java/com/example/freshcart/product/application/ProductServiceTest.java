@@ -80,7 +80,7 @@ public class ProductServiceTest {
 //
 //    verify(optionRepository).save(any(Option.class));
 //    Option savedOption = optionCapture.getValue();
-//    assertThat(savedOption.getOptionName()).isEqualTo(request.getOptionSet());
+//    assertThat(savedOption.getname()).isEqualTo(request.getOptionSet());
 //  }
 //
 //  @DisplayName("옵션이 있는 제품 저장에 성공 시 id 가 생성된다 ")
