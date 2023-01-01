@@ -7,21 +7,6 @@
     values (#{name}, #{price}, #{status}, #{description}, #{singleType}, #{categoryId}, #{sellerId});
   </insert>
 
-  <insert id="insertWithOptions" keyProperty="id" parameterType ="java.util.List" useGeneratedKeys="true">
-    insert into product (name, price, status, description, single_type, category_id, seller_id)
-    values (#{name}, #{price}, #{status}, #{description}, #{singleType}, #{categoryId}, #{sellerId});
-    insert into order_item_option_group (option_group_id, name, order_item_id)
-    values (#{optionGroupId}, #{name}, #{orderItemId});
-    <foreach collection="list" index="index" item="OptionGroup" separator=",">
-      (#{option.name}, #{option.price}, #{option.optionGroupId}, #{option.sellerId})
-    </foreach>
-    insert into `option` (name, price, option_group_id, seller_id)
-    values
-    <foreach collection="list" index="index" item="option" separator=",">
-      (#{option.name}, #{option.price}, #{option.optionGroupId}, #{option.sellerId})
-    </foreach>
-  </insert>
-
   <resultMap id="productResultMap" type="com.example.freshcart.product.domain.Product">
     <result column="single_type" property="singleType"/>
     <result column="category_id" property="categoryId"/>

@@ -57,12 +57,7 @@ public class ProductService {
         request.getCategoryId(),
         user.getUserId());
 
-    //옵션이 여러개일 경우 다른 쿼리 사용.
-    if(request.getOptionSet()!=null){
-      productRepository.saveWithOptions(product);
-    }
     productRepository.save(product);
-    log.info(" product id 확인: " + product.getId());
 
     if (request.getOptionSet() != null) {
       for (OptionSet optionSet : request.getOptionSet()) {
