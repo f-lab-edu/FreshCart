@@ -1,7 +1,7 @@
 package com.example.freshcart.product.presentation;
 
 import com.example.freshcart.authentication.application.LoginUser;
-import com.example.freshcart.product.application.ProductService;
+import com.example.freshcart.product.application.ProductServiceV1;
 import com.example.freshcart.product.presentation.request.ProductRegisterRequest;
 import com.example.freshcart.authentication.Role;
 import com.example.freshcart.authentication.annotation.AuthenticatedUser;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
 
-  private ProductService productService;
+  private ProductServiceV1 productService;
 
-  public ProductController(ProductService productService) {
+  public ProductController(ProductServiceV1 productService) {
     this.productService = productService;
   }
 

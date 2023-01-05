@@ -1,15 +1,11 @@
 package com.example.freshcart.product.application;
 
-import static com.example.freshcart.product.fixture.ProductFixture.aProductRegisterRequest;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.example.freshcart.authentication.Role;
 import com.example.freshcart.authentication.application.LoginUser;
-import com.example.freshcart.product.domain.Option;
-import com.example.freshcart.product.domain.OptionGroup;
 import com.example.freshcart.product.domain.OptionGroupRepository;
 import com.example.freshcart.product.domain.OptionRepository;
-import com.example.freshcart.product.domain.Product;
 import com.example.freshcart.product.domain.ProductRepository;
 import com.example.freshcart.product.domain.exception.NotSellerException;
 import com.example.freshcart.product.presentation.request.ProductRegisterRequest;
@@ -18,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
   @InjectMocks
-  private ProductService productService;
+  private ProductServiceV1 productService;
   @Mock
   private ProductRepository productRepository;
   @Mock
@@ -42,7 +37,7 @@ public class ProductServiceTest {
 
   @BeforeEach
   void init(){
-    productService = new ProductService(productRepository, optionGroupRepository, optionRepository);
+    productService = new ProductServiceV1(productRepository, optionGroupRepository, optionRepository);
   }
 
   @DisplayName("판매자가 아닌 유저가 숙소 등록을 시도할 경우 NotSeller예외가 발생한다")

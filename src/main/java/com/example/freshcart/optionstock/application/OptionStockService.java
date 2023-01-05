@@ -6,7 +6,7 @@ import com.example.freshcart.optionstock.application.command.OptionStockAddComma
 import com.example.freshcart.optionstock.application.command.OptionStockUpdateCommand;
 import com.example.freshcart.optionstock.domain.OptionStock;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
-import com.example.freshcart.product.application.ProductService;
+import com.example.freshcart.product.application.ProductServiceV1;
 import com.example.freshcart.product.domain.Option;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 public class OptionStockService {
 
   private final OptionStockRepository optionStockRepository;
-  private final ProductService productService;
+  private final ProductServiceV1 productService;
 
   public OptionStockService(
       OptionStockRepository optionStockRepository,
-      ProductService productService) {
+      ProductServiceV1 productService) {
     this.optionStockRepository = optionStockRepository;
     this.productService = productService;
   }
