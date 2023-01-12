@@ -7,7 +7,6 @@ import com.example.freshcart.product.presentation.request.ProductRegisterRequest
 /**
  * V1: REPOSITORY를 각각 INSERT함
  * V2: 배치를 활용함
- *
  * Service 로직이 다르기 때문에, 다른 구현체를 주입함.
  */
 public interface ProductService {

@@ -1,6 +1,7 @@
 package com.example.freshcart.product.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class OptionGroup {
   private int maximumOrder;
   private Long productId;
   private Long sellerId;
-  private List<Option> options;
+  private List<Option> options = new ArrayList<>();;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
@@ -34,5 +35,7 @@ public class OptionGroup {
     this.productId = productId;
     this.sellerId = sellerId;
   }
-
+  public void addOptions(List<Option> options){
+    this.options = options;
+  }
 }

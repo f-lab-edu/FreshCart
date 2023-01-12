@@ -14,6 +14,7 @@ import com.example.freshcart.product.presentation.request.OptionDetailRegister;
 import com.example.freshcart.product.presentation.request.OptionGroupRegister;
 import com.example.freshcart.product.presentation.request.OptionSet;
 import com.example.freshcart.product.presentation.request.ProductRegisterRequest;
+import java.sql.SQLException;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,15 +61,20 @@ public class ProductServiceV2 implements ProductService {
       for (OptionSet optionSet : request.getOptionSet()) {
         OptionGroupRegister optionGroupRegister = optionSet.getOptionGroupRegister();
         OptionGroup optionGroup = optionGroupRegister.toOptionGroup(user, product);
-//        optionGroupRepository.save(optionGroup);
+
         List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
         List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
+        optionGroup.addOptions(options);
+        product.addOptionGroup(optionGroup);
+//        optionGroupRepository.save(optionGroup);
 //        optionRepository.save(options);
       }
-
-      jdbcProductRepository.batchInsertOptionalProducts(user.getUserId(), product);
+      try {
+        jdbcProductRepository.batchInsertOptionalProducts(user.getUserId(), product);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
-    //OptionalProduct이면 saveAll()을
   }
 
   @Override
