@@ -20,7 +20,7 @@ public class OptionGroup {
   private int maximumOrder;
   private Long productId;
   private Long sellerId;
-  private List<Option> options = new ArrayList<>();;
+  private List<Option> options = new ArrayList<>();
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 

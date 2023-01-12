@@ -38,7 +38,8 @@ public class JdbcProductRepository {
       Class.forName("com.mysql.cj.jdbc.Driver");
       con = DriverManager.getConnection(
           "jdbc:mysql://localhost:3306/freshcart?characterEncoding=UTF-8", "admin", "password");
-      con.setAutoCommit(false); //기본 설정은 한 SQL 당 자동 COMMIT된다. 여러 SQL 을 COMMIT 하려면 이 설정을 FALSE 로.
+//      con.setAutoCommit(false);
+      //기본 설정은 한 SQL 당 자동 COMMIT된다. 여러 SQL 을 COMMIT 하려면 이 설정을 FALSE 로.
 
       ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
