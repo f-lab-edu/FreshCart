@@ -13,15 +13,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ProductServiceConfig {
 
-//  @Bean
-//  public ProductService productService(ProductRepository productRepository,
-//      OptionGroupRepository optionGroupRepository, OptionRepository optionRepository) {
-//    return new ProductServiceV1(productRepository, optionGroupRepository, optionRepository);
-//  }
-
   @Bean
-  public ProductService productService(JdbcProductRepository jdbcProductRepository, ProductRepository productRepository,
+  public ProductService productService(ProductRepository productRepository,
       OptionGroupRepository optionGroupRepository, OptionRepository optionRepository) {
-    return new ProductServiceV2(jdbcProductRepository, productRepository, optionGroupRepository, optionRepository);
+    return new ProductServiceV1(productRepository, optionGroupRepository, optionRepository);
   }
+
+//  @Bean
+//  public ProductService productService(JdbcProductRepository jdbcProductRepository, ProductRepository productRepository) {
+//    return new ProductServiceV2(jdbcProductRepository, productRepository);
+//  }
 }

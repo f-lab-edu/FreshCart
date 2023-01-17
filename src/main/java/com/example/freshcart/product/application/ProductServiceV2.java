@@ -4,8 +4,6 @@ import com.example.freshcart.authentication.Role;
 import com.example.freshcart.authentication.application.LoginUser;
 import com.example.freshcart.product.domain.Option;
 import com.example.freshcart.product.domain.OptionGroup;
-import com.example.freshcart.product.domain.OptionGroupRepository;
-import com.example.freshcart.product.domain.OptionRepository;
 import com.example.freshcart.product.domain.Product;
 import com.example.freshcart.product.domain.ProductRepository;
 import com.example.freshcart.product.domain.exception.NotSellerException;
@@ -25,18 +23,12 @@ public class ProductServiceV2 implements ProductService {
 
   private final JdbcProductRepository jdbcProductRepository;
   private final ProductRepository productRepository;
-  private final OptionGroupRepository optionGroupRepository;
-  private final OptionRepository optionRepository;
 
   public ProductServiceV2(
       JdbcProductRepository jdbcProductRepository,
-      ProductRepository productRepository,
-      OptionGroupRepository optionGroupRepository,
-      OptionRepository optionRepository) {
+      ProductRepository productRepository) {
     this.jdbcProductRepository = jdbcProductRepository;
     this.productRepository = productRepository;
-    this.optionGroupRepository = optionGroupRepository;
-    this.optionRepository = optionRepository;
   }
 
   @Override
@@ -52,12 +44,11 @@ public class ProductServiceV2 implements ProductService {
   @Override
   public void addProduct(LoginUser user, ProductRegisterRequest request) {
     Product product = request.toProduct(user);
-    if(request.getOptionSet() == null){
+    if (request.getOptionSet() == null) {
       productRepository.save(product);
     }
 
-    //request객체를 Product로 변환.
-    if(request.getOptionSet() != null){
+    if (request.getOptionSet() != null) {
       for (OptionSet optionSet : request.getOptionSet()) {
         OptionGroupRegister optionGroupRegister = optionSet.getOptionGroupRegister();
         OptionGroup optionGroup = optionGroupRegister.toOptionGroup(user, product);
@@ -66,8 +57,6 @@ public class ProductServiceV2 implements ProductService {
         List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
         optionGroup.addOptions(options);
         product.addOptionGroup(optionGroup);
-//        optionGroupRepository.save(optionGroup);
-//        optionRepository.save(options);
       }
       try {
         jdbcProductRepository.batchInsertOptionalProducts(user.getUserId(), product);

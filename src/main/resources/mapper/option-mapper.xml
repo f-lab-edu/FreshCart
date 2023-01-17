@@ -3,26 +3,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.freshcart.product.infrastructure.OptionMapper">
 
-<!--  단건 insert-->
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+  <insert id="insert" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
     insert into `option` (name, price, option_group_id, seller_id)
-    values (#{name}, #{price}, #{optionGroupId}, #{sellerId});
+    values
+    <foreach collection="list" index="index" item="option" separator=",">
+      (#{option.name}, #{option.price}, #{option.optionGroupId}, #{option.sellerId})
+    </foreach>
   </insert>
-
-<!--  <insert id="insert" keyProperty="id" parameterType ="java.util.List" useGeneratedKeys="true">-->
-<!--    insert into `option` (name, price, option_group_id, seller_id)-->
-<!--    values-->
-<!--    <foreach collection="list" index="index" item="option" separator=",">-->
-<!--    (#{option.name}, #{option.price}, #{option.optionGroupId}, #{option.sellerId})-->
-<!--    </foreach>-->
-<!--</insert>-->
 
   <resultMap id="optionResultMap" type="com.example.freshcart.product.domain.Option">
     <result column="option_group_id" property="optionGroupId"/>
     <result column="seller_id" property="sellerId"/>
     <result column="created_at" property="createdAt"/>
     <result column="updated_at" property="updatedAt"/>
-    </resultMap>
+  </resultMap>
 
   <select id="findById" resultMap="optionResultMap">
     select id, name, price, option_group_id, seller_id, created_at, updated_at

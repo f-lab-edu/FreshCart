@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-public class ProductServiceV1 implements ProductService{
+public class ProductServiceV1 implements ProductService {
 
   private ProductRepository productRepository;
   private OptionGroupRepository optionGroupRepository;
@@ -35,7 +35,6 @@ public class ProductServiceV1 implements ProductService{
   @Override
   @Transactional
   public void register(LoginUser user, ProductRegisterRequest request) {
-    //Seller 가 아닐 경우 재확인 - 예외처리
     if (user.getRole() != Role.SELLER) {
       throw new NotSellerException();
     }
@@ -47,25 +46,6 @@ public class ProductServiceV1 implements ProductService{
    * 단일 제품일 경우 product만 저장하고 옵션이 있는 제품은 OptionGroupRegister와 Option 저장.
    */
 
-//  @Override
-//  public void addProduct(LoginUser user, ProductRegisterRequest request) {
-//    Product product = request.toProduct(user);
-//    productRepository.save(product);
-//
-//    if (request.getOptionSet() != null) {
-//      for (OptionSet optionSet : request.getOptionSet()) {
-//        OptionGroupRegister optionGroupRegister = optionSet.getOptionGroupRegister();
-//        OptionGroup optionGroup = optionGroupRegister.toOptionGroup(user, product);
-//        optionGroupRepository.save(optionGroup);
-//
-//        List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
-//        List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
-//        optionRepository.save(options);
-//      }
-//      }
-//    }
-
-  //forEach 전
   @Override
   public void addProduct(LoginUser user, ProductRegisterRequest request) {
     Product product = request.toProduct(user);
@@ -79,16 +59,15 @@ public class ProductServiceV1 implements ProductService{
 
         List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
         List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
-        for(Option option: options){
-          optionRepository.save(option);
-        }
+        optionRepository.save(options);
       }
     }
   }
 
+
   @Override
   //OptionId가 주어지면, Option을 찾는다.
-  public Option getOption(Long optionId){
+  public Option getOption(Long optionId) {
     return optionRepository.findById(optionId);
   }
 }
