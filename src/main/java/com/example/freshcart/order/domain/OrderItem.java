@@ -1,67 +1,28 @@
 package com.example.freshcart.order.domain;
 
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
 public class OrderItem {
 
   private Long id;
   private Long productId;
   private Long orderId;
-  private String name;
-  private int price;
   private int count;
-  private List<OrderItemOptionGroup> orderItemOptionGroups;
+  private List<OrderItemOption> orderItemOptions;
 
-  public OrderItem() {
-  }
-
-
-  public OrderItem(Long productId, String name, int price, int count,
-      List<OrderItemOptionGroup> orderItemOptionGroups) {
+  public OrderItem(Long productId, int count,
+      List<OrderItemOption> orderItemOptions) {
     this.productId = productId;
-    this.name = name;
-    this.price = price;
     this.count = count;
-    this.orderItemOptionGroups = orderItemOptionGroups;
+    this.orderItemOptions = orderItemOptions;
   }
 
-  public OrderItem(Long productId, Long orderId, String name, int price, int count) {
-    this.productId = productId;
-    this.orderId = orderId;
-    this.name = name;
-    this.price = price;
-    this.count = count;
-  }
 
-  public Long getOrderId() {
-    return orderId;
-  }
-
-  public void setOrderId(Long orderId) {
-    this.orderId = orderId;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public Long getProductId() {
-    return productId;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public int getPrice() {
-    return price;
-  }
-
-  public int getCount() {
-    return count;
-  }
-
-  public List<OrderItemOptionGroup> getOrderItemOptionGroups() {
-    return orderItemOptionGroups;
+  public void setOrderId(Long id) {
+    this.orderId = id;
   }
 }

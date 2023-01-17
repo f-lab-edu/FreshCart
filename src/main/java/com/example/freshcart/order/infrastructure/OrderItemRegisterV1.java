@@ -15,15 +15,12 @@ public class OrderItemRegisterV1 implements OrderItemRegister {
 
   private final OrderItemMapper orderItemMapper;
   private final OrderItemOptionMapper orderItemOptionMapper;
-  private final OrderItemOptionGroupMapper orderItemOptionGroupMapper;
 
   public OrderItemRegisterV1(
       OrderItemMapper orderItemMapper,
-      OrderItemOptionMapper orderItemOptionMapper,
-      OrderItemOptionGroupMapper orderItemOptionGroupMapper) {
+      OrderItemOptionMapper orderItemOptionMapper) {
     this.orderItemMapper = orderItemMapper;
     this.orderItemOptionMapper = orderItemOptionMapper;
-    this.orderItemOptionGroupMapper = orderItemOptionGroupMapper;
   }
 
   /**
@@ -37,18 +34,13 @@ public class OrderItemRegisterV1 implements OrderItemRegister {
       orderItem.setOrderId(order.getId());
       orderItemMapper.insert(orderItem);
       //option 이 없는 singleType일 경우 orderItemOptionGroups가 없다.
-      if (orderItem.getOrderItemOptionGroups() != null) {
-        for (OrderItemOptionGroup orderItemOptionGroup : orderItem.getOrderItemOptionGroups()) {
-          orderItemOptionGroup.setOrderItemId(orderItem.getId());
-          orderItemOptionGroupMapper.insert(orderItemOptionGroup);
-          for (OrderItemOption orderItemOption : orderItemOptionGroup.getOrderItemOptions()) {
-            orderItemOption.setOrderItemOptionGroupId(orderItemOptionGroup.getId());
+      if (orderItem.getOrderItemOptions() != null) {
+          for (OrderItemOption orderItemOption : orderItem.getOrderItemOptions()) {
+            orderItemOption.setOrderId(order.getId());
             orderItemOptionMapper.insert(orderItemOption);
           }
         }
-      }
     }
     return order;
   }
 }
-

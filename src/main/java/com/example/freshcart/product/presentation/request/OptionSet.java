@@ -36,13 +36,15 @@ public class OptionSet {
     return optionDetailRegisterList;
   }
 
-  public List<Option> toOptions(List<OptionDetailRegister> optionDetailRegisterList, OptionGroup optionGroup){
+  public List<Option> toOptions(List<OptionDetailRegister> optionDetailRegisterList,
+      OptionGroup optionGroup, Long productId) {
     return optionDetailRegisterList
         .stream()
         .map(optionDetailRegister ->
             Option.builder()
                 .name(optionDetailRegister.getName())
                 .price(optionDetailRegister.getPrice())
+                .productId(productId)
                 .optionGroupId(optionGroup.getId())
                 .sellerId(optionGroup.getSellerId())
                 .build())

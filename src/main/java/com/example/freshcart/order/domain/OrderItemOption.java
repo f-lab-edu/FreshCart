@@ -1,42 +1,19 @@
 package com.example.freshcart.order.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
 public class OrderItemOption {
-  private Long id;
+  private Long orderId;
   private Long optionId;
-  private Long orderItemOptionGroupId;
-  private String name;
-  private int price;
 
-  public OrderItemOption(Long optionId, String name, int price) {
+  public OrderItemOption(Long optionId) {
     this.optionId = optionId;
-    this.name = name;
-    this.price = price;
   }
 
-  public OrderItemOption() {
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public Long getOptionId() {
-    return optionId;
-  }
-
-  public Long getOrderItemOptionGroupId() {
-    return orderItemOptionGroupId;
-  }
-
-  public void setOrderItemOptionGroupId(Long orderItemOptionGroupId) {
-    this.orderItemOptionGroupId = orderItemOptionGroupId;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public int getPrice() {
-    return price;
+  public void setOrderId(Long id) {
+    this.orderId = id;
   }
 }

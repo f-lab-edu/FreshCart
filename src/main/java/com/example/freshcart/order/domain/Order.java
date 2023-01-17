@@ -3,8 +3,10 @@ package com.example.freshcart.order.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class Order {
 
   private Long id;
@@ -25,9 +27,6 @@ public class Order {
 
   private List<OrderItem> orderItemList;
 
-
-  public Order() {
-  }
 
   public Order(Long userId, String receiverName, String receiverPhone,
       String receiverAddress, OrderStatus orderStatus,
