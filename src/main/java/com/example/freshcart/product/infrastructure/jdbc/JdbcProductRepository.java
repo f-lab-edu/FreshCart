@@ -14,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 /**
- * OptionGroup, Option, Product를 따로 저장하는 방식과 달리 한번에 저장하므로 인터페이스를 구현하지 않고 따로 만들었음.
- * Product, OptionGroup, Option 등 모두를 저장함. Single인 경우 Product만, OptionGroup인 경우 Option만 저장.
+ * OptionGroup, Option, Product를 따로 저장하는 방식과 달리 한번에 저장하므로 인터페이스를 구현하지 않고 따로 만들었음. Product,
+ * OptionGroup, Option 등 모두를 저장함. Single인 경우 Product만, OptionGroup인 경우 Option만 저장.
  */
 @Slf4j
 @Repository
@@ -25,9 +25,7 @@ public class JdbcProductRepository {
   public void batchInsertOptionalProducts(Long userId, Product product) throws SQLException {
     Connection con = null;
     PreparedStatement ps = null;
-    ResultSet rs = null;
     boolean success = false; // 예외가 터지지 않았는지 감지하는 지표
-    int[] executeResult = null;
     //1. 쿼리문 준비
     String sql = "Insert Into product(name, price, status, description, single_type, category_id, seller_id) Values(?, ?, ?, ?, ?, ?, ?)";
     String sql2 = "Insert Into option_group(name, is_required, exclusive, minimum_order, maximum_order, product_id, seller_id) Values(?, ?, ?, ?, ?, ?, ?)";
@@ -38,8 +36,7 @@ public class JdbcProductRepository {
       Class.forName("com.mysql.cj.jdbc.Driver");
       con = DriverManager.getConnection(
           "jdbc:mysql://localhost:3306/freshcart?characterEncoding=UTF-8", "admin", "password");
-//      con.setAutoCommit(false);
-      //기본 설정은 한 SQL 당 자동 COMMIT된다. 여러 SQL 을 COMMIT 하려면 이 설정을 FALSE 로.
+      con.setAutoCommit(false); //기본 설정은 한 SQL 당 자동 COMMIT된다. 여러 SQL 을 COMMIT 하려면 이 설정을 FALSE 로.
 
       ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -54,10 +51,8 @@ public class JdbcProductRepository {
       ps.executeUpdate();
       ResultSet productId = ps.getGeneratedKeys();
       boolean result = productId.next();
-      log.info(result+"result 결과가 true면, cursor 를 앞으로 옮겨줌.");
+      log.info(result + "result 결과가 true면, cursor 를 앞으로 옮겨줌.");
       ps.clearParameters();
-      //2. productId 1개를 반환 받는다.
-      //객체 중 OptionGroup을 생성한다. productId와 함께 저장한다.
 
       for (OptionGroup optionGroup : product.getOptionGroupSpecs()) {
         ps = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
@@ -66,7 +61,7 @@ public class JdbcProductRepository {
         ps.setBoolean(3, optionGroup.isExclusive());
         ps.setInt(4, optionGroup.getMinimumOrder());
         ps.setInt(5, optionGroup.getMaximumOrder());
-        log.info(productId.getLong(1)+" productId");
+        log.info(productId.getLong(1) + " productId");
         ps.setLong(6, productId.getLong(1));
         ps.setLong(7, userId);
         ps.executeUpdate();
@@ -78,7 +73,7 @@ public class JdbcProductRepository {
           ps = con.prepareStatement(sql3);
           ps.setString(1, option.getName());
           ps.setInt(2, option.getPrice());
-          log.info(optionGroupId.getLong(1)+" optionGroupId");
+          log.info(optionGroupId.getLong(1) + " optionGroupId");
           ps.setLong(3, optionGroupId.getLong(1));
           ps.setLong(4, userId);
           ps.addBatch();
@@ -92,9 +87,6 @@ public class JdbcProductRepository {
       success = false;
       //하나라도 커밋이 안되었다면 rollback 필요.
     } finally {
-      if (rs != null) {
-        rs.close();
-      }
       if (ps != null) {
         ps.close();
       }

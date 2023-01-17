@@ -31,7 +31,7 @@ public class UserFixture {
   }
 
   //판매자 회원 가입 신청
-  public static SignupCommand.SignupCommandBuilder aSellerSignupRequest() {
+  public static SignupCommand.SignupCommandBuilder aSellerSignupCommand() {
     return SignupCommand.builder()
         .email("seller1@gmail.com")
         .password("lopp1245")
