@@ -39,4 +39,8 @@ public class Product {
     this.categoryId = categoryId;
     this.sellerId = sellerId;
   }
+
+  public void addOptionGroup(OptionGroup optionGroup){
+    this.optionGroupSpecs.add(optionGroup);
+  }
 }

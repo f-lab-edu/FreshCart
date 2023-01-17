@@ -3,6 +3,7 @@ package com.example.freshcart.optionstock.domain.config;
 import com.example.freshcart.optionstock.application.OptionStockService;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
 import com.example.freshcart.product.application.ProductService;
+import com.example.freshcart.product.application.ProductServiceV1;
 import org.springframework.context.annotation.Bean;
 
 public class OptionStockServiceConfig {
@@ -11,6 +12,4 @@ public class OptionStockServiceConfig {
   public OptionStockService optionStockService(OptionStockRepository optionStockRepository, ProductService productService){
   return new OptionStockService(optionStockRepository,productService);
   }
-
-
 }

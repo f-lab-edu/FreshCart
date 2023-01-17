@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class OptionStockRepositoryConfig {
 
   @Bean
-  public OptionStockRepository OptionStockRepository(JpaOptionStockRepository jpaOptionStockRepository){
+  public OptionStockRepository optionStockRepository(JpaOptionStockRepository jpaOptionStockRepository){
     return new JpaOptionStockRepositoryAdaptor(jpaOptionStockRepository);
   }
 }

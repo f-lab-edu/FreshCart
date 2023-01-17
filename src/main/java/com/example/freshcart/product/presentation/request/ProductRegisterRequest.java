@@ -9,9 +9,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.lang.Nullable;
 
 /**
  * 셀러가 필수 정보를 담아서 회원 가입 요청. 필수이기 때문에 @NotNull과 @Valid로 확인 Command 로 변환하여 전달 필요. Product-Status를 참조하고
@@ -51,7 +49,6 @@ public class ProductRegisterRequest {
 
   public Product toProduct(LoginUser user) {
     return new Product(this.name, this.price, this.status, this.description, this.singleType,
-        this.categoryId,
-        user.getUserId());
+        this.categoryId, user.getUserId());
   }
 }

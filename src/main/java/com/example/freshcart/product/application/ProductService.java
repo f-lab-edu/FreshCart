@@ -1,70 +1,17 @@
 package com.example.freshcart.product.application;
 
 import com.example.freshcart.authentication.application.LoginUser;
-import com.example.freshcart.product.domain.exception.NotSellerException;
-import com.example.freshcart.product.presentation.request.OptionDetailRegister;
-import com.example.freshcart.product.presentation.request.OptionGroupRegister;
-import com.example.freshcart.product.presentation.request.OptionSet;
-import com.example.freshcart.product.presentation.request.ProductRegisterRequest;
 import com.example.freshcart.product.domain.Option;
-import com.example.freshcart.product.domain.OptionGroup;
-import com.example.freshcart.product.domain.OptionGroupRepository;
-import com.example.freshcart.product.domain.OptionRepository;
-import com.example.freshcart.product.domain.Product;
-import com.example.freshcart.product.domain.ProductRepository;
-import com.example.freshcart.authentication.Role;
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.freshcart.product.presentation.request.ProductRegisterRequest;
 
-@Slf4j
-public class ProductService {
+/**
+ * V1: REPOSITORY를 각각 INSERT함 V2: 배치를 활용함 Service 로직이 다르기 때문에, 다른 구현체를 주입함.
+ */
+public interface ProductService {
 
-  private ProductRepository productRepository;
-  private OptionGroupRepository optionGroupRepository;
-  private OptionRepository optionRepository;
+  void register(LoginUser user, ProductRegisterRequest request);
 
-  public ProductService(ProductRepository productRepository,
-      OptionGroupRepository optionGroupRepository,
-      OptionRepository optionRepository) {
-    this.productRepository = productRepository;
-    this.optionGroupRepository = optionGroupRepository;
-    this.optionRepository = optionRepository;
-  }
+  void addProduct(LoginUser user, ProductRegisterRequest request);
 
-
-  @Transactional
-  public void register(LoginUser user, ProductRegisterRequest request) {
-    //Seller 가 아닐 경우 재확인 - 예외처리
-    if (user.getRole() != Role.SELLER) {
-      throw new NotSellerException();
-    }
-    addProduct(user, request);
-  }
-
-
-  /**
-   * 단일 제품일 경우 product만 저장하고 옵션이 있는 제품은 OptionGroupRegister와 Option 저장.
-   */
-  public void addProduct(LoginUser user, ProductRegisterRequest request) {
-    Product product = request.toProduct(user);
-    productRepository.save(product);
-
-    if (request.getOptionSet() != null) {
-      for (OptionSet optionSet : request.getOptionSet()) {
-        OptionGroupRegister optionGroupRegister = optionSet.getOptionGroupRegister();
-        OptionGroup optionGroup = optionGroupRegister.toOptionGroup(user, product);
-        optionGroupRepository.save(optionGroup);
-
-        List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
-        List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
-        optionRepository.save(options);
-      }
-      }
-    }
-
-  //OptionId가 주어지면, Option을 찾는다.
-  public Option getOption(Long optionId){
-    return optionRepository.findById(optionId);
-  }
+  Option getOption(Long optionId);
 }

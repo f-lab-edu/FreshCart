@@ -1,0 +1,527 @@
+POST http://localhost:8080/products/register
+Content-Type: application/json
+
+{
+  "name": "샐러드",
+  "price": 2000,
+  "status": "AVAILABLE",
+  "description": "맛나요",
+  "singleType": false,
+  "categoryId": 1,
+  "optionSet": [
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "중량1",
+        "requiredOption": true,
+        "exclusive": true,
+        "minimumOrder": 1,
+        "maximumOrder": 1
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "30g",
+          "price": 0
+        },
+        {
+          "name": "60g",
+          "price": 2000
+        },
+        {
+          "name": "100g",
+          "price": 3000
+        },
+        {
+          "name": "200g",
+          "price": 4000
+        },
+        {
+          "name": "300g",
+          "price": 5000
+        },
+        {
+          "name": "400g",
+          "price": 6000
+        },
+        {
+          "name": "500g",
+          "price": 7000
+        },
+        {
+          "name": "600g",
+          "price": 8000
+        },
+        {
+          "name": "700g",
+          "price": 9000
+        },
+        {
+          "name": "800g",
+          "price": 10000
+        }
+      ]
+    },
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "토핑1",
+        "requiredOption": false,
+        "exclusive": false,
+        "minimumOrder": 1,
+        "maximumOrder": 2
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "견과류",
+          "price": 1000
+        },
+        {
+          "name": "크랜베리",
+          "price": 500
+        },
+        {
+          "name": "카카오닙스",
+          "price": 1000
+        },
+        {
+          "name": "코코넛",
+          "price": 500
+        },
+        {
+          "name": "블루베리",
+          "price": 1000
+        },
+        {
+          "name": "라즈베리",
+          "price": 500
+        },
+        {
+          "name": "그래놀라",
+          "price": 1000
+        },
+        {
+          "name": "바나나칩",
+          "price": 500
+        },
+        {
+          "name": "치아씨드",
+          "price": 1000
+        },
+        {
+          "name": "햄프씨드",
+          "price": 500
+        }
+      ]
+    },
+
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "중량2",
+        "requiredOption": true,
+        "exclusive": true,
+        "minimumOrder": 1,
+        "maximumOrder": 1
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "30g",
+          "price": 0
+        },
+        {
+          "name": "60g",
+          "price": 2000
+        },
+        {
+          "name": "100g",
+          "price": 3000
+        },
+        {
+          "name": "200g",
+          "price": 4000
+        },
+        {
+          "name": "300g",
+          "price": 5000
+        },
+        {
+          "name": "400g",
+          "price": 6000
+        },
+        {
+          "name": "500g",
+          "price": 7000
+        },
+        {
+          "name": "600g",
+          "price": 8000
+        },
+        {
+          "name": "700g",
+          "price": 9000
+        },
+        {
+          "name": "800g",
+          "price": 10000
+        }
+      ]
+    },
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "토핑2",
+        "requiredOption": false,
+        "exclusive": false,
+        "minimumOrder": 1,
+        "maximumOrder": 2
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "견과류",
+          "price": 1000
+        },
+        {
+          "name": "크랜베리",
+          "price": 500
+        },
+        {
+          "name": "카카오닙스",
+          "price": 1000
+        },
+        {
+          "name": "코코넛",
+          "price": 500
+        },
+        {
+          "name": "블루베리",
+          "price": 1000
+        },
+        {
+          "name": "라즈베리",
+          "price": 500
+        },
+        {
+          "name": "그래놀라",
+          "price": 1000
+        },
+        {
+          "name": "바나나칩",
+          "price": 500
+        },
+        {
+          "name": "치아씨드",
+          "price": 1000
+        },
+        {
+          "name": "햄프씨드",
+          "price": 500
+        }
+      ]
+    },
+
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "중량3",
+        "requiredOption": true,
+        "exclusive": true,
+        "minimumOrder": 1,
+        "maximumOrder": 1
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "30g",
+          "price": 0
+        },
+        {
+          "name": "60g",
+          "price": 2000
+        },
+        {
+          "name": "100g",
+          "price": 3000
+        },
+        {
+          "name": "200g",
+          "price": 4000
+        },
+        {
+          "name": "300g",
+          "price": 5000
+        },
+        {
+          "name": "400g",
+          "price": 6000
+        },
+        {
+          "name": "500g",
+          "price": 7000
+        },
+        {
+          "name": "600g",
+          "price": 8000
+        },
+        {
+          "name": "700g",
+          "price": 9000
+        },
+        {
+          "name": "800g",
+          "price": 10000
+        }
+      ]
+    },
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "토핑3",
+        "requiredOption": false,
+        "exclusive": false,
+        "minimumOrder": 1,
+        "maximumOrder": 2
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "견과류",
+          "price": 1000
+        },
+        {
+          "name": "크랜베리",
+          "price": 500
+        },
+        {
+          "name": "카카오닙스",
+          "price": 1000
+        },
+        {
+          "name": "코코넛",
+          "price": 500
+        },
+        {
+          "name": "블루베리",
+          "price": 1000
+        },
+        {
+          "name": "라즈베리",
+          "price": 500
+        },
+        {
+          "name": "그래놀라",
+          "price": 1000
+        },
+        {
+          "name": "바나나칩",
+          "price": 500
+        },
+        {
+          "name": "치아씨드",
+          "price": 1000
+        },
+        {
+          "name": "햄프씨드",
+          "price": 500
+        }
+      ]
+    },
+
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "중량4",
+        "requiredOption": true,
+        "exclusive": true,
+        "minimumOrder": 1,
+        "maximumOrder": 1
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "30g",
+          "price": 0
+        },
+        {
+          "name": "60g",
+          "price": 2000
+        },
+        {
+          "name": "100g",
+          "price": 3000
+        },
+        {
+          "name": "200g",
+          "price": 4000
+        },
+        {
+          "name": "300g",
+          "price": 5000
+        },
+        {
+          "name": "400g",
+          "price": 6000
+        },
+        {
+          "name": "500g",
+          "price": 7000
+        },
+        {
+          "name": "600g",
+          "price": 8000
+        },
+        {
+          "name": "700g",
+          "price": 9000
+        },
+        {
+          "name": "800g",
+          "price": 10000
+        }
+      ]
+    },
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "토핑4",
+        "requiredOption": false,
+        "exclusive": false,
+        "minimumOrder": 1,
+        "maximumOrder": 2
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "견과류",
+          "price": 1000
+        },
+        {
+          "name": "크랜베리",
+          "price": 500
+        },
+        {
+          "name": "카카오닙스",
+          "price": 1000
+        },
+        {
+          "name": "코코넛",
+          "price": 500
+        },
+        {
+          "name": "블루베리",
+          "price": 1000
+        },
+        {
+          "name": "라즈베리",
+          "price": 500
+        },
+        {
+          "name": "그래놀라",
+          "price": 1000
+        },
+        {
+          "name": "바나나칩",
+          "price": 500
+        },
+        {
+          "name": "치아씨드",
+          "price": 1000
+        },
+        {
+          "name": "햄프씨드",
+          "price": 500
+        }
+      ]
+    },
+
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "중량5",
+        "requiredOption": true,
+        "exclusive": true,
+        "minimumOrder": 1,
+        "maximumOrder": 1
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "30g",
+          "price": 0
+        },
+        {
+          "name": "60g",
+          "price": 2000
+        },
+        {
+          "name": "100g",
+          "price": 3000
+        },
+        {
+          "name": "200g",
+          "price": 4000
+        },
+        {
+          "name": "300g",
+          "price": 5000
+        },
+        {
+          "name": "400g",
+          "price": 6000
+        },
+        {
+          "name": "500g",
+          "price": 7000
+        },
+        {
+          "name": "600g",
+          "price": 8000
+        },
+        {
+          "name": "700g",
+          "price": 9000
+        },
+        {
+          "name": "800g",
+          "price": 10000
+        }
+      ]
+    },
+    {
+      "optionGroupRegister": {
+        "optionGroupName": "토핑5",
+        "requiredOption": false,
+        "exclusive": false,
+        "minimumOrder": 1,
+        "maximumOrder": 2
+      },
+      "optionDetailRegisterList": [
+        {
+          "name": "견과류",
+          "price": 1000
+        },
+        {
+          "name": "크랜베리",
+          "price": 500
+        },
+        {
+          "name": "카카오닙스",
+          "price": 1000
+        },
+        {
+          "name": "코코넛",
+          "price": 500
+        },
+        {
+          "name": "블루베리",
+          "price": 1000
+        },
+        {
+          "name": "라즈베리",
+          "price": 500
+        },
+        {
+          "name": "그래놀라",
+          "price": 1000
+        },
+        {
+          "name": "바나나칩",
+          "price": 500
+        },
+        {
+          "name": "치아씨드",
+          "price": 1000
+        },
+        {
+          "name": "햄프씨드",
+          "price": 500
+        }
+      ]
+    }
+]
+}
