@@ -3,13 +3,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.freshcart.product.infrastructure.OptionMapper">
 
-  <insert id="insert" keyProperty="id" parameterType ="java.util.List" useGeneratedKeys="true">
+<!--  단건 insert-->
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
     insert into `option` (name, price, option_group_id, seller_id)
-    values
-    <foreach collection="list" index="index" item="option" separator=",">
-    (#{option.name}, #{option.price}, #{option.optionGroupId}, #{option.sellerId})
-    </foreach>
-</insert>
+    values (#{name}, #{price}, #{optionGroupId}, #{sellerId});
+  </insert>
+
+<!--  <insert id="insert" keyProperty="id" parameterType ="java.util.List" useGeneratedKeys="true">-->
+<!--    insert into `option` (name, price, option_group_id, seller_id)-->
+<!--    values-->
+<!--    <foreach collection="list" index="index" item="option" separator=",">-->
+<!--    (#{option.name}, #{option.price}, #{option.optionGroupId}, #{option.sellerId})-->
+<!--    </foreach>-->
+<!--</insert>-->
 
   <resultMap id="optionResultMap" type="com.example.freshcart.product.domain.Option">
     <result column="option_group_id" property="optionGroupId"/>

@@ -2,55 +2,55 @@ POST http://localhost:8080/products/register
 Content-Type: application/json
 
 {
-    "name":"샐러드",
-    "price": 2000,
-    "status":"AVAILABLE",
-    "description":"맛나요",
-    "singleType": false,
-    "categoryId": 1,
-    "optionSet":
-    [
-        {   "optionGroupRegister":{
-            "optionGroupName": "중량",
-            "requiredOption": true,
-            "exclusive":true,
-            "minimumOrder": 1,
-            "maximumOrder":1
-            },
-            "optionDetailRegisterList":
-            [
-            {
-            "name": "30g",
-            "price": 0
-            },
-
-            {
-            "name": "60g",
-            "price": 2000
-            }
-            ]
+  "name":"샐러드",
+  "price": 2000,
+  "status":"AVAILABLE",
+  "description":"맛나요",
+  "singleType": false,
+  "categoryId": 1,
+  "optionSet":
+  [
+    {   "optionGroupRegister":{
+      "optionGroupName": "중량",
+      "requiredOption": true,
+      "exclusive":true,
+      "minimumOrder": 1,
+      "maximumOrder":1
+    },
+      "optionDetailRegisterList":
+      [
+        {
+          "name": "30g",
+          "price": 0
         },
-        {   "optionGroupRegister":{
-            "optionGroupName": "토핑",
-            "requiredOption": false,
-            "exclusive":false,
-            "minimumOrder": 1,
-            "maximumOrder":2},
-            "optionDetailRegisterList":
-            [
-            {
-            "name": "견과류",
-            "price": 1000
-            },
 
-            {
-            "name": "크랜베리",
-            "price": 500
-            }
-            ]
-            }
-    ]
+        {
+          "name": "60g",
+          "price": 2000
+        }
+      ]
+    },
+    {   "optionGroupRegister":{
+      "optionGroupName": "토핑",
+      "requiredOption": false,
+      "exclusive":false,
+      "minimumOrder": 1,
+      "maximumOrder":2},
+      "optionDetailRegisterList":
+      [
+        {
+          "name": "견과류",
+          "price": 1000
+        },
+
+        {
+          "name": "크랜베리",
+          "price": 500
+        }
+      ]
     }
+  ]
+}
 
 ### 두 번째 상품 등록
 

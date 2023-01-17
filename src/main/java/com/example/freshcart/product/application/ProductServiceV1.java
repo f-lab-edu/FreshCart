@@ -47,6 +47,25 @@ public class ProductServiceV1 implements ProductService{
    * 단일 제품일 경우 product만 저장하고 옵션이 있는 제품은 OptionGroupRegister와 Option 저장.
    */
 
+//  @Override
+//  public void addProduct(LoginUser user, ProductRegisterRequest request) {
+//    Product product = request.toProduct(user);
+//    productRepository.save(product);
+//
+//    if (request.getOptionSet() != null) {
+//      for (OptionSet optionSet : request.getOptionSet()) {
+//        OptionGroupRegister optionGroupRegister = optionSet.getOptionGroupRegister();
+//        OptionGroup optionGroup = optionGroupRegister.toOptionGroup(user, product);
+//        optionGroupRepository.save(optionGroup);
+//
+//        List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
+//        List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
+//        optionRepository.save(options);
+//      }
+//      }
+//    }
+
+  //forEach 전
   @Override
   public void addProduct(LoginUser user, ProductRegisterRequest request) {
     Product product = request.toProduct(user);
@@ -60,10 +79,12 @@ public class ProductServiceV1 implements ProductService{
 
         List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
         List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
-        optionRepository.save(options);
-      }
+        for(Option option: options){
+          optionRepository.save(option);
+        }
       }
     }
+  }
 
   @Override
   //OptionId가 주어지면, Option을 찾는다.

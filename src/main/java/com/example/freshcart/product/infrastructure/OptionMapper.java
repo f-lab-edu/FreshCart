@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface OptionMapper {
 
-  void insert(List<Option> option);
-
+//  void insert(List<Option> option);
+  void insert(Option option);
   Option findById(Long optionId);
 }

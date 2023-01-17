@@ -15,10 +15,16 @@ public class OptionMapperRepositoryAdaptor implements OptionRepository {
   }
 
   @Override
-  public List<Option> save(List<Option> options) {
-    optionMapper.insert(options);
-    return options;
+  public Option save(Option option) {
+    optionMapper.insert(option);
+    return option;
   }
+
+//  @Override
+//  public List<Option> save(List<Option> options) {
+//    optionMapper.insert(options);
+//    return options;
+//  }
 
   @Override
   public Option findById(Long optionId) {
