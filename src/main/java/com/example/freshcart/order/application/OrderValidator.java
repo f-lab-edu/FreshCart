@@ -39,59 +39,7 @@ public class OrderValidator {
     if (order.getOrderItemList().isEmpty()) {
       throw new IllegalArgumentException("주문할 제품을 담아주세요.");
     }
-
-    /**
-     * Order에 담긴 OrderLineItem을 하나씩 validate.
-     * 이름이 일치하는 지 확인 필요
-     */
-
-    for (OrderItem orderItem : order.getOrderItemList()) {
-      validateOrderLineItem(orderItem);
-    }
-
     return true;
   }
 
-  /**
-   * 제품 이름이 변경되었다면, 유저가 주문하고자 하는 상품에 변경이 생긴 것이다. 이름이 일치한다면, 다음에는 OptionGroup을 확인.
-   */
-  public void validateOrderLineItem(OrderItem orderItem) {
-    String productName = productRepository.findById(orderItem.getProductId()).getName();
-    if (!orderItem.getName().equals(productName)) {
-      throw new OrderItemNotFoundException();
-    }
-
-    for (OrderItemOptionGroup orderItemOptionGroup : orderItem.getOrderItemOptionGroups()) {
-      validateOrderOptionGroup(orderItemOptionGroup);
-    }
-  }
-
-  /**
-   * OrderOptionGroup과 Option 내역이 Product의 것과 일치하는지 확인 OptionGroup이 있다면, List<Options>객체도 필수
-   */
-  public void validateOrderOptionGroup(OrderItemOptionGroup orderItemOptionGroup) {
-    String optionGroupName = optionGroupRepository.findById(
-            orderItemOptionGroup.getoptionGroupId())
-        .getOptionGroupName();
-
-    if (!orderItemOptionGroup.getName().equals(optionGroupName)) {
-      throw new OrderItemOptionGroupNotFoundException();
-    }
-
-    if (orderItemOptionGroup.getOrderItemOptions().isEmpty()) {
-      throw new IllegalArgumentException("제품의 상세 옵션을 지정해주세요.");
-    }
-
-    for (OrderItemOption orderItemOption : orderItemOptionGroup.getOrderItemOptions()) {
-      validateOrderOption(orderItemOption);
-    }
-  }
-
-  public void validateOrderOption(OrderItemOption orderItemOption) {
-    String name = optionRepository.findById(orderItemOption.getOptionId())
-        .getName();
-    if (!orderItemOption.getName().equals(name)) {
-      throw new OrderItemOptionNotFoundException();
-    }
-  }
 }
