@@ -4,14 +4,15 @@
 <mapper namespace="com.example.freshcart.product.infrastructure.OptionMapper">
 
   <insert id="insert" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
-    insert into `option` (name, price, option_group_id, seller_id)
+    insert into `option` (name, price, product_id, option_group_id, seller_id)
     values
     <foreach collection="list" index="index" item="option" separator=",">
-      (#{option.name}, #{option.price}, #{option.optionGroupId}, #{option.sellerId})
+      (#{option.name}, #{option.price}, #{option.productId}, #{option.optionGroupId}, #{option.sellerId})
     </foreach>
   </insert>
 
   <resultMap id="optionResultMap" type="com.example.freshcart.product.domain.Option">
+    <result column="product_id" property="productId"/>
     <result column="option_group_id" property="optionGroupId"/>
     <result column="seller_id" property="sellerId"/>
     <result column="created_at" property="createdAt"/>
@@ -19,7 +20,7 @@
   </resultMap>
 
   <select id="findById" resultMap="optionResultMap">
-    select id, name, price, option_group_id, seller_id, created_at, updated_at
+    select id, name, price, product_id, option_group_id, seller_id, created_at, updated_at
     from `option`
     where id = #{optionId};
   </select>

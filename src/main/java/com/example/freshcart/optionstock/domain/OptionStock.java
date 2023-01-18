@@ -20,13 +20,10 @@ public class OptionStock extends Timestamped {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "option_id")
   private Long optionId;
 
-  @Column
   private int stock;
 
-  @Column(name = "seller_id ")
   private Long sellerId;
 
 
@@ -36,12 +33,12 @@ public class OptionStock extends Timestamped {
     this.stock = stock;
   }
 
-
   public void changeStock(int stock) {
     this.stock = stock;
   }
 
   public void reduceStock(int stock) {
     this.stock -= stock;
+
   }
 }

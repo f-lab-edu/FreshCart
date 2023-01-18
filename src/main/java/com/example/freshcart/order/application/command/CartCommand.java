@@ -30,94 +30,29 @@ public class CartCommand {
   /**
    * CartItem은 Product, OrderLineItem과 매칭
    */
+  @Getter
   public static class CartItemCommand {
 
     private Long productId;
-    private String name;
-    private int price;
     private int count;
-    private List<CartItemOptionGroupCommand> groups;
+    private List<CartItemOptionCommand> groups;
 
-    public CartItemCommand(Long productId, String name, int price, int count,
-        List<CartItemOptionGroupCommand> groups) {
+    public CartItemCommand(Long productId, int count,
+        List<CartItemOptionCommand> groups) {
       this.productId = productId;
-      this.name = name;
-      this.price = price;
       this.count = count;
       this.groups = groups;
     }
-
-    public Long getProductId() {
-      return productId;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public int getCount() {
-      return count;
-    }
-
-    public int getPrice() {
-      return price;
-    }
-
-    public List<CartItemOptionGroupCommand> getGroups() {
-      return groups;
-    }
   }
 
-  public static class CartItemOptionGroupCommand {
 
-    private Long optionGroupId;
-    private String name;
-    private List<CartItemOptionCommand> options;
-
-    public CartItemOptionGroupCommand(Long optionGroupId, String name,
-        List<CartItemOptionCommand> options) {
-      this.optionGroupId = optionGroupId;
-      this.name = name;
-      this.options = options;
-    }
-
-    public Long getOptionGroupId() {
-      return optionGroupId;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public List<CartItemOptionCommand> getOptions() {
-      return options;
-    }
-
-
-  }
-
+  @Getter
   public static class CartItemOptionCommand {
 
     private Long optionId;
-    private String name;
-    private int price;
 
-    public CartItemOptionCommand(Long optionId, String name, int price) {
+    public CartItemOptionCommand(Long optionId) {
       this.optionId = optionId;
-      this.name = name;
-      this.price = price;
-    }
-
-    public Long getOptionId() {
-      return optionId;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public int getPrice() {
-      return price;
     }
   }
 }

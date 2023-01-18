@@ -1,4 +1,4 @@
-package com.example.freshcart.order.infrastructure;
+package com.example.freshcart.order.infrastructure.mybatis;
 
 import com.example.freshcart.order.domain.OrderItem;
 import org.apache.ibatis.annotations.Mapper;

@@ -6,7 +6,7 @@ import com.example.freshcart.authentication.annotation.Authentication;
 import com.example.freshcart.authentication.annotation.LoginCheck;
 import com.example.freshcart.authentication.application.LoginUser;
 
-import com.example.freshcart.optionstock.application.OptionStockService;
+import com.example.freshcart.optionstock.application.OptionStockManager;
 import com.example.freshcart.optionstock.presentation.request.OptionStockAddRequest;
 import com.example.freshcart.optionstock.presentation.request.OptionStockUpdateRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/stocks")
 public class OptionStockController {
 
-  private final OptionStockService optionStockService;
+  private final OptionStockManager optionStockManager;
 
   public OptionStockController(
-      OptionStockService optionStockService) {
-    this.optionStockService = optionStockService;
+      OptionStockManager optionStockManager) {
+    this.optionStockManager = optionStockManager;
   }
 
   @Authentication(authority = Role.SELLER)
@@ -38,7 +38,7 @@ public class OptionStockController {
   @PostMapping("/{optionId}")
   public void addStock(@AuthenticatedUser LoginUser user, @PathVariable Long optionId,
       @RequestBody OptionStockAddRequest request) {
-    optionStockService.addInventory(user, optionId, request.toCommand());
+    optionStockManager.addInventory(user, optionId, request.toCommand());
   }
 
   @Authentication(authority = Role.SELLER)
@@ -46,7 +46,6 @@ public class OptionStockController {
   @PatchMapping("/{optionStockId}")
   public void changeStock(@AuthenticatedUser LoginUser user, @PathVariable Long optionStockId,
       @RequestBody OptionStockUpdateRequest request) {
-    optionStockService.updateInventory(user, optionStockId, request.toCommand());
+    optionStockManager.updateInventory(user, optionStockId, request.toCommand());
   }
-
 }

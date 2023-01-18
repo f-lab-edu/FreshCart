@@ -20,8 +20,13 @@ public class JpaOptionStockRepositoryAdaptor implements OptionStockRepository {
   }
 
   @Override
-  public OptionStock findById(Long optionStockId) {
-    return jpaOptionStockRepository.findById(optionStockId).orElseThrow(
-        OptionStockNotFoundException::new);
+  public OptionStock findByOptionId(Long optionId) {
+    return jpaOptionStockRepository.findByOptionId(optionId);
+  }
+
+  @Override
+  public OptionStock findById(Long Id) {
+    return jpaOptionStockRepository.findById(Id).orElseThrow(OptionStockNotFoundException::new);
+
   }
 }

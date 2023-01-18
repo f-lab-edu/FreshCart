@@ -5,11 +5,11 @@ import com.example.freshcart.product.domain.OptionRepository;
 import java.util.List;
 
 
-public class OptionMapperRepositoryAdaptor implements OptionRepository {
+public class OptionMapperAdaptor implements OptionRepository {
 
   private final OptionMapper optionMapper;
 
-  public OptionMapperRepositoryAdaptor(
+  public OptionMapperAdaptor(
       OptionMapper optionMapper) {
     this.optionMapper = optionMapper;
   }

@@ -13,5 +13,4 @@ public interface ProductMapper {
 
   Product findById(Long productId);
 
-  void insertWithOptions(Product product);
 }

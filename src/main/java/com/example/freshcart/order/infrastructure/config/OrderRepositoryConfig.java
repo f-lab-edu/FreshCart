@@ -1,19 +1,58 @@
 package com.example.freshcart.order.infrastructure.config;
 
-import com.example.freshcart.order.application.OrderItemRegister;
+import com.example.freshcart.optionstock.domain.JpaOptionStockRepository;
+import com.example.freshcart.order.domain.JpaOrderItemOptionRepository;
+import com.example.freshcart.order.domain.JpaOrderItemRepository;
+import com.example.freshcart.order.domain.JpaOrderRepository;
+import com.example.freshcart.order.domain.OrderItemOptionRepository;
+import com.example.freshcart.order.domain.OrderItemRepository;
 import com.example.freshcart.order.domain.OrderRepository;
-import com.example.freshcart.order.infrastructure.OrderMapper;
-import com.example.freshcart.order.infrastructure.OrderRepositoryAdaptor;
+import com.example.freshcart.order.infrastructure.OrderItemOptionMapperAdaptor;
+import com.example.freshcart.order.infrastructure.OrderItemMapperAdaptor;
+import com.example.freshcart.order.infrastructure.jpa.JpaOrderItemOptionRepositoryAdaptor;
+import com.example.freshcart.order.infrastructure.jpa.JpaOrderItemRepositoryAdaptor;
+import com.example.freshcart.order.infrastructure.jpa.JpaOrderRepositoryAdaptor;
+import com.example.freshcart.order.infrastructure.mybatis.OrderItemMapper;
+import com.example.freshcart.order.infrastructure.mybatis.OrderItemOptionMapper;
+import com.example.freshcart.order.infrastructure.mybatis.OrderMapper;
+import com.example.freshcart.order.infrastructure.OrderMapperAdaptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OrderRepositoryConfig {
 
+//MyBatis
+//  @Bean
+//  public OrderRepository orderRepository(OrderMapper orderMapper) {
+//    return new OrderMapperAdaptor(orderMapper);
+//  }
+//
+//  @Bean
+//  public OrderItemRepository orderItemRepository(OrderItemMapper orderItemMapper) {
+//    return new OrderItemMapperAdaptor(orderItemMapper);
+//  }
+//
+//  @Bean
+//  public OrderItemOptionRepository orderItemOptionRepository(
+//      OrderItemOptionMapper orderItemOptionMapper) {
+//    return new OrderItemOptionMapperAdaptor(orderItemOptionMapper);
+//  }
+
   @Bean
-  public OrderRepository orderRepository(OrderMapper orderMapper,
-      OrderItemRegister orderItemRegister) {
-    return new OrderRepositoryAdaptor(orderMapper, orderItemRegister);
+  public OrderRepository orderRepository(JpaOrderRepository jpaOrderRepository) {
+    return new JpaOrderRepositoryAdaptor(jpaOrderRepository);
+  }
+
+  @Bean
+  public OrderItemRepository orderItemRepository(JpaOrderItemRepository jpaOrderItemRepository) {
+    return new JpaOrderItemRepositoryAdaptor(jpaOrderItemRepository);
+  }
+
+  @Bean
+  public OrderItemOptionRepository orderItemOptionRepository(
+      JpaOrderItemOptionRepository jpaOrderItemOptionRepository) {
+    return new JpaOrderItemOptionRepositoryAdaptor(jpaOrderItemOptionRepository);
   }
 }
 

@@ -31,7 +31,6 @@ public class UserService {
     }
 
     String password = command.getPassword();
-    // passwordEncoder로 암호화된 비밀번호를 리턴
     User user =
         new User(
             command.getEmail(),

@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import com.example.freshcart.order.application.command.CartCommand;
 import com.example.freshcart.order.application.command.CartCommand.CartItemCommand;
 import com.example.freshcart.order.application.command.CartCommand.CartItemOptionCommand;
-import com.example.freshcart.order.application.command.CartCommand.CartItemOptionGroupCommand;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,72 +46,40 @@ public class Cart {
   @Getter
   @NoArgsConstructor
   public static class CartItem {
-
     private Long productId;
-    private String name;
-    private int price;
     private int count;
-    private List<CartItemOptionGroup> groups;
+    private List<CartItemOption> groups;
 
     @Builder
-    public CartItem(Long productId, String name, int price, int count,
-        List<CartItemOptionGroup> groups) {
+    public CartItem(Long productId, int count,
+        List<CartItemOption> groups) {
       this.productId = productId;
-      this.name = name;
-      this.price = price;
       this.count = count;
       this.groups = groups;
     }
 
     public CartItemCommand toCartItemCommand() {
-      return new CartItemCommand(this.productId, this.name, this.price, this.count,
-          this.groups.stream().map(CartItemOptionGroup::toCartItemOptionGroupCommand)
+      return new CartItemCommand(this.productId, this.count,
+          this.groups.stream().map(CartItemOption::toCartItemOptionCommand)
               .collect(toList()));
     }
 
   }
 
-  @Getter
-  @NoArgsConstructor
-  public static class CartItemOptionGroup {
-
-    private Long optionGroupId;
-    private String name;
-    private List<CartItemOption> options;
-
-    @Builder
-    public CartItemOptionGroup(Long optionGroupId, String name,
-        List<CartItemOption> options) {
-      this.optionGroupId = optionGroupId;
-      this.name = name;
-      this.options = options;
-    }
-
-
-    public CartItemOptionGroupCommand toCartItemOptionGroupCommand() {
-      return new CartItemOptionGroupCommand(this.optionGroupId, this.name,
-          this.options.stream().map(CartItemOption::toCartItemOptionCommand).collect(toList()));
-    }
-  }
 
   @Getter
   @NoArgsConstructor
   public static class CartItemOption {
 
     private Long optionId;
-    private String name;
-    private int price;
 
     @Builder
-    public CartItemOption(Long optionId, String name, int price) {
+    public CartItemOption(Long optionId) {
       this.optionId = optionId;
-      this.name = name;
-      this.price = price;
     }
 
-
     public CartItemOptionCommand toCartItemOptionCommand() {
-      return new CartItemOptionCommand(this.optionId, this.name, this.price);
+      return new CartItemOptionCommand(this.optionId);
     }
 
   }

@@ -10,5 +10,4 @@ public interface ProductRepository {
 
   Product findById(Long productId);
 
-  Product saveWithOptions(Product product);
 }

@@ -12,6 +12,4 @@ public interface ProductService {
   void register(LoginUser user, ProductRegisterRequest request);
 
   void addProduct(LoginUser user, ProductRegisterRequest request);
-
-  Option getOption(Long optionId);
 }

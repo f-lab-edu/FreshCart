@@ -1,17 +1,17 @@
 package com.example.freshcart.order.infrastructure.config;
 
-import com.example.freshcart.optionstock.application.OptionStockService;
+import com.example.freshcart.optionstock.application.OptionStockManager;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
 import com.example.freshcart.order.application.CartToOrderMapper;
 import com.example.freshcart.order.application.OrderItemRegister;
 import com.example.freshcart.order.application.OrderManagerFacade;
 import com.example.freshcart.order.application.OrderRegisterProcessor;
 import com.example.freshcart.order.application.OrderValidator;
+import com.example.freshcart.order.domain.OrderItemOptionRepository;
+import com.example.freshcart.order.domain.OrderItemRepository;
 import com.example.freshcart.order.domain.OrderRepository;
-import com.example.freshcart.order.infrastructure.OrderItemMapper;
-import com.example.freshcart.order.infrastructure.OrderItemOptionGroupMapper;
-import com.example.freshcart.order.infrastructure.OrderItemOptionMapper;
-import com.example.freshcart.order.infrastructure.OrderItemRegisterV1;
+import com.example.freshcart.order.infrastructure.mybatis.OrderItemMapper;
+import com.example.freshcart.order.infrastructure.mybatis.OrderItemOptionMapper;
 import com.example.freshcart.product.domain.OptionGroupRepository;
 import com.example.freshcart.product.domain.OptionRepository;
 import com.example.freshcart.product.domain.ProductRepository;
@@ -27,27 +27,22 @@ public class OrderServiceConfig {
   }
 
   @Bean
-  public OrderItemRegister orderItemRegister(OrderItemMapper orderItemMapper,
-      OrderItemOptionMapper orderItemOptionMapper,
-      OrderItemOptionGroupMapper orderItemOptionGroupMapper) {
-    return new OrderItemRegisterV1(orderItemMapper, orderItemOptionMapper,
-        orderItemOptionGroupMapper);
-  }
-
-  @Bean
   public CartToOrderMapper cartToOrderMapper() {
     return new CartToOrderMapper();
   }
 
   @Bean
-  public OrderValidator orderValidator(ProductRepository productRepository,
-      OptionGroupRepository optionGroupRepository, OptionRepository optionRepository) {
-    return new OrderValidator(productRepository, optionGroupRepository, optionRepository);
+  public OrderValidator orderValidator() {
+    return new OrderValidator();
   }
 
   @Bean
   public OrderRegisterProcessor orderRegisterProcessor(CartToOrderMapper cartToOrderMapper,
-      OrderValidator orderValidator, OptionStockService optionStockService, OrderRepository orderRepository, OptionStockRepository optionStockRepository) {
-    return new OrderRegisterProcessor(cartToOrderMapper, orderValidator, optionStockService, orderRepository, optionStockRepository);
+      OrderValidator orderValidator,
+      OrderRepository orderRepository,
+      OrderItemRepository orderItemRepository,
+      OrderItemOptionRepository orderItemOptionRepository,
+      OptionStockRepository optionStockRepository) {
+    return new OrderRegisterProcessor(cartToOrderMapper, orderValidator, orderRepository, orderItemRepository,orderItemOptionRepository, optionStockRepository);
   }
 }

@@ -1,12 +1,26 @@
 package com.example.freshcart.order.domain;
 
+import com.example.freshcart.global.domain.Timestamped;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+
+@Entity
+@Table
 @Getter
-public class Order {
-
+@NoArgsConstructor
+public class Order extends Timestamped {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private Long userId;
@@ -16,18 +30,12 @@ public class Order {
   private String receiverPhone;
 
   private String receiverAddress;
-
+  @Enumerated
   private OrderStatus orderStatus;
 
-  private LocalDateTime createdAt;
-
-  private LocalDateTime updatedAt;
-
+  @OneToMany
   private List<OrderItem> orderItemList;
 
-
-  public Order() {
-  }
 
   public Order(Long userId, String receiverName, String receiverPhone,
       String receiverAddress, OrderStatus orderStatus,

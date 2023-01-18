@@ -21,5 +21,4 @@ public class OrderManagerFacade {
   public void register(LoginUser user, CartCommand cart) {
     orderRegisterProcessor.place(user, cart);
   }
-
 }
