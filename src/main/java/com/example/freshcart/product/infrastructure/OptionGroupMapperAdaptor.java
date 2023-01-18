@@ -3,11 +3,11 @@ package com.example.freshcart.product.infrastructure;
 import com.example.freshcart.product.domain.OptionGroup;
 import com.example.freshcart.product.domain.OptionGroupRepository;
 
-public class OptionGroupMapperRepositoryAdaptor implements OptionGroupRepository {
+public class OptionGroupMapperAdaptor implements OptionGroupRepository {
 
   private final OptionGroupMapper optionGroupMapper;
 
-  public OptionGroupMapperRepositoryAdaptor(
+  public OptionGroupMapperAdaptor(
       OptionGroupMapper optionGroupMapper) {
     this.optionGroupMapper = optionGroupMapper;
   }
