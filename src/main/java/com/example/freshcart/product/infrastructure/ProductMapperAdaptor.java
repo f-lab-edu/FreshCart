@@ -4,11 +4,11 @@ import com.example.freshcart.product.domain.Product;
 import com.example.freshcart.product.domain.ProductRepository;
 import java.util.List;
 
-public class ProductMapperRepositoryAdaptor implements ProductRepository {
+public class ProductMapperAdaptor implements ProductRepository {
 
   private final ProductMapper productMapper;
 
-  public ProductMapperRepositoryAdaptor(
+  public ProductMapperAdaptor(
       ProductMapper productMapper) {
     this.productMapper = productMapper;
   }
@@ -30,9 +30,4 @@ public class ProductMapperRepositoryAdaptor implements ProductRepository {
     return productMapper.findById(productId);
   }
 
-  @Override
-  public Product saveWithOptions(Product product) {
-    productMapper.insertWithOptions(product);
-    return product;
-  }
 }
