@@ -8,7 +8,6 @@ import com.example.freshcart.order.domain.Order;
 import com.example.freshcart.order.domain.Order.OrderStatus;
 import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.order.domain.OrderItemOption;
-import com.example.freshcart.order.domain.OrderItemOptionGroup;
 
 /**
  * 카트는 데이터를 담아두는 DTO 객체와 같다. 책임: Cart를 Order로 변환
