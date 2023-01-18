@@ -19,3 +19,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true #언더바를(sql문법) 카멜로(자바 객체) 자동 변경
   mapper-locations: classpath:/mapper/**/*.xml
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        ddl-auto: create

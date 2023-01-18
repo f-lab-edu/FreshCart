@@ -58,16 +58,10 @@ public class ProductServiceV1 implements ProductService {
         optionGroupRepository.save(optionGroup);
 
         List<OptionDetailRegister> optionDetailRegisterList = optionSet.getOptionDetailRegisterList();
-        List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup);
+        List<Option> options = optionSet.toOptions(optionDetailRegisterList, optionGroup, product.getId());
         optionRepository.save(options);
       }
     }
   }
 
-
-  @Override
-  //OptionId가 주어지면, Option을 찾는다.
-  public Option getOption(Long optionId) {
-    return optionRepository.findById(optionId);
-  }
 }
