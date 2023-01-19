@@ -38,3 +38,19 @@ Content-Type: application/json
     }
   ]
 }
+
+###옵션이 없는 주문 요청
+POST http://localhost:8080/orders/register
+Content-Type: application/json
+
+{
+  "receiverName": "유저1",
+  "receiverPhone": "01000000000",
+  "receiverAddress": "서울시 강남구 강남대로 22 교보빌딩 1층",
+  "cartItems": [
+    {
+      "productId": 3,
+      "count": 5
+    }
+  ]
+}

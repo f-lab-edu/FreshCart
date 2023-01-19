@@ -1,5 +1,5 @@
 //재고 초기화 추가
-POST http://localhost:8080/stocks
+POST http://localhost:8080/stocks/options
 Content-Type: application/json
 
 [
@@ -45,86 +45,45 @@ Content-Type: application/json
 
   ]
 
-
-
-###
-POST http://localhost:8080/stocks/1
+### 빠진것 추가
+POST http://localhost:8080/stocks/options
 Content-Type: application/json
 
-{
-  "stock": 5
-}
+[
+  {
+    "optionId": 9,
+    "stock": 5
+  }
+]
 
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/2
+
+###실패해야 함 - 중복 재고
+POST http://localhost:8080/stocks/options
 Content-Type: application/json
 
-{
+[
+  {
+  "optionId": 5,
   "stock": 5
-}
-
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/3
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/4
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/5
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/6
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/7
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/8
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/9
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
+  }
+]
 ### 재고 수량 수정
 
-PATCH http://localhost:8080/stocks/1
+PATCH http://localhost:8080/stocks/options/1
 Content-Type: application/json
 
 {
-  "stock": 4
+  "stock": 10
 }
+
+### 제품 재고 추가
+
+POST http://localhost:8080/stocks/products
+Content-Type: application/json
+
+[
+{
+"productId": 3,
+"stock": 5
+}
+]

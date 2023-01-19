@@ -10,7 +10,7 @@
   <resultMap id="productResultMap" type="com.example.freshcart.product.domain.Product">
     <result column="single_type" property="singleType"/>
     <result column="category_id" property="categoryId"/>
-    <result column="seller_id " property="sellerId"/>
+    <result column="seller_id" property="sellerId"/>
     <result column="created_at" property="createdAt"/>
     <result column="updated_at" property="updatedAt"/>
   </resultMap>

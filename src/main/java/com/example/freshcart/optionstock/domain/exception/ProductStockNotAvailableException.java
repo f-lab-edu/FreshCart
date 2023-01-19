@@ -3,11 +3,11 @@ package com.example.freshcart.optionstock.domain.exception;
 import com.example.freshcart.global.exception.BaseException;
 import org.springframework.http.HttpStatus;
 
-public class OptionStockNotFoundException extends BaseException {
+public class ProductStockNotAvailableException extends BaseException {
 
-  private static final String message = "존재하지 않는 옵션 재고 입니다";
+  private static final String message = "제품의 재고가 부족합니다.";
 
-  public OptionStockNotFoundException() {
+  public ProductStockNotAvailableException() {
     super(HttpStatus.NOT_FOUND, message);
   }
 

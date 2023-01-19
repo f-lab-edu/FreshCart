@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OptionStockUpdateCommand {
+public class ProductStockUpdateCommand {
+
+  private Long productId;
   private int stock;
 }

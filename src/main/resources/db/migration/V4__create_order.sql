@@ -1,7 +1,7 @@
 create table `order`
 (
     id               int unsigned auto_increment,
-    user_id          int unsigned,
+    user_id          int unsigned not null,
     receiver_name    varchar(30)  not null,
     receiver_phone   varchar(11)  not null,
     receiver_address varchar(100) not null,
