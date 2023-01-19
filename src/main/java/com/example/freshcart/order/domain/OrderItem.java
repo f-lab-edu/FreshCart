@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,13 +27,19 @@ public class OrderItem {
   private Long orderId;
   private int count;
   @OneToMany
-  private List<OrderItemOption> orderItemOptions;
+  @JoinColumn(name="id")
+  private List<OrderItemOption> orderItemOption;
 
   public OrderItem(Long productId, int count,
-      List<OrderItemOption> orderItemOptions) {
+      List<OrderItemOption> orderItemOption) {
     this.productId = productId;
     this.count = count;
-    this.orderItemOptions = orderItemOptions;
+    this.orderItemOption = orderItemOption;
+  }
+
+  public OrderItem(Long productId, int count) {
+    this.productId = productId;
+    this.count = count;
   }
 
   public void setOrderId(Long id) {

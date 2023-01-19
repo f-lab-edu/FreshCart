@@ -4,15 +4,23 @@ import com.example.freshcart.authentication.application.LoginUser;
 import com.example.freshcart.optionstock.application.OptionStockManager;
 import com.example.freshcart.optionstock.domain.OptionStock;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
+import com.example.freshcart.optionstock.domain.ProductStock;
+import com.example.freshcart.optionstock.domain.ProductStockRepository;
 import com.example.freshcart.optionstock.domain.exception.OptionStockNotAvailableException;
 import com.example.freshcart.optionstock.domain.exception.OptionStockNotFoundException;
+import com.example.freshcart.optionstock.domain.exception.ProductStockNotAvailableException;
+import com.example.freshcart.optionstock.domain.exception.ProductStockNotFoundException;
 import com.example.freshcart.order.application.command.CartCommand;
+import com.example.freshcart.order.application.command.CartCommand.CartItemCommand;
+import com.example.freshcart.order.application.command.CartCommand.CartItemOptionCommand;
 import com.example.freshcart.order.domain.Order;
 import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.order.domain.OrderItemOption;
 import com.example.freshcart.order.domain.OrderItemOptionRepository;
 import com.example.freshcart.order.domain.OrderItemRepository;
 import com.example.freshcart.order.domain.OrderRepository;
+import com.example.freshcart.order.presentation.request.Cart.CartItem;
+import com.example.freshcart.order.presentation.request.Cart.CartItemOption;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,22 +41,40 @@ public class OrderRegisterProcessor {
   private final OrderItemRepository orderItemRepository;
   private final OrderItemOptionRepository orderItemOptionRepository;
   private final OptionStockRepository optionStockRepository;
+  private final ProductStockRepository productStockRepository;
 
   @Transactional
   public void place(LoginUser user, CartCommand cart) {
     Order order = cartToOrderMapper.mapFrom(user, cart);
     orderValidator.validate(order);
-    checkInventoryByOption(order.getOrderItemList()); // Inventory 별도 필요
+    checkInventoryByOption(order.getOrderItem()); // Inventory 별도 필요
     save(user, order);
   }
 
-  public void checkInventoryByOption(List<OrderItem> orderItemList) {
-    for (OrderItem item : orderItemList) {
+  public void checkInventoryByOption(List<OrderItem> orderItem) {
+    for (OrderItem item : orderItem) {
       int count = item.getCount();
-      List<OrderItemOption> orderItemOptionList = item.getOrderItemOptions();
-      for (OrderItemOption option : orderItemOptionList) {
-        checkInventory(option, count);
+      if (item.getOrderItemOption() == null) {
+        checkProductInventory(item, count);
       }
+      if (item.getOrderItemOption() != null) {
+        for (OrderItemOption option : item.getOrderItemOption()) {
+          checkInventory(option, count);
+        }
+      }
+    }
+  }
+
+  public void checkProductInventory(OrderItem item, int count) {
+    ProductStock productStock = productStockRepository.findByProductId(item.getProductId());
+    if (productStock == null) {
+      throw new ProductStockNotFoundException();
+    }
+    if(productStock.getStock() < count){
+      throw new ProductStockNotAvailableException();
+    }
+    else {
+      productStock.reduceStock(count);
     }
   }
 
@@ -67,12 +93,12 @@ public class OrderRegisterProcessor {
 
   public Order save(LoginUser user, Order order) {
     orderRepository.save(user, order);
-    for (OrderItem orderItem : order.getOrderItemList()) {
+    for (OrderItem orderItem : order.getOrderItem()) {
       orderItem.setOrderId(order.getId());
       orderItemRepository.save(orderItem);
       //option 이 없는 singleType일 경우 orderItemOptionGroups가 없다.
-      if (orderItem.getOrderItemOptions() != null) {
-        for (OrderItemOption orderItemOption : orderItem.getOrderItemOptions()) {
+      if (orderItem.getOrderItemOption() != null) {
+        for (OrderItemOption orderItemOption : orderItem.getOrderItemOption()) {
           orderItemOption.setOrderId(order.getId());
           orderItemOptionRepository.save(orderItemOption);
         }

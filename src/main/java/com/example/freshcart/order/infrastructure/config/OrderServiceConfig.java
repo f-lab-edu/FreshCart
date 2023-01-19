@@ -2,6 +2,7 @@ package com.example.freshcart.order.infrastructure.config;
 
 import com.example.freshcart.optionstock.application.OptionStockManager;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
+import com.example.freshcart.optionstock.domain.ProductStockRepository;
 import com.example.freshcart.order.application.CartToOrderMapper;
 import com.example.freshcart.order.application.OrderItemRegister;
 import com.example.freshcart.order.application.OrderManagerFacade;
@@ -42,7 +43,8 @@ public class OrderServiceConfig {
       OrderRepository orderRepository,
       OrderItemRepository orderItemRepository,
       OrderItemOptionRepository orderItemOptionRepository,
-      OptionStockRepository optionStockRepository) {
-    return new OrderRegisterProcessor(cartToOrderMapper, orderValidator, orderRepository, orderItemRepository,orderItemOptionRepository, optionStockRepository);
+      OptionStockRepository optionStockRepository,
+      ProductStockRepository productStockRepository) {
+    return new OrderRegisterProcessor(cartToOrderMapper, orderValidator, orderRepository, orderItemRepository,orderItemOptionRepository, optionStockRepository, productStockRepository);
   }
 }

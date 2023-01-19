@@ -76,6 +76,15 @@ Content-Type: application/json
   "stock": 10
 }
 
+### 재고 수량 수정
+
+PATCH http://localhost:8080/stocks/products/1
+Content-Type: application/json
+
+{
+  "stock": 10
+}
+
 ### 제품 재고 추가
 
 POST http://localhost:8080/stocks/products

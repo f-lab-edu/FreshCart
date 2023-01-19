@@ -17,7 +17,7 @@ create table order_item
 (
     id         bigint unsigned auto_increment,
     product_id int unsigned not null,
-    order_id   int unsigned,
+    order_id   int unsigned not null,
     name       varchar(80)  not null,
     price      int          not null,
     count      int          not null,
