@@ -1,9 +1,58 @@
 //재고 초기화 추가
+POST http://localhost:8080/stocks
+Content-Type: application/json
+
+[
+    {
+      "optionId": 1,
+      "stock": 10
+    },
+
+    {
+      "optionId": 2,
+      "stock": 10
+    },
+
+    {
+      "optionId": 3,
+      "stock": 10
+    },
+
+    {
+      "optionId": 4,
+      "stock": 10
+    },
+
+    {
+      "optionId": 5,
+      "stock": 10
+    },
+
+    {
+      "optionId": 6,
+      "stock": 10
+    },
+
+    {
+      "optionId": 7,
+      "stock": 10
+    },
+
+    {
+      "optionId": 8,
+      "stock": 10
+    }
+
+  ]
+
+
+
+###
 POST http://localhost:8080/stocks/1
 Content-Type: application/json
 
 {
-    "stock": 5
+  "stock": 5
 }
 
 ### 재고 초기화 추가
@@ -11,7 +60,7 @@ POST http://localhost:8080/stocks/2
 Content-Type: application/json
 
 {
-"stock": 5
+  "stock": 5
 }
 
 
@@ -77,5 +126,5 @@ PATCH http://localhost:8080/stocks/1
 Content-Type: application/json
 
 {
-    "stock": 4
+  "stock": 4
 }

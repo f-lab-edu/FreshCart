@@ -6,9 +6,11 @@ import com.example.freshcart.authentication.annotation.Authentication;
 import com.example.freshcart.authentication.annotation.LoginCheck;
 import com.example.freshcart.authentication.application.LoginUser;
 
+import static java.util.stream.Collectors.toList;
 import com.example.freshcart.optionstock.application.OptionStockManager;
 import com.example.freshcart.optionstock.presentation.request.OptionStockAddRequest;
 import com.example.freshcart.optionstock.presentation.request.OptionStockUpdateRequest;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,10 +37,10 @@ public class OptionStockController {
 
   @Authentication(authority = Role.SELLER)
   @LoginCheck
-  @PostMapping("/{optionId}")
-  public void addStock(@AuthenticatedUser LoginUser user, @PathVariable Long optionId,
-      @RequestBody OptionStockAddRequest request) {
-    optionStockManager.addInventory(user, optionId, request.toCommand());
+  @PostMapping
+  public void addStock(@AuthenticatedUser LoginUser user, @RequestBody List<OptionStockAddRequest> request) {
+    optionStockManager.addInventory(user, request.stream().map(OptionStockAddRequest::toCommand).collect(
+        toList()));
   }
 
   @Authentication(authority = Role.SELLER)

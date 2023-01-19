@@ -6,8 +6,13 @@ import com.example.freshcart.optionstock.application.command.OptionStockAddComma
 import com.example.freshcart.optionstock.application.command.OptionStockUpdateCommand;
 import com.example.freshcart.optionstock.domain.OptionStock;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
+import com.example.freshcart.optionstock.domain.exception.OptionStockExistsExcecption;
 import com.example.freshcart.product.domain.Option;
 import com.example.freshcart.product.domain.OptionRepository;
+import com.example.freshcart.user.application.command.SignupCommand;
+import com.example.freshcart.user.domain.User;
+import com.example.freshcart.user.domain.exception.EmailExistsException;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 
@@ -25,11 +30,19 @@ public class OptionStockManager {
     this.optionRepository = optionRepository;
   }
 
-  public void addInventory(LoginUser user, Long optionId, OptionStockAddCommand command) {
-    Option option = optionRepository.findById(optionId);
-    VerifyUserUtils.verifyOwner(user, option.getSellerId());
-    OptionStock optionStock = OptionStockAddCommand.of(user.getUserId(), optionId, command);
-    optionStockRepository.save(optionStock);
+  public void addInventory(LoginUser user, List<OptionStockAddCommand> commandList) {
+    for(OptionStockAddCommand command: commandList){
+      Long optionId = command.getOptionId();
+      if (optionStockRepository.findByOptionId(optionId) != null) {
+        throw new OptionStockExistsExcecption();
+      }
+      Option option = optionRepository.findById(command.getOptionId());
+      VerifyUserUtils.verifyOwner(user, option.getSellerId());
+      OptionStock optionStock = OptionStockAddCommand.of(user.getUserId(), optionId, command);
+      optionStockRepository.save(optionStock);
+    }
+      // 이메일 중복 체크
+
   }
 
   //판매자가 임의로 수량을 바꾸고 싶을 때
