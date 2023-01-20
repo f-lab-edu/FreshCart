@@ -1,6 +1,6 @@
 package com.example.freshcart.optionstock.infrastructure;
 
-import com.example.freshcart.optionstock.domain.JpaOptionStockRepository;
+import com.example.freshcart.optionstock.domain.jpa.JpaOptionStockRepository;
 import com.example.freshcart.optionstock.domain.OptionStock;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
 import com.example.freshcart.optionstock.domain.exception.OptionStockNotFoundException;
@@ -28,5 +28,10 @@ public class JpaOptionStockRepositoryAdaptor implements OptionStockRepository {
   public OptionStock findById(Long Id) {
     return jpaOptionStockRepository.findById(Id).orElseThrow(OptionStockNotFoundException::new);
 
+  }
+
+  @Override
+  public OptionStock findByProductIdWithPessimisticLock(Long optionId) {
+    return jpaOptionStockRepository.findByProductIdWithPessimisticLock(optionId);
   }
 }

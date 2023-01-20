@@ -8,4 +8,5 @@ public interface OptionStockRepository {
 
   OptionStock findById(Long Id);
 
+  OptionStock findByProductIdWithPessimisticLock(Long optionId);
 }

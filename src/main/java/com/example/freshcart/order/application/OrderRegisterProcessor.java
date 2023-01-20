@@ -1,7 +1,7 @@
 package com.example.freshcart.order.application;
 
 import com.example.freshcart.authentication.application.LoginUser;
-import com.example.freshcart.optionstock.application.OptionStockManager;
+import com.example.freshcart.optionstock.application.OrderStockProcessor;
 import com.example.freshcart.optionstock.domain.OptionStock;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
 import com.example.freshcart.optionstock.domain.ProductStock;
@@ -11,18 +11,15 @@ import com.example.freshcart.optionstock.domain.exception.OptionStockNotFoundExc
 import com.example.freshcart.optionstock.domain.exception.ProductStockNotAvailableException;
 import com.example.freshcart.optionstock.domain.exception.ProductStockNotFoundException;
 import com.example.freshcart.order.application.command.CartCommand;
-import com.example.freshcart.order.application.command.CartCommand.CartItemCommand;
-import com.example.freshcart.order.application.command.CartCommand.CartItemOptionCommand;
 import com.example.freshcart.order.domain.Order;
 import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.order.domain.OrderItemOption;
 import com.example.freshcart.order.domain.OrderItemOptionRepository;
 import com.example.freshcart.order.domain.OrderItemRepository;
 import com.example.freshcart.order.domain.OrderRepository;
-import com.example.freshcart.order.presentation.request.Cart.CartItem;
-import com.example.freshcart.order.presentation.request.Cart.CartItemOption;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -33,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @RequiredArgsConstructor
+@Service
 public class OrderRegisterProcessor {
 
   private final CartToOrderMapper cartToOrderMapper;
@@ -40,8 +38,7 @@ public class OrderRegisterProcessor {
   private final OrderRepository orderRepository;
   private final OrderItemRepository orderItemRepository;
   private final OrderItemOptionRepository orderItemOptionRepository;
-  private final OptionStockRepository optionStockRepository;
-  private final ProductStockRepository productStockRepository;
+  private final OrderStockProcessor orderStockProcessor;
 
   @Transactional
   public void place(LoginUser user, CartCommand cart) {
@@ -55,38 +52,13 @@ public class OrderRegisterProcessor {
     for (OrderItem item : orderItem) {
       int count = item.getCount();
       if (item.getOrderItemOption() == null) {
-        checkProductInventory(item, count);
+        orderStockProcessor.checkProductInventory(item, count);
       }
       if (item.getOrderItemOption() != null) {
         for (OrderItemOption option : item.getOrderItemOption()) {
-          checkInventory(option, count);
+          orderStockProcessor.checkInventory(option, count);
         }
       }
-    }
-  }
-
-  public void checkProductInventory(OrderItem item, int count) {
-    ProductStock productStock = productStockRepository.findByProductId(item.getProductId());
-    if (productStock == null) {
-      throw new ProductStockNotFoundException();
-    }
-    if(productStock.getStock() < count){
-      throw new ProductStockNotAvailableException();
-    }
-    else {
-      productStock.reduceStock(count);
-    }
-  }
-
-  public void checkInventory(OrderItemOption option, int count) {
-    OptionStock optionStock = optionStockRepository.findByOptionId(option.getOptionId());
-    if (optionStock == null) {
-      throw new OptionStockNotFoundException();
-    }
-    if (optionStock.getStock() < count) {
-      throw new OptionStockNotAvailableException();
-    } else {
-      optionStock.reduceStock(count);
     }
   }
 

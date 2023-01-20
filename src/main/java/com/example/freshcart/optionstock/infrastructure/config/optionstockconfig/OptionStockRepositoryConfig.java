@@ -1,7 +1,7 @@
 package com.example.freshcart.optionstock.infrastructure.config.optionstockconfig;
 
-import com.example.freshcart.optionstock.domain.JpaOptionStockRepository;
-import com.example.freshcart.optionstock.domain.JpaProductStockRepository;
+import com.example.freshcart.optionstock.domain.jpa.JpaOptionStockRepository;
+import com.example.freshcart.optionstock.domain.jpa.JpaProductStockRepository;
 import com.example.freshcart.optionstock.domain.OptionStockRepository;
 import com.example.freshcart.optionstock.domain.ProductStockRepository;
 import com.example.freshcart.optionstock.infrastructure.JpaOptionStockRepositoryAdaptor;

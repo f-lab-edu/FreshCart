@@ -1,6 +1,6 @@
 package com.example.freshcart.optionstock.infrastructure;
 
-import com.example.freshcart.optionstock.domain.JpaProductStockRepository;
+import com.example.freshcart.optionstock.domain.jpa.JpaProductStockRepository;
 import com.example.freshcart.optionstock.domain.ProductStock;
 import com.example.freshcart.optionstock.domain.ProductStockRepository;
 import com.example.freshcart.optionstock.domain.exception.ProductStockNotFoundException;
@@ -13,6 +13,11 @@ public class JpaProductStockRepositoryAdaptor implements ProductStockRepository 
   @Override
   public void save(ProductStock productStock) {
     jpaProductStockRepository.save(productStock);
+  }
+
+  @Override
+  public ProductStock findByProductIdWithPessimisticLock(Long productId) {
+    return jpaProductStockRepository.findByProductIdWithPessimisticLock(productId);
   }
 
   @Override
