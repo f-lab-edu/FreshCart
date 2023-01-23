@@ -5,42 +5,42 @@ Content-Type: application/json
 [
     {
       "optionId": 1,
-      "stock": 10
+      "quantity": 10
     },
 
     {
       "optionId": 2,
-      "stock": 10
+      "quantity": 10
     },
 
     {
       "optionId": 3,
-      "stock": 10
+      "quantity": 10
     },
 
     {
       "optionId": 4,
-      "stock": 10
+      "quantity": 10
     },
 
     {
       "optionId": 5,
-      "stock": 10
+      "quantity": 10
     },
 
     {
       "optionId": 6,
-      "stock": 10
+      "quantity": 10
     },
 
     {
       "optionId": 7,
-      "stock": 10
+      "quantity": 10
     },
 
     {
       "optionId": 8,
-      "stock": 10
+      "quantity": 10
     }
 
   ]
@@ -52,7 +52,7 @@ Content-Type: application/json
 [
   {
     "optionId": 9,
-    "stock": 5
+    "quantity": 5
   }
 ]
 
@@ -64,7 +64,7 @@ Content-Type: application/json
 [
   {
   "optionId": 5,
-  "stock": 5
+  "quantity": 5
   }
 ]
 ### 재고 수량 수정
@@ -73,7 +73,7 @@ PATCH http://localhost:8080/stocks/options/1
 Content-Type: application/json
 
 {
-  "stock": 10
+  "quantity": 10
 }
 
 ### 재고 수량 수정
@@ -82,7 +82,7 @@ PATCH http://localhost:8080/stocks/products/1
 Content-Type: application/json
 
 {
-  "stock": 10
+  "quantity": 10
 }
 
 ### 제품 재고 추가
@@ -93,6 +93,6 @@ Content-Type: application/json
 [
 {
 "productId": 3,
-"stock": 5
+"quantity": 5
 }
 ]

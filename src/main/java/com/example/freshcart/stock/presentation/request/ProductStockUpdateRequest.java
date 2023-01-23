@@ -1,6 +1,6 @@
-package com.example.freshcart.optionstock.presentation.request;
+package com.example.freshcart.stock.presentation.request;
 
-import com.example.freshcart.optionstock.application.command.ProductStockUpdateCommand;
+import com.example.freshcart.stock.application.command.ProductStockUpdateCommand;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductStockUpdateRequest {
   private Long productId;
-  private int stock;
+  private int quantity;
 
   public ProductStockUpdateCommand toCommand(){
-    return new ProductStockUpdateCommand(this.productId, this.stock);
+    return new ProductStockUpdateCommand(this.productId, this.quantity);
   }
 }

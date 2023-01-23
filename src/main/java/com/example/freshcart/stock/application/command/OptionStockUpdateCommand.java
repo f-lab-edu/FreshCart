@@ -1,4 +1,4 @@
-package com.example.freshcart.optionstock.application.command;
+package com.example.freshcart.stock.application.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OptionStockUpdateCommand {
-  private int stock;
+  private int quantity;
 }

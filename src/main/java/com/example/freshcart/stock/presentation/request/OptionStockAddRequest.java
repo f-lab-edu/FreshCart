@@ -1,6 +1,6 @@
-package com.example.freshcart.optionstock.presentation.request;
+package com.example.freshcart.stock.presentation.request;
 
-import com.example.freshcart.optionstock.application.command.OptionStockAddCommand;
+import com.example.freshcart.stock.application.command.OptionStockAddCommand;
 import javax.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +14,9 @@ public class OptionStockAddRequest {
   private Long optionId;
 
   @Positive(message = "재고 수량은 최소 0 개 이상 입니다 ")
-  private int stock;
+  private int quantity;
 
   public OptionStockAddCommand toCommand() {
-    return new OptionStockAddCommand(this.optionId, this.stock);
+    return new OptionStockAddCommand(this.optionId, this.quantity);
   }
 }

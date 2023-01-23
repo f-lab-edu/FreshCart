@@ -1,7 +1,6 @@
-package com.example.freshcart.optionstock.domain;
+package com.example.freshcart.stock.domain;
 
 import com.example.freshcart.global.domain.Timestamped;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,23 +21,23 @@ public class OptionStock extends Timestamped {
 
   private Long optionId;
 
-  private int stock;
+  private int quantity;
 
   private Long sellerId;
 
 
-  public OptionStock(Long sellerId, Long optionId, int stock) {
+  public OptionStock(Long sellerId, Long optionId, int quantity) {
     this.sellerId = sellerId;
     this.optionId = optionId;
-    this.stock = stock;
+    this.quantity = quantity;
   }
 
-  public void changeStock(int stock) {
-    this.stock = stock;
+  public void changeStock(int quantity) {
+    this.quantity = quantity;
   }
 
-  public void reduceStock(int stock) {
-    this.stock -= stock;
+  public void reduceStock(int quantity) {
+    this.quantity -= quantity;
 
   }
 }

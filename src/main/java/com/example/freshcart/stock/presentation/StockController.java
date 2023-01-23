@@ -1,4 +1,4 @@
-package com.example.freshcart.optionstock.presentation;
+package com.example.freshcart.stock.presentation;
 
 import com.example.freshcart.authentication.Role;
 import com.example.freshcart.authentication.annotation.AuthenticatedUser;
@@ -7,11 +7,11 @@ import com.example.freshcart.authentication.annotation.LoginCheck;
 import com.example.freshcart.authentication.application.LoginUser;
 
 import static java.util.stream.Collectors.toList;
-import com.example.freshcart.optionstock.application.OptionStockManager;
-import com.example.freshcart.optionstock.presentation.request.OptionStockAddRequest;
-import com.example.freshcart.optionstock.presentation.request.OptionStockUpdateRequest;
-import com.example.freshcart.optionstock.presentation.request.ProductStockAddRequest;
-import com.example.freshcart.optionstock.presentation.request.ProductStockUpdateRequest;
+import com.example.freshcart.stock.application.StockManager;
+import com.example.freshcart.stock.presentation.request.OptionStockAddRequest;
+import com.example.freshcart.stock.presentation.request.OptionStockUpdateRequest;
+import com.example.freshcart.stock.presentation.request.ProductStockAddRequest;
+import com.example.freshcart.stock.presentation.request.ProductStockUpdateRequest;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,18 +30,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/stocks")
 public class StockController {
 
-  private final OptionStockManager optionStockManager;
+  private final StockManager stockManager;
 
   public StockController(
-      OptionStockManager optionStockManager) {
-    this.optionStockManager = optionStockManager;
+      StockManager stockManager) {
+    this.stockManager = stockManager;
   }
 
   @Authentication(authority = Role.SELLER)
   @LoginCheck
   @PostMapping("/products")
   public void addProductStock(@AuthenticatedUser LoginUser user, @RequestBody List<ProductStockAddRequest> request) {
-    optionStockManager.addProductInventory(user, request.stream().map(ProductStockAddRequest::toCommand).collect(
+    stockManager.addProductInventory(user, request.stream().map(ProductStockAddRequest::toCommand).collect(
         toList()));
   }
 
@@ -50,14 +50,14 @@ public class StockController {
   @PatchMapping("/products/{productStockId}")
   public void changeProductStock(@AuthenticatedUser LoginUser user, @PathVariable Long productStockId,
       @RequestBody ProductStockUpdateRequest request) {
-    optionStockManager.updateProductInventory(user, productStockId, request.toCommand());
+    stockManager.updateProductInventory(user, productStockId, request.toCommand());
   }
 
   @Authentication(authority = Role.SELLER)
   @LoginCheck
   @PostMapping("/options")
   public void addOptionStock(@AuthenticatedUser LoginUser user, @RequestBody List<OptionStockAddRequest> request) {
-    optionStockManager.addInventory(user, request.stream().map(OptionStockAddRequest::toCommand).collect(toList()));
+    stockManager.addInventory(user, request.stream().map(OptionStockAddRequest::toCommand).collect(toList()));
   }
 
   @Authentication(authority = Role.SELLER)
@@ -65,6 +65,6 @@ public class StockController {
   @PatchMapping("/options/{optionStockId}")
   public void changeOptionStock(@AuthenticatedUser LoginUser user, @PathVariable Long optionStockId,
       @RequestBody OptionStockUpdateRequest request) {
-    optionStockManager.updateInventory(user, optionStockId, request.toCommand());
+    stockManager.updateInventory(user, optionStockId, request.toCommand());
   }
 }

@@ -1,32 +1,30 @@
-package com.example.freshcart.optionstock.application;
+package com.example.freshcart.stock.application;
 
 import com.example.freshcart.authentication.application.LoginUser;
 import com.example.freshcart.global.utils.VerifyUserUtils;
-import com.example.freshcart.optionstock.application.command.OptionStockAddCommand;
-import com.example.freshcart.optionstock.application.command.OptionStockUpdateCommand;
-import com.example.freshcart.optionstock.application.command.ProductStockAddCommand;
-import com.example.freshcart.optionstock.application.command.ProductStockUpdateCommand;
-import com.example.freshcart.optionstock.domain.OptionStock;
-import com.example.freshcart.optionstock.domain.OptionStockRepository;
-import com.example.freshcart.optionstock.domain.ProductStock;
-import com.example.freshcart.optionstock.domain.ProductStockRepository;
-import com.example.freshcart.optionstock.domain.exception.OptionStockExistsExcecption;
-import com.example.freshcart.optionstock.domain.exception.ProductStockExistsExcecption;
+import com.example.freshcart.stock.application.command.OptionStockAddCommand;
+import com.example.freshcart.stock.application.command.OptionStockUpdateCommand;
+import com.example.freshcart.stock.application.command.ProductStockAddCommand;
+import com.example.freshcart.stock.application.command.ProductStockUpdateCommand;
+import com.example.freshcart.stock.domain.OptionStock;
+import com.example.freshcart.stock.domain.OptionStockRepository;
+import com.example.freshcart.stock.domain.ProductStock;
+import com.example.freshcart.stock.domain.ProductStockRepository;
+import com.example.freshcart.stock.domain.exception.OptionStockExistsExcecption;
+import com.example.freshcart.stock.domain.exception.ProductStockExistsExcecption;
 import com.example.freshcart.product.domain.Option;
 import com.example.freshcart.product.domain.OptionRepository;
 import com.example.freshcart.product.domain.Product;
 import com.example.freshcart.product.domain.ProductRepository;
-import com.example.freshcart.user.application.command.SignupCommand;
-import com.example.freshcart.user.domain.User;
-import com.example.freshcart.user.domain.exception.EmailExistsException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
-@Service
+@Slf4j
 @RequiredArgsConstructor
-public class OptionStockManager {
+public class StockManager {
 
   private final OptionStockRepository optionStockRepository;
   private final OptionRepository optionRepository;
@@ -52,7 +50,7 @@ public class OptionStockManager {
       ProductStockUpdateCommand command) {
     ProductStock productStock = productStockRepository.findById(productStockId);
     VerifyUserUtils.verifyOwner(user, productStock.getSellerId());
-    productStock.changeStock(command.getStock());
+    productStock.changeStock(command.getQuantity());
     productStockRepository.save(productStock);
   }
 
@@ -75,7 +73,7 @@ public class OptionStockManager {
       OptionStockUpdateCommand command) {
     OptionStock optionStock = optionStockRepository.findById(optionStockId);
     VerifyUserUtils.verifyOwner(user, optionStock.getSellerId());
-    optionStock.changeStock(command.getStock());
+    optionStock.changeStock(command.getQuantity());
     optionStockRepository.save(optionStock);
   }
 

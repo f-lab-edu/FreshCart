@@ -1,4 +1,4 @@
-package com.example.freshcart.optionstock.domain;
+package com.example.freshcart.stock.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,20 +17,20 @@ public class ProductStock {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private Long productId;
-  private int stock;
+  private int quantity;
   private Long sellerId;
 
-  public ProductStock(Long productId, int stock, Long sellerId) {
+  public ProductStock(Long productId, int quantity, Long sellerId) {
     this.productId = productId;
-    this.stock = stock;
+    this.quantity = quantity;
     this.sellerId = sellerId;
   }
 
-  public void changeStock(int stock) {
-    this.stock = stock;
+  public void changeStock(int quantity) {
+    this.quantity = quantity;
   }
 
-  public void reduceStock(int stock) {
-    this.stock -= stock;
+  public void reduceStock(int quantity) {
+    this.quantity -= quantity;
   }
 }
