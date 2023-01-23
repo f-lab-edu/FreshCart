@@ -1,6 +1,6 @@
-package com.example.freshcart.optionstock.domain.jpa;
+package com.example.freshcart.stock.infrastructure.jpa;
 
-import com.example.freshcart.optionstock.domain.ProductStock;
+import com.example.freshcart.stock.domain.ProductStock;
 import java.util.Optional;
 import javax.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;

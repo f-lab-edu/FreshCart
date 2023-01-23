@@ -1,5 +1,5 @@
-package com.example.freshcart.optionstock.domain.jpa;
-import com.example.freshcart.optionstock.domain.OptionStock;
+package com.example.freshcart.stock.infrastructure.jpa;
+import com.example.freshcart.stock.domain.OptionStock;
 import java.util.Optional;
 import javax.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +10,9 @@ public interface JpaOptionStockRepository extends JpaRepository<OptionStock, Lon
 
   OptionStock findByOptionId(Long optionId);
   Optional<OptionStock> findById(Long Id);
+
   @Lock(value = LockModeType.PESSIMISTIC_WRITE)
   @Query("select o from OptionStock o where o.id = :optionId")
-  OptionStock findByProductIdWithPessimisticLock(Long optionId);
+  OptionStock findByOptionIdWithPessimisticLock(Long optionId);
+
 }

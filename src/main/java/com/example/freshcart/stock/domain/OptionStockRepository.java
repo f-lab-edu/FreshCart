@@ -1,4 +1,4 @@
-package com.example.freshcart.optionstock.domain;
+package com.example.freshcart.stock.domain;
 
 public interface OptionStockRepository {
 
@@ -8,5 +8,7 @@ public interface OptionStockRepository {
 
   OptionStock findById(Long Id);
 
-  OptionStock findByProductIdWithPessimisticLock(Long optionId);
+  OptionStock findByOptionIdWithPessimisticLock(Long optionId);
+
+  void deleteAll();
 }

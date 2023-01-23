@@ -1,13 +1,14 @@
-package com.example.freshcart.optionstock.infrastructure;
+package com.example.freshcart.stock.infrastructure;
 
-import com.example.freshcart.optionstock.domain.jpa.JpaProductStockRepository;
-import com.example.freshcart.optionstock.domain.ProductStock;
-import com.example.freshcart.optionstock.domain.ProductStockRepository;
-import com.example.freshcart.optionstock.domain.exception.ProductStockNotFoundException;
+import com.example.freshcart.stock.domain.ProductStock;
+import com.example.freshcart.stock.domain.ProductStockRepository;
+import com.example.freshcart.stock.domain.exception.ProductStockNotFoundException;
+import com.example.freshcart.stock.infrastructure.jpa.JpaProductStockRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class JpaProductStockRepositoryAdaptor implements ProductStockRepository {
+
   private final JpaProductStockRepository jpaProductStockRepository;
 
   @Override
@@ -29,5 +30,15 @@ public class JpaProductStockRepositoryAdaptor implements ProductStockRepository 
   public ProductStock findById(Long productStockId) {
     return jpaProductStockRepository.findById(productStockId).orElseThrow(
         ProductStockNotFoundException::new);
+  }
+
+  @Override
+  public void deleteAll() {
+
+  }
+
+  @Override
+  public ProductStock saveAndFlush(ProductStock stock) {
+    return jpaProductStockRepository.saveAndFlush(stock);
   }
 }

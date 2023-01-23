@@ -1,12 +1,12 @@
-package com.example.freshcart.optionstock.domain;
-
-import com.example.freshcart.product.domain.Product;
+package com.example.freshcart.stock.domain;
 
 public interface ProductStockRepository {
-  void save(ProductStock productStock);
   ProductStock findByProductIdWithPessimisticLock(Long productId);
-
   ProductStock findByProductId(Long productId);
-  ProductStock findById(Long productStockId);
 
+  void save(ProductStock productStock);
+  ProductStock findById(Long productStockId);
+  void deleteAll();
+
+  ProductStock saveAndFlush(ProductStock stock);
 }

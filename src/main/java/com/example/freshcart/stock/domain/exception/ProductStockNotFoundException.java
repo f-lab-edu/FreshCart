@@ -1,4 +1,4 @@
-package com.example.freshcart.optionstock.domain.exception;
+package com.example.freshcart.stock.domain.exception;
 
 import com.example.freshcart.global.exception.BaseException;
 import org.springframework.http.HttpStatus;
