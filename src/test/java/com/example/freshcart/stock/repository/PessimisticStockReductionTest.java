@@ -1,6 +1,5 @@
 package com.example.freshcart.stock.repository;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.freshcart.config.TestRedisConfig;
@@ -8,7 +7,7 @@ import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.stock.application.StockReductionStrategy;
 import com.example.freshcart.stock.domain.ProductStock;
 import com.example.freshcart.stock.domain.ProductStockRepository;
-
+import com.example.freshcart.stock.infrastructure.PessimisticStockReduction;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -24,12 +23,12 @@ import org.springframework.transaction.TransactionStatus;
 
 
 @SpringBootTest(classes = TestRedisConfig.class)
-public class GeneralStockReductionTest {
+public class PessimisticStockReductionTest {
 
   @Autowired
   private ProductStockRepository productStockRepository;
   @Autowired
-  private StockReductionStrategy stockReductionStrategy;
+  private PessimisticStockReduction stockReductionStrategy;
 
   @Autowired
   protected PlatformTransactionManager transactionManager;
@@ -41,8 +40,6 @@ public class GeneralStockReductionTest {
   public void init(){
     productStockRepository.save(new ProductStock(1L, 100, 1L));
     orderItem = new OrderItem(1L, 1);
-//    orderList = new ArrayList<>();
-//    orderList.add(orderItem);
   }
   @AfterEach
   public void after(){
@@ -66,7 +63,7 @@ public class GeneralStockReductionTest {
   }
 
   @Test
-  @DisplayName(("동시성이 보장되지 않는 코드이므로, 실패함"))
+  @DisplayName(("동시에 100개 요청"))
   public void 동시에_100개_요청() throws InterruptedException {
     int threadCount = 100;
     //비동기로 실행하는 작업 단순화하여 실행할 수 있게 도와주는 API
