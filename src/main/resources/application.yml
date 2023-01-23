@@ -23,5 +23,4 @@ mybatis:
   jpa:
     properties:
       hibernate:
-        show_sql: true
-        ddl-auto: create
+
