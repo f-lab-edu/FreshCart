@@ -1,15 +1,7 @@
 package com.example.freshcart.order.application;
 
 import com.example.freshcart.authentication.application.LoginUser;
-import com.example.freshcart.optionstock.application.OrderStockProcessor;
-import com.example.freshcart.optionstock.domain.OptionStock;
-import com.example.freshcart.optionstock.domain.OptionStockRepository;
-import com.example.freshcart.optionstock.domain.ProductStock;
-import com.example.freshcart.optionstock.domain.ProductStockRepository;
-import com.example.freshcart.optionstock.domain.exception.OptionStockNotAvailableException;
-import com.example.freshcart.optionstock.domain.exception.OptionStockNotFoundException;
-import com.example.freshcart.optionstock.domain.exception.ProductStockNotAvailableException;
-import com.example.freshcart.optionstock.domain.exception.ProductStockNotFoundException;
+import com.example.freshcart.stock.application.StockReduceProcessor;
 import com.example.freshcart.order.application.command.CartCommand;
 import com.example.freshcart.order.domain.Order;
 import com.example.freshcart.order.domain.OrderItem;
@@ -37,30 +29,19 @@ public class OrderRegisterProcessor {
   private final OrderValidator orderValidator;
   private final OrderRepository orderRepository;
   private final OrderItemRepository orderItemRepository;
+  private final StockReduceProcessor stockReduceProcessor;
   private final OrderItemOptionRepository orderItemOptionRepository;
-  private final OrderStockProcessor orderStockProcessor;
+
 
   @Transactional
   public void place(LoginUser user, CartCommand cart) {
     Order order = cartToOrderMapper.mapFrom(user, cart);
     orderValidator.validate(order);
-    checkInventoryByOption(order.getOrderItem()); // Inventory 별도 필요
+    stockReduceProcessor.reduceInventory(order.getOrderItem()); // Inventory 별도 필요
     save(user, order);
   }
 
-  public void checkInventoryByOption(List<OrderItem> orderItem) {
-    for (OrderItem item : orderItem) {
-      int count = item.getCount();
-      if (item.getOrderItemOption() == null) {
-        orderStockProcessor.checkProductInventory(item, count);
-      }
-      if (item.getOrderItemOption() != null) {
-        for (OrderItemOption option : item.getOrderItemOption()) {
-          orderStockProcessor.checkInventory(option, count);
-        }
-      }
-    }
-  }
+
 
 
   public Order save(LoginUser user, Order order) {
