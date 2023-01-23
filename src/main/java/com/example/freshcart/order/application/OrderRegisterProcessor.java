@@ -1,11 +1,7 @@
 package com.example.freshcart.order.application;
 
 import com.example.freshcart.authentication.application.LoginUser;
-import com.example.freshcart.optionstock.application.OptionStockManager;
-import com.example.freshcart.optionstock.domain.OptionStock;
-import com.example.freshcart.optionstock.domain.OptionStockRepository;
-import com.example.freshcart.optionstock.domain.exception.OptionStockNotAvailableException;
-import com.example.freshcart.optionstock.domain.exception.OptionStockNotFoundException;
+import com.example.freshcart.stock.application.StockReduceProcessor;
 import com.example.freshcart.order.application.command.CartCommand;
 import com.example.freshcart.order.domain.Order;
 import com.example.freshcart.order.domain.OrderItem;
@@ -15,6 +11,7 @@ import com.example.freshcart.order.domain.OrderItemRepository;
 import com.example.freshcart.order.domain.OrderRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -25,54 +22,36 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @RequiredArgsConstructor
+@Service
 public class OrderRegisterProcessor {
 
   private final CartToOrderMapper cartToOrderMapper;
   private final OrderValidator orderValidator;
   private final OrderRepository orderRepository;
   private final OrderItemRepository orderItemRepository;
+  private final StockReduceProcessor stockReduceProcessor;
   private final OrderItemOptionRepository orderItemOptionRepository;
-  private final OptionStockRepository optionStockRepository;
+
 
   @Transactional
   public void place(LoginUser user, CartCommand cart) {
     Order order = cartToOrderMapper.mapFrom(user, cart);
     orderValidator.validate(order);
-    checkInventoryByOption(order.getOrderItemList()); // Inventory 별도 필요
+    stockReduceProcessor.reduceInventory(order.getOrderItem()); // Inventory 별도 필요
     save(user, order);
   }
 
-  public void checkInventoryByOption(List<OrderItem> orderItemList) {
-    for (OrderItem item : orderItemList) {
-      int count = item.getCount();
-      List<OrderItemOption> orderItemOptionList = item.getOrderItemOptions();
-      for (OrderItemOption option : orderItemOptionList) {
-        checkInventory(option, count);
-      }
-    }
-  }
 
-  public void checkInventory(OrderItemOption option, int count) {
-    OptionStock optionStock = optionStockRepository.findByOptionId(option.getOptionId());
-    if (optionStock == null) {
-      throw new OptionStockNotFoundException();
-    }
-    if (optionStock.getStock() < count) {
-      throw new OptionStockNotAvailableException();
-    } else {
-      optionStock.reduceStock(count);
-    }
-  }
 
 
   public Order save(LoginUser user, Order order) {
     orderRepository.save(user, order);
-    for (OrderItem orderItem : order.getOrderItemList()) {
+    for (OrderItem orderItem : order.getOrderItem()) {
       orderItem.setOrderId(order.getId());
       orderItemRepository.save(orderItem);
       //option 이 없는 singleType일 경우 orderItemOptionGroups가 없다.
-      if (orderItem.getOrderItemOptions() != null) {
-        for (OrderItemOption orderItemOption : orderItem.getOrderItemOptions()) {
+      if (orderItem.getOrderItemOption() != null) {
+        for (OrderItemOption orderItemOption : orderItem.getOrderItemOption()) {
           orderItemOption.setOrderId(order.getId());
           orderItemOptionRepository.save(orderItemOption);
         }

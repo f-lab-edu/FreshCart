@@ -24,16 +24,19 @@ public class CartToOrderMapper {
         OrderStatus.ORDER_CREATED,
         cart.getCartItems().stream().map(this::toOrderItem)
             .collect(toList()));
-
   }
 
   public OrderItem toOrderItem(CartCommand.CartItemCommand cartItem) {
-    return new OrderItem(cartItem.getProductId(),
-        cartItem.getCount(),
-        cartItem.getGroups().stream().map(this::toOrderItemOption).collect(toList())
-    );
+    if (cartItem.getGroups() == null) {
+      return new OrderItem(cartItem.getProductId(),
+          cartItem.getCount());
+    } else  {
+      return new OrderItem(cartItem.getProductId(),
+          cartItem.getCount(),
+          cartItem.getGroups().stream().map(this::toOrderItemOption).collect(toList())
+      );
+    }
   }
-
 
   public OrderItemOption toOrderItemOption(CartCommand.CartItemOptionCommand cartItemOption) {
     return new OrderItemOption(cartItemOption.getOptionId());

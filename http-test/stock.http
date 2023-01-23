@@ -1,81 +1,98 @@
 //재고 초기화 추가
-POST http://localhost:8080/stocks/1
+POST http://localhost:8080/stocks/options
+Content-Type: application/json
+
+[
+    {
+      "optionId": 1,
+      "quantity": 10
+    },
+
+    {
+      "optionId": 2,
+      "quantity": 10
+    },
+
+    {
+      "optionId": 3,
+      "quantity": 10
+    },
+
+    {
+      "optionId": 4,
+      "quantity": 10
+    },
+
+    {
+      "optionId": 5,
+      "quantity": 10
+    },
+
+    {
+      "optionId": 6,
+      "quantity": 10
+    },
+
+    {
+      "optionId": 7,
+      "quantity": 10
+    },
+
+    {
+      "optionId": 8,
+      "quantity": 10
+    }
+
+  ]
+
+### 빠진것 추가
+POST http://localhost:8080/stocks/options
+Content-Type: application/json
+
+[
+  {
+    "optionId": 9,
+    "quantity": 5
+  }
+]
+
+
+###실패해야 함 - 중복 재고
+POST http://localhost:8080/stocks/options
+Content-Type: application/json
+
+[
+  {
+  "optionId": 5,
+  "quantity": 5
+  }
+]
+### 재고 수량 수정
+
+PATCH http://localhost:8080/stocks/options/1
 Content-Type: application/json
 
 {
-    "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/2
-Content-Type: application/json
-
-{
-"stock": 5
-}
-
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/3
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/4
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/5
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/6
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/7
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/8
-Content-Type: application/json
-
-{
-  "stock": 5
-}
-
-### 재고 초기화 추가
-POST http://localhost:8080/stocks/9
-Content-Type: application/json
-
-{
-  "stock": 5
+  "quantity": 10
 }
 
 ### 재고 수량 수정
 
-PATCH http://localhost:8080/stocks/1
+PATCH http://localhost:8080/stocks/products/1
 Content-Type: application/json
 
 {
-    "stock": 4
+  "quantity": 10
 }
+
+### 제품 재고 추가
+
+POST http://localhost:8080/stocks/products
+Content-Type: application/json
+
+[
+{
+"productId": 3,
+"quantity": 5
+}
+]

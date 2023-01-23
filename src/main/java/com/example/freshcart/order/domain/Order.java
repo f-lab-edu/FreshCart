@@ -3,11 +3,14 @@ package com.example.freshcart.order.domain;
 import com.example.freshcart.global.domain.Timestamped;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -15,7 +18,7 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table
+@Table(name = "\"order\"")
 @Getter
 @NoArgsConstructor
 public class Order extends Timestamped {
@@ -32,20 +35,20 @@ public class Order extends Timestamped {
   private String receiverAddress;
   @Enumerated
   private OrderStatus orderStatus;
-
   @OneToMany
-  private List<OrderItem> orderItemList;
+  @JoinColumn(name="id")
+  private List<OrderItem> orderItem;
 
 
   public Order(Long userId, String receiverName, String receiverPhone,
       String receiverAddress, OrderStatus orderStatus,
-      List<OrderItem> orderItemList) {
+      List<OrderItem> orderItem) {
     this.userId = userId;
     this.receiverName = receiverName;
     this.receiverPhone = receiverPhone;
     this.receiverAddress = receiverAddress;
     this.orderStatus = orderStatus;
-    this.orderItemList = orderItemList;
+    this.orderItem = orderItem;
   }
 
   public enum OrderStatus {

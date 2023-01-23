@@ -1,6 +1,7 @@
 package com.example.freshcart.order.application.command;
 
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
 
 /**
@@ -37,11 +38,17 @@ public class CartCommand {
     private int count;
     private List<CartItemOptionCommand> groups;
 
+    @Builder
     public CartItemCommand(Long productId, int count,
         List<CartItemOptionCommand> groups) {
       this.productId = productId;
       this.count = count;
       this.groups = groups;
+    }
+
+    public CartItemCommand(Long productId, int count) {
+      this.productId = productId;
+      this.count = count;
     }
   }
 

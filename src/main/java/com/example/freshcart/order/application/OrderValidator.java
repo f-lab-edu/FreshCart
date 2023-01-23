@@ -20,7 +20,7 @@ public class OrderValidator {
    * Order가 비어있는지 확인한다.
    */
   public boolean validate(Order order) {
-    if (order.getOrderItemList().isEmpty()) {
+    if (order.getOrderItem().isEmpty()) {
       throw new IllegalArgumentException("주문할 제품을 담아주세요.");
     }
     return true;

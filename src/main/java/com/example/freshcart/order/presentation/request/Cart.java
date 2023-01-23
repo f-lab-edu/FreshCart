@@ -46,6 +46,7 @@ public class Cart {
   @Getter
   @NoArgsConstructor
   public static class CartItem {
+
     private Long productId;
     private int count;
     private List<CartItemOption> groups;
@@ -59,11 +60,14 @@ public class Cart {
     }
 
     public CartItemCommand toCartItemCommand() {
-      return new CartItemCommand(this.productId, this.count,
-          this.groups.stream().map(CartItemOption::toCartItemOptionCommand)
-              .collect(toList()));
+      if (groups == null) {
+        return new CartItemCommand(this.productId, this.count);
+      } else {
+        return new CartItemCommand(this.productId, this.count,
+            this.groups.stream().map(CartItemOption::toCartItemOptionCommand)
+                .collect(toList()));
+      }
     }
-
   }
 
 
