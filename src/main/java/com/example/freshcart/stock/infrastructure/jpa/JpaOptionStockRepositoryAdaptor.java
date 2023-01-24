@@ -1,4 +1,4 @@
-package com.example.freshcart.stock.infrastructure;
+package com.example.freshcart.stock.infrastructure.jpa;
 
 import com.example.freshcart.stock.infrastructure.jpa.JpaOptionStockRepository;
 import com.example.freshcart.stock.domain.OptionStock;

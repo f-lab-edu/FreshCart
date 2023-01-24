@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,9 @@ public class ProductStock {
   private Long productId;
   private int quantity;
   private Long sellerId;
+  @Version
+  private Long version;
+
 
   public ProductStock(Long productId, int quantity, Long sellerId) {
     this.productId = productId;

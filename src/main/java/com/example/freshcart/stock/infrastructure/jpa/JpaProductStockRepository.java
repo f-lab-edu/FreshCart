@@ -9,11 +9,15 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface JpaProductStockRepository extends JpaRepository<ProductStock, Long> {
 
+  @Lock(value = LockModeType.OPTIMISTIC)
+  @Query("select p from ProductStock p where p.id = :productId")
+  ProductStock findByProductIdWithOptimisticLock(Long productId);
+
   @Lock(value = LockModeType.PESSIMISTIC_WRITE)
   @Query("select p from ProductStock p where p.id = :productId")
   ProductStock findByProductIdWithPessimisticLock(Long productId);
 
   ProductStock findByProductId(Long productId);
-
   Optional<ProductStock> findById(Long productStockId);
+
 }

@@ -1,4 +1,4 @@
-package com.example.freshcart.stock.infrastructure;
+package com.example.freshcart.stock.infrastructure.jpa;
 
 import com.example.freshcart.stock.domain.ProductStock;
 import com.example.freshcart.stock.domain.ProductStockRepository;
@@ -19,6 +19,11 @@ public class JpaProductStockRepositoryAdaptor implements ProductStockRepository 
   @Override
   public ProductStock findByProductIdWithPessimisticLock(Long productId) {
     return jpaProductStockRepository.findByProductIdWithPessimisticLock(productId);
+  }
+
+  @Override
+  public ProductStock findByProductIdWithOptimisticLock(Long productId) {
+    return jpaProductStockRepository.findByProductIdWithOptimisticLock(productId);
   }
 
   @Override
