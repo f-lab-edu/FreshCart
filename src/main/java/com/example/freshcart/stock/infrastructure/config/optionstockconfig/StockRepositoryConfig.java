@@ -30,8 +30,8 @@ public class StockRepositoryConfig {
   @Bean
   public StockReductionStrategy stockReductionStrategy(OptionStockRepository optionStockRepository, ProductStockRepository productStockRepository){
 //    return new GeneralStockReduction(optionStockRepository, productStockRepository);
-//    return new PessimisticLockStockReduction(optionStockRepository, productStockRepository);
-    return new OptimisticLockStockReduction(optionStockRepository, productStockRepository);
+    return new PessimisticLockStockReduction(optionStockRepository, productStockRepository);
+//    return new OptimisticLockStockReduction(optionStockRepository, productStockRepository);
 
   }
 }

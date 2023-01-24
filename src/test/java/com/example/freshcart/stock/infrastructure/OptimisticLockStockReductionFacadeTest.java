@@ -27,13 +27,10 @@ class OptimisticLockStockReductionFacadeTest {
   private ProductStockRepository productStockRepository;
   @Autowired
   private OptimisticStockReductionFacade optimisticStockReductionFacade;
-
-
   @Autowired
   protected PlatformTransactionManager transactionManager;
 
   OrderItem orderItem;
-  List<OrderItem> orderList;
 
   @BeforeEach
   public void init(){
@@ -79,17 +76,7 @@ class OptimisticLockStockReductionFacadeTest {
         latch.countDown();
       }
     }));
-//    for (int i=0;i<threadCount;i++){
-//      executorService.submit(()->{
-//        try{
-//          optimisticStockReductionFacade.reduceProductInventory(orderItem, 1);
-//        } catch(InterruptedException e) {
-//          throw new RuntimeException(e);
-//        }finally {
-//          latch.countDown();
-//        }
-//      });
-//    }
+
     latch.await();
 
     ProductStock stock = productStockRepository.findByProductId(1L);
