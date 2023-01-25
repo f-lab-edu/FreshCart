@@ -10,7 +10,7 @@ import org.springframework.transaction.TransactionStatus;
 public class OptimisticLockStockFacade {
 
   private StockReductionStrategy optimisticLockStockReduction;
-  protected PlatformTransactionManager transactionManager;
+  private PlatformTransactionManager transactionManager;
 
   public OptimisticLockStockFacade(
       StockReductionStrategy optimisticLockStockReduction,

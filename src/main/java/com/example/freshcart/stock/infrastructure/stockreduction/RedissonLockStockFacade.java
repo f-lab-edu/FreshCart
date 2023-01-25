@@ -15,7 +15,7 @@ public class RedissonLockStockFacade {
 
   private RedissonClient redissonClient;
   private StockReductionStrategy generalStockReduction;
-  protected PlatformTransactionManager transactionManager;
+  private PlatformTransactionManager transactionManager;
 
   public RedissonLockStockFacade(RedissonClient redissonClient,
       StockReductionStrategy generalStockReduction,
