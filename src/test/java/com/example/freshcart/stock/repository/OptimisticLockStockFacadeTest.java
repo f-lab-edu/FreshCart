@@ -1,14 +1,12 @@
 package com.example.freshcart.stock.repository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.freshcart.config.TestRedisConfig;
 import com.example.freshcart.order.domain.OrderItem;
-import com.example.freshcart.stock.application.StockReductionStrategy;
 import com.example.freshcart.stock.domain.ProductStock;
 import com.example.freshcart.stock.domain.ProductStockRepository;
-import com.example.freshcart.stock.infrastructure.PessimisticLockStockReduction;
-import java.util.List;
+import com.example.freshcart.stock.infrastructure.stockreduction.OptimisticLockStockFacade;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,20 +20,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 
-
 @SpringBootTest(classes = TestRedisConfig.class)
-public class PessimisticLockStockReductionReductionTest {
+class OptimisticLockStockFacadeTest {
 
   @Autowired
   private ProductStockRepository productStockRepository;
   @Autowired
-  private StockReductionStrategy pessimisticLockStockReduction;
-
+  private OptimisticLockStockFacade optimisticLockStockFacade;
   @Autowired
-  protected PlatformTransactionManager transactionManager;
+  private PlatformTransactionManager transactionManager;
 
   OrderItem orderItem;
-  List<OrderItem> orderList;
 
   @BeforeEach
   public void init(){
@@ -51,11 +46,11 @@ public class PessimisticLockStockReductionReductionTest {
   //변경감지 사용하지 않는 테스트 - 아래 동시 요청의 경우, @transactional이 있는 상황에서 동작 x.
   @Test
   @DisplayName(("주문 시, 재고가 정상 차감됨"))
-  public void stock_decrease(){
+  public void stock_decrease() throws InterruptedException {
     //given
     TransactionStatus status =  transactionManager.getTransaction(null);
     //when
-    pessimisticLockStockReduction.reduceProductInventory(orderItem, 1);
+    optimisticLockStockFacade.reduceProductInventory(orderItem, 1);
     transactionManager.commit(status);
 
     //then
@@ -71,21 +66,20 @@ public class PessimisticLockStockReductionReductionTest {
     ExecutorService executorService = Executors.newFixedThreadPool(32);
     CountDownLatch latch = new CountDownLatch(threadCount);
 
+    //when
     IntStream.range(0,100).forEach(e -> executorService.submit(()->{
-        try{
-          TransactionStatus status =  transactionManager.getTransaction(null);
-          pessimisticLockStockReduction.reduceProductInventory(orderItem, 1);
-          transactionManager.commit(status);
-        } finally {
-          latch.countDown();
-        }
+      try{
+        optimisticLockStockFacade.reduceProductInventory(orderItem, 1);
+      } catch(InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }finally {
+        latch.countDown();
       }
-    ));
+    }));
+
     latch.await();
 
     ProductStock stock = productStockRepository.findByProductId(1L);
-    //Expected: 100개 - 1*100 = 0 일 것이다.
-    //그러나 경쟁상태가 일어났기 때문에, 테스트에 실패함.
     assertEquals(0L, stock.getQuantity());
   }
 }

@@ -1,4 +1,4 @@
-package com.example.freshcart.stock.infrastructure;
+package com.example.freshcart.stock.infrastructure.stockreduction;
 
 import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.order.domain.OrderItemOption;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
-public class OptimisticLockStockReduction implements StockReductionStrategy {
+public class OptimisticLockStock implements StockReductionStrategy {
 
   private final OptionStockRepository optionStockRepository;
   private final ProductStockRepository productStockRepository;

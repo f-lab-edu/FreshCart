@@ -1,9 +1,7 @@
-package com.example.freshcart.stock.infrastructure.config.optionstockconfig;
+package com.example.freshcart.stock.infrastructure.config;
 
 import com.example.freshcart.stock.application.StockReductionStrategy;
-import com.example.freshcart.stock.infrastructure.GeneralStockReduction;
-import com.example.freshcart.stock.infrastructure.OptimisticLockStockReduction;
-import com.example.freshcart.stock.infrastructure.PessimisticLockStockReduction;
+import com.example.freshcart.stock.infrastructure.stockreduction.GeneralStockReduction;
 import com.example.freshcart.stock.infrastructure.jpa.JpaOptionStockRepository;
 import com.example.freshcart.stock.infrastructure.jpa.JpaProductStockRepository;
 import com.example.freshcart.stock.domain.OptionStockRepository;
@@ -29,9 +27,8 @@ public class StockRepositoryConfig {
 
   @Bean
   public StockReductionStrategy stockReductionStrategy(OptionStockRepository optionStockRepository, ProductStockRepository productStockRepository){
-//    return new GeneralStockReduction(optionStockRepository, productStockRepository);
-    return new PessimisticLockStockReduction(optionStockRepository, productStockRepository);
-//    return new OptimisticLockStockReduction(optionStockRepository, productStockRepository);
-
+    return new GeneralStockReduction(optionStockRepository, productStockRepository);
+//    return new PessimisticLockStock(optionStockRepository, productStockRepository);
+//    return new OptimisticLockStock(optionStockRepository, productStockRepository);
   }
 }

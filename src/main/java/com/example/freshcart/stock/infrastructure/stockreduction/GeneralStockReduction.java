@@ -1,4 +1,4 @@
-package com.example.freshcart.stock.infrastructure;
+package com.example.freshcart.stock.infrastructure.stockreduction;
 
 import com.example.freshcart.stock.application.StockReductionStrategy;
 import com.example.freshcart.stock.domain.OptionStock;
@@ -12,17 +12,16 @@ import com.example.freshcart.stock.domain.exception.ProductStockNotFoundExceptio
 import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.order.domain.OrderItemOption;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-public class PessimisticLockStockReduction implements StockReductionStrategy {
-
+public class GeneralStockReduction implements StockReductionStrategy {
   private final OptionStockRepository optionStockRepository;
   private final ProductStockRepository productStockRepository;
 
+  //count 는 필요없는 변수
   @Override
   public void reduceProductInventory(OrderItem item, int count) {
-    ProductStock productStock = productStockRepository.findByProductIdWithPessimisticLock(item.getProductId());
+    ProductStock productStock = productStockRepository.findByProductId(item.getProductId());
     if (productStock == null) {
       throw new ProductStockNotFoundException();
     }
@@ -36,7 +35,7 @@ public class PessimisticLockStockReduction implements StockReductionStrategy {
 
   @Override
   public void reduceOptionInventory(OrderItemOption option, int count) {
-    OptionStock optionStock = optionStockRepository.findByOptionIdWithPessimisticLock(option.getOptionId());
+    OptionStock optionStock = optionStockRepository.findByOptionId(option.getOptionId());
     if (optionStock == null) {
       throw new OptionStockNotFoundException();
     }

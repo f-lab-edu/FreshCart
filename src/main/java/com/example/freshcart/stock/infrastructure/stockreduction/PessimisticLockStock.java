@@ -1,4 +1,4 @@
-package com.example.freshcart.stock.infrastructure;
+package com.example.freshcart.stock.infrastructure.stockreduction;
 
 import com.example.freshcart.stock.application.StockReductionStrategy;
 import com.example.freshcart.stock.domain.OptionStock;
@@ -14,28 +14,29 @@ import com.example.freshcart.order.domain.OrderItemOption;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class GeneralStockReduction implements StockReductionStrategy {
+public class PessimisticLockStock implements StockReductionStrategy {
+
   private final OptionStockRepository optionStockRepository;
   private final ProductStockRepository productStockRepository;
 
-  //count 는 필요없는 변수
   @Override
   public void reduceProductInventory(OrderItem item, int count) {
-    ProductStock productStock = productStockRepository.findByProductId(item.getProductId());
+    ProductStock productStock = productStockRepository.findByProductIdWithPessimisticLock(
+        item.getProductId());
     if (productStock == null) {
       throw new ProductStockNotFoundException();
     }
-    if(productStock.getQuantity() < count){
+    if (productStock.getQuantity() < count) {
       throw new ProductStockNotAvailableException();
-    }
-    else {
+    } else {
       productStock.reduceStock(count);
     }
   }
 
   @Override
   public void reduceOptionInventory(OrderItemOption option, int count) {
-    OptionStock optionStock = optionStockRepository.findByOptionId(option.getOptionId());
+    OptionStock optionStock = optionStockRepository.findByOptionIdWithPessimisticLock(
+        option.getOptionId());
     if (optionStock == null) {
       throw new OptionStockNotFoundException();
     }
