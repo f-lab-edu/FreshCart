@@ -3,6 +3,7 @@ package com.example.freshcart.stock.infrastructure.stockreduction;
 import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.stock.application.StockReductionStrategy;
 import java.util.concurrent.TimeUnit;
+import lombok.Synchronized;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;

@@ -20,8 +20,8 @@ public class ProductStock {
   private Long productId;
   private int quantity;
   private Long sellerId;
-  @Version
-  private Long version;
+//  @Version
+//  private Long version;
 
 
   public ProductStock(Long productId, int quantity, Long sellerId) {
