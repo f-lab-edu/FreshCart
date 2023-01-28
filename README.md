@@ -1,10 +1,14 @@
 # FreshCart
 소개: 신선 식품을 판매하는 e-commerce 서비스 입니다. 프론트는 생략하고, 백엔드에 초점을 맞춰 개발했습니다.
 
+# 서비스 구조 
+
+![img.png](img/architecture.png)
+
 # ERD 설계
 [ERD 설계](https://www.erdcloud.com/d/ezfSvS66CSxhzFp8o)
 
-![img.png](img.png)
+![img.png](img/img.png)
 
 
 # 기능 명세서
