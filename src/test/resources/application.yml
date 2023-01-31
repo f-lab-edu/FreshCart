@@ -17,3 +17,13 @@ mybatis:
       hibernate:
         show_sql: true
 #        ddl-auto: create # schema 생성 위해 create 설정 - 테스트는 flyway를 적용하지 않았으므로, schema를 따로 만들어준다.
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

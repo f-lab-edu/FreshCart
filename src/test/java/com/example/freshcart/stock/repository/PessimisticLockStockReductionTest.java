@@ -1,6 +1,5 @@
 package com.example.freshcart.stock.repository;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.freshcart.config.TestRedisConfig;
@@ -8,11 +7,10 @@ import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.stock.application.StockReductionStrategy;
 import com.example.freshcart.stock.domain.ProductStock;
 import com.example.freshcart.stock.domain.ProductStockRepository;
-
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,40 +22,38 @@ import org.springframework.transaction.TransactionStatus;
 
 
 @SpringBootTest(classes = TestRedisConfig.class)
-public class GeneralStockReductionTest {
+public class PessimisticLockStockReductionTest {
 
   @Autowired
   private ProductStockRepository productStockRepository;
   @Autowired
-  private StockReductionStrategy stockReductionStrategy;
-  //SpringBoot 프로젝트에서는 PlatformTransactionManager 빈이 자동으로 등록된다. 따라서 주입하기만 하면 된다.
+  private StockReductionStrategy pessimisticLockStockReduction;
   @Autowired
   private PlatformTransactionManager transactionManager;
 
   OrderItem orderItem;
-  List<OrderItem> orderList;
 
   @BeforeEach
-  public void init(){
+  public void init() {
     productStockRepository.save(new ProductStock(1L, 100, 1L));
     orderItem = new OrderItem(1L, 1);
-//    orderList = new ArrayList<>();
-//    orderList.add(orderItem);
   }
+
   @AfterEach
-  public void after(){
+  public void after() {
     productStockRepository.deleteAll();
   }
+
   //@Transactional 없이 사용
   //재고 감소 시, db를 변경 하기 위해 transaction을 직접 만듦.
   //변경감지 사용하지 않는 테스트 - 아래 동시 요청의 경우, @transactional이 있는 상황에서 동작 x.
   @Test
   @DisplayName(("주문 시, 재고가 정상 차감됨"))
-  public void stock_decrease(){
+  public void stock_decrease() {
     //given
-    TransactionStatus status =  transactionManager.getTransaction(null);
+    TransactionStatus status = transactionManager.getTransaction(null);
     //when
-    stockReductionStrategy.reduceProductInventory(orderItem, 1);
+    pessimisticLockStockReduction.reduceProductInventory(orderItem, 1);
     transactionManager.commit(status);
 
     //then
@@ -66,23 +62,23 @@ public class GeneralStockReductionTest {
   }
 
   @Test
-  @DisplayName("동시성이 보장되지 않는 코드이므로, 실패함")
+  @DisplayName(("동시에 100개 요청"))
   public void 동시에_100개_요청() throws InterruptedException {
+    //given
     int threadCount = 100;
     ExecutorService executorService = Executors.newFixedThreadPool(32);
     CountDownLatch latch = new CountDownLatch(threadCount);
 
-    for (int i=0;i<threadCount;i++){
-      executorService.submit(()->{
-        try{
-          TransactionStatus status =  transactionManager.getTransaction(null);
-          stockReductionStrategy.reduceProductInventory(orderItem, 1);
-          transactionManager.commit(status);
-        } finally {
-          latch.countDown();
+    IntStream.range(0, 100).forEach(e -> executorService.submit(() -> {
+          try {
+            TransactionStatus status = transactionManager.getTransaction(null);
+            pessimisticLockStockReduction.reduceProductInventory(orderItem, 1);
+            transactionManager.commit(status);
+          } finally {
+            latch.countDown();
+          }
         }
-      });
-    }
+    ));
     latch.await();
 
     ProductStock stock = productStockRepository.findByProductId(1L);

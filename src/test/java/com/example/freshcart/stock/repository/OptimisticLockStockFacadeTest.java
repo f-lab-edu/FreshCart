@@ -1,18 +1,16 @@
 package com.example.freshcart.stock.repository;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.freshcart.config.TestRedisConfig;
 import com.example.freshcart.order.domain.OrderItem;
-import com.example.freshcart.stock.application.StockReductionStrategy;
 import com.example.freshcart.stock.domain.ProductStock;
 import com.example.freshcart.stock.domain.ProductStockRepository;
-
-import java.util.List;
+import com.example.freshcart.stock.infrastructure.stockreduction.OptimisticLockStockFacade;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,27 +20,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 
-
 @SpringBootTest(classes = TestRedisConfig.class)
-public class GeneralStockReductionTest {
+class OptimisticLockStockFacadeTest {
 
   @Autowired
   private ProductStockRepository productStockRepository;
   @Autowired
-  private StockReductionStrategy stockReductionStrategy;
-  //SpringBoot 프로젝트에서는 PlatformTransactionManager 빈이 자동으로 등록된다. 따라서 주입하기만 하면 된다.
+  private OptimisticLockStockFacade optimisticLockStockFacade;
   @Autowired
   private PlatformTransactionManager transactionManager;
 
   OrderItem orderItem;
-  List<OrderItem> orderList;
 
   @BeforeEach
   public void init(){
     productStockRepository.save(new ProductStock(1L, 100, 1L));
     orderItem = new OrderItem(1L, 1);
-//    orderList = new ArrayList<>();
-//    orderList.add(orderItem);
   }
   @AfterEach
   public void after(){
@@ -53,11 +46,11 @@ public class GeneralStockReductionTest {
   //변경감지 사용하지 않는 테스트 - 아래 동시 요청의 경우, @transactional이 있는 상황에서 동작 x.
   @Test
   @DisplayName(("주문 시, 재고가 정상 차감됨"))
-  public void stock_decrease(){
+  public void stock_decrease() throws InterruptedException {
     //given
     TransactionStatus status =  transactionManager.getTransaction(null);
     //when
-    stockReductionStrategy.reduceProductInventory(orderItem, 1);
+    optimisticLockStockFacade.reduceProductInventory(orderItem, 1);
     transactionManager.commit(status);
 
     //then
@@ -66,28 +59,27 @@ public class GeneralStockReductionTest {
   }
 
   @Test
-  @DisplayName("동시성이 보장되지 않는 코드이므로, 실패함")
+  @DisplayName(("동시에 100개 요청"))
   public void 동시에_100개_요청() throws InterruptedException {
+    //given
     int threadCount = 100;
     ExecutorService executorService = Executors.newFixedThreadPool(32);
     CountDownLatch latch = new CountDownLatch(threadCount);
 
-    for (int i=0;i<threadCount;i++){
-      executorService.submit(()->{
-        try{
-          TransactionStatus status =  transactionManager.getTransaction(null);
-          stockReductionStrategy.reduceProductInventory(orderItem, 1);
-          transactionManager.commit(status);
-        } finally {
-          latch.countDown();
-        }
-      });
-    }
+    //when
+    IntStream.range(0,100).forEach(e -> executorService.submit(()->{
+      try{
+        optimisticLockStockFacade.reduceProductInventory(orderItem, 1);
+      } catch(InterruptedException ex) {
+        throw new RuntimeException(ex);
+      }finally {
+        latch.countDown();
+      }
+    }));
+
     latch.await();
 
     ProductStock stock = productStockRepository.findByProductId(1L);
-    //Expected: 100개 - 1*100 = 0 일 것이다.
-    //그러나 경쟁상태가 일어났기 때문에, 테스트에 실패함.
     assertEquals(0L, stock.getQuantity());
   }
 }
