@@ -9,7 +9,11 @@ import org.springframework.data.annotation.Id;
 
 /**
  * 용도: 장소에서 조회한 유저의 email, Role 정보. 서비스 이용 시 권한 확인 위함
- * RedisRepository아닌 RedisTemplate 사용 시 LoginUser 형태로 저장
+ *
+ * RedisRepository 사용 시 RedisHashLoginUser / RedisTemplate 사용 시 LoginUser 형태로 사용 됨.
+ * 하지만,
+ * @Id가 존재하는 이유:
+ * RedisHashUser에서는 @RedisHash의 value + @Id가 붙어있는 맴버변수로 쓰기 때문.
  */
 
 @Getter

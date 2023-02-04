@@ -10,6 +10,7 @@ import com.example.freshcart.user.domain.exception.EmailExistsException;
 import com.example.freshcart.user.domain.exception.PasswordDoesNotMatchException;
 import com.example.freshcart.user.domain.exception.UserNotExistsException;
 import java.time.LocalDateTime;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 회원 가입, 로그인 로직 실행.
@@ -24,6 +25,7 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
+  @Transactional
   public User register(SignupCommand command) {
     // 이메일 중복 체크
     if (userRepository.findByUserEmail(command.getEmail()) != null) {
@@ -41,6 +43,7 @@ public class UserService {
     return userRepository.save(user);
   }
 
+  @Transactional
   public LoginUser signIn(LoginCommand command) {
     User emailMatched = userRepository.findByUserEmail(command.getEmail());
     if (emailMatched == null) {
