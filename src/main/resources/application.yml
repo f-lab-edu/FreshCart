@@ -1,17 +1,25 @@
-## localhost:6379는 기본값이지만, 운영서버에서 별도 host 사용을 감안해서 별도로 지정해줌.
 spring:
   redis:
-    host: 127.0.0.1
-    port: 6379
+    cluster:
+      host: 127.0.0.1
+      port: 7001
+      nodes:
+        - 127.0.0.1:7001
+        - 127.0.0.1:7002
+        - 127.0.0.1:7003
+        - 127.0.0.1:7004
+        - 127.0.0.1:7005
+        - 127.0.0.1:7006
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/freshcart?characterEncoding=UTF-8
     username: admin
     password: password
+    hikari: maximum-pool-size=20
 
   flyway:
     enabled: true
-    locations: classpath:/db/migration, classpath:com/example/freshcart
+    locations: classpath:/db/migration, classpath:com/example/freshcartr
     baseline-on-migrate: true  # flyway_schema_history 테이블을 자동으로 생성할지 여부
     baseline-version: 1
 
