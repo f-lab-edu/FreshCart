@@ -4,10 +4,14 @@ import com.example.freshcart.authentication.application.SessionManager;
 import com.example.freshcart.redis.RedisObjectMapper;
 import com.example.freshcart.redis.RedisSessionTemplateManager;
 import com.example.freshcart.redis.SessionRedisTemplate;
-import org.springframework.beans.factory.annotation.Value;
+import com.example.freshcart.redis.infrastructure.config.RedisPropertiesConfig.RedisProperties;
+import io.lettuce.core.ReadFrom;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
@@ -30,16 +34,18 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @EnableRedisRepositories
+@RequiredArgsConstructor
 public class RedisConfig {
 
-  @Value("${spring.redis.host}")
-  private String host;
-  @Value("${spring.redis.port}")
-  private int port;
+  private final RedisProperties properties;
 
   @Bean
   public RedisConnectionFactory redisConnectionFactory() {
-    return new LettuceConnectionFactory(host, port);
+    LettuceClientConfiguration clientConfiguration = LettuceClientConfiguration.builder()
+        .readFrom(ReadFrom.REPLICA_PREFERRED)
+        .build();
+    RedisClusterConfiguration redisClusterConfig = new RedisClusterConfiguration(properties.getNodes());
+    return new LettuceConnectionFactory(redisClusterConfig, clientConfiguration);
   }
 
 //  @Bean
@@ -64,13 +70,13 @@ public class RedisConfig {
   }
 
   @Bean
-  public RedisObjectMapper redisObjectMapper(RedisTemplate redisTemplate) {
+  public RedisObjectMapper redisObjectMapper(RedisTemplate<String, String> redisTemplate) {
     return new RedisObjectMapper(redisTemplate);
   }
 
   @Bean
-  public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-    RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+  public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory connectionFactory) {
+    RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
     redisTemplate.setConnectionFactory(connectionFactory);
     redisTemplate.setKeySerializer(new StringRedisSerializer());
     redisTemplate.setValueSerializer(new StringRedisSerializer());
