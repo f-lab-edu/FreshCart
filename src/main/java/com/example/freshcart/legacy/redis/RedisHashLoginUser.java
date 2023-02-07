@@ -1,4 +1,4 @@
-package com.example.freshcart.redis.infrastructure;
+package com.example.freshcart.legacy.redis;
 
 import com.example.freshcart.authentication.Role;
 import java.time.LocalDateTime;

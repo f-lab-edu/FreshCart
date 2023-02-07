@@ -1,4 +1,4 @@
-package com.example.freshcart.product.infrastructure.jdbc;
+package com.example.freshcart.legacy.jdbc;
 
 import com.example.freshcart.product.domain.Option;
 import com.example.freshcart.product.domain.OptionGroup;

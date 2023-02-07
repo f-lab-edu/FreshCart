@@ -1,9 +1,8 @@
-package com.example.freshcart.redis;
+package com.example.freshcart.legacy.redis;
 
 import com.example.freshcart.authentication.application.LoginUser;
 import com.example.freshcart.authentication.application.SessionManager;
 import com.example.freshcart.global.exception.UnauthorizedRequestException;
-import com.example.freshcart.redis.infrastructure.RedisHashLoginUser;
 import java.util.Arrays;
 import java.util.UUID;
 import javax.servlet.http.Cookie;
