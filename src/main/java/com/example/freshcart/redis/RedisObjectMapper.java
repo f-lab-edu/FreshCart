@@ -1,6 +1,7 @@
 package com.example.freshcart.redis;
 
 import com.example.freshcart.authentication.application.LoginUser;
+import com.example.freshcart.global.exception.UnauthorizedRequestException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -31,7 +32,7 @@ public class RedisObjectMapper {
       objectMapper.registerModule(new JavaTimeModule());
       String value = objectMapper.writeValueAsString(data);
       redisTemplate.opsForValue()
-          .set(key, value, SessionRedisTemplate.TimeToLive, TimeUnit.MINUTES);
+          .set(key, value, SessionRedisTemplate.TIME_TO_LIVE, TimeUnit.MINUTES);
       return true;
     } catch (JsonProcessingException e) {
       log.error("JsonProcessingException", e);
@@ -40,9 +41,17 @@ public class RedisObjectMapper {
   }
 
   public LoginUser getData(String sessionId) throws JsonProcessingException {
-    String jsonResult = redisTemplate.opsForValue().get(sessionId);
-    LoginUser loginUser = objectMapper.readValue(jsonResult, LoginUser.class);
-    return loginUser;
+    //objectMapper가 null을 handle 하지 못하기 때문에, string으로 null인지 먼저 체크 필요함.
+      String jsonResult = redisTemplate.opsForValue().get(sessionId);
+      if (jsonResult == null) {
+        throw new UnauthorizedRequestException();
+      }
+      LoginUser user = objectMapper.readValue(jsonResult, LoginUser.class);
+      return user;
   }
 
+
+  public void removeData(String sessionId) {
+    redisTemplate.delete(sessionId);
+  }
 }

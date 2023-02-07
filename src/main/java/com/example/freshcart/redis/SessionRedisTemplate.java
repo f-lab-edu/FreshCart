@@ -11,7 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class SessionRedisTemplate {
 
-  public static final long TimeToLive = 10; // 테스트 용. 10분으로 세션 유효기간 설정.
+  public static final long TIME_TO_LIVE = 10; // 테스트 용. 10분으로 세션 유효기간 설정.
   private RedisObjectMapper redisObjectMapper;
 
 
@@ -31,6 +31,10 @@ public class SessionRedisTemplate {
     } catch (JsonProcessingException e) {
       throw new JsonDeserializationIssueException();
     }
+  }
+
+  public void remove(String sessionCookie) {
+      redisObjectMapper.removeData(sessionCookie);
   }
 
 }

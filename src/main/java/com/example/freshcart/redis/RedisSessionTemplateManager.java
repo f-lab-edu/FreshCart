@@ -30,7 +30,7 @@ public class RedisSessionTemplateManager implements SessionManager {
     String sessionId = UUID.randomUUID().toString();
     loginUser.setSessionId(sessionId);
     sessionRedisTemplate.save(loginUser);
-    log.info("redisSessionManager 동작 중 - @ID가 자동으로 생성한 ID 확인:" + loginUser.getId());
+    log.info("redisSessionTemplateManager 동작 중");
     Cookie cookie = new Cookie(SESSION_COOKIE_NAME, loginUser.getSessionId());
     cookie.setMaxAge(2 * 60 * 60); //2시간.
     cookie.setPath("/");
@@ -51,23 +51,15 @@ public class RedisSessionTemplateManager implements SessionManager {
   @Override
   public LoginUser getSession(HttpServletRequest request) {
     Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
-    if (sessionCookie == null) {
-      return null;
-    }
+    LoginUser user = sessionRedisTemplate.findBySessionId(sessionCookie.getValue());
     log.info("sessionCookie 값 입니다" + sessionCookie.getValue());
-    log.info(
-        "redisTemplate에서 찾아온 값" + sessionRedisTemplate.findBySessionId(sessionCookie.getValue()));
-
-    return sessionRedisTemplate.findBySessionId(sessionCookie.getValue());
+    return user;
   }
 
   @Override
-  public void expireSession(HttpServletResponse response) {
-    Cookie cookie = new Cookie(SESSION_COOKIE_NAME, null);
-    cookie.setMaxAge(0);
-    cookie.setPath("/");
-    response.addCookie(cookie);
-    log.info("세션이 만료되었습니다");
+  public void expireSession(HttpServletRequest request) {
+    Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+    sessionRedisTemplate.remove(sessionCookie.getValue());
   }
 }
 

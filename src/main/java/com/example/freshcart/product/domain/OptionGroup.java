@@ -35,7 +35,4 @@ public class OptionGroup {
     this.productId = productId;
     this.sellerId = sellerId;
   }
-  public void addOptions(List<Option> options){
-    this.options = options;
-  }
 }

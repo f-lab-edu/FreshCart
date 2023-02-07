@@ -64,16 +64,11 @@ public class InMemorySessionManager implements SessionManager {
     return sessionStore.get(sessionCookie.getValue());
   }
 
-  /*
-  세션 만료
-  클라이언트가 요청한 sessionId 쿠키의 값으로, 세션 저장소에 보관한 sessionId와 값 제거
-   */
 
-  public void expireSession(HttpServletResponse response) {
-    Cookie cookie = new Cookie(SESSION_COOKIE_NAME, null);
-    cookie.setMaxAge(0);
-    cookie.setPath("/");
-    response.addCookie(cookie);
-    log.info("세션이 만료되었습니다");
+  public void expireSession(HttpServletRequest request) {
+    Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+    if (sessionCookie != null) {
+      sessionStore.remove(sessionCookie.getValue());
+    }
   }
 }
