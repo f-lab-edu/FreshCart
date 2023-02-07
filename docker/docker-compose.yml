@@ -14,13 +14,69 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: password
 
-  redis:
+  redis-master-1:
+    container_name: redis-cluster
     image: redis:latest
-    command: ["redis-server", "--port", "6379"]
-    container_name: freshcart_redis
-    hostname: freshcart_redis
-    labels:
-      - "name=redis"
-      - "mode=standalone"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/master1.conf:/usr/local/etc/redis/redis.conf
     ports:
-      - "6379:6379"
+      - "7001:7001"
+      - "7002:7002"
+      - "7003:7003"
+      - "7004:7004"
+      - "7005:7005"
+      - "7006:7006"
+
+  redis-master-2:
+    network_mode: "service:redis-master-1"
+    container_name: redis-master-2
+    image: redis:latest
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/master2.conf:/usr/local/etc/redis/redis.conf
+
+  redis-master-3:
+    network_mode: "service:redis-master-1"
+    container_name: redis-master-3
+    image: redis:latest
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/master3.conf:/usr/local/etc/redis/redis.conf
+
+  redis-replica-1:
+    network_mode: "service:redis-master-1"
+    container_name: redis-replica-1
+    image: redis:latest
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/replica1.conf:/usr/local/etc/redis/redis.conf
+
+  redis-replica-2:
+    network_mode: "service:redis-master-1"
+    container_name: redis-replica-2
+    image: redis:latest
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/replica2.conf:/usr/local/etc/redis/redis.conf
+
+  redis-replica-3:
+    network_mode: "service:redis-master-1"
+    container_name: redis-replica-3
+    image: redis:latest
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/replica3.conf:/usr/local/etc/redis/redis.conf
+
+  redis-cluster-entry:
+    network_mode: "service:redis-master-1"
+    image: redis:latest
+    container_name: redis-cluster-entry
+    command: redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1 --cluster-yes
+    depends_on:
+      - redis-master-1
+      - redis-master-2
+      - redis-master-3
+      - redis-replica-1
+      - redis-replica-2
+      - redis-replica-3

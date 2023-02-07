@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "email": "seller@gmail.com",
   "password": "aaaaa",
-  "phoneNumber":"123456",
+  "phoneNumber": "123456",
   "name": "SELLER",
   "role": "SELLER"
 }
@@ -18,4 +18,12 @@ Content-Type: application/json
 {
   "email": "seller@gmail.com",
   "password": "aaaaa"
+}
+
+###로그아웃
+
+POST http://localhost:8080/users/logout
+Content-Type: application/json
+
+{
 }

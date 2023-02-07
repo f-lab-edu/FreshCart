@@ -1,3 +1,18 @@
+### 단일 상품 등록
+POST http://localhost:8080/products/register
+Content-Type: application/json
+
+{
+  "name":"춘천 감자빵 10개입",
+  "price": 20000,
+  "status":"AVAILABLE",
+  "description":"맛나요",
+  "singleType": 1,
+  "categoryId": 2
+}
+
+### 여러 옵션이 있는 제품 등록
+
 POST http://localhost:8080/products/register
 Content-Type: application/json
 
@@ -113,15 +128,3 @@ Content-Type: application/json
   ]
 }
 
-### 단일 상품 등록
-POST http://localhost:8080/products/register
-Content-Type: application/json
-
-{
-  "name":"춘천 감자빵 10개입",
-  "price": 20000,
-  "status":"AVAILABLE",
-  "description":"맛나요",
-  "singleType": 1,
-  "categoryId": 2
-}

@@ -7,6 +7,7 @@ import com.example.freshcart.authentication.application.SessionManager;
 import com.example.freshcart.user.presentation.request.LoginRequest;
 import com.example.freshcart.user.presentation.request.SignupRequest;
 import com.example.freshcart.user.application.UserService;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -47,8 +48,8 @@ public class UserController {
 
   @LoginCheck
   @PostMapping("/logout")
-  public void logout(HttpServletResponse response) {
-    sessionManager.expireSession(response);
+  public void logout(HttpServletRequest request) {
+    sessionManager.expireSession(request);
   }
 
   //LoginCheck가 요구되는 로직 테스트용 - 추후 기능 개발 시 삭제 예정

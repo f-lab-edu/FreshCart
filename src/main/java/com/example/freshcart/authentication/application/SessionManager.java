@@ -15,5 +15,5 @@ public interface SessionManager {
 
   LoginUser getSession(HttpServletRequest request) throws JsonProcessingException;
 
-  void expireSession(HttpServletResponse response);
+  void expireSession(HttpServletRequest request);
 }

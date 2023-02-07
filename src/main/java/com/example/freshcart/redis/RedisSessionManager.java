@@ -84,18 +84,9 @@ public class RedisSessionManager implements SessionManager {
     return loginUser;
   }
 
-  /*
-  세션 만료
-  클라이언트가 요청한 sessionId 쿠키의 값으로, 세션 저장소에 보관한 sessionId와 값 제거
-  Session을 꺼내올 때, 쿠키를 key로 가져오기 때문에, 세션을 delete 할 필요 없이 (어차피 TTL 이 정해져 있다)
-  쿠키를 지우자 (MaxAge를 0으로 해서 더하면 된다)
-   */
 
-  public void expireSession(HttpServletResponse response) {
-    Cookie cookie = new Cookie(SESSION_COOKIE_NAME, null);
-    cookie.setMaxAge(0);
-    cookie.setPath("/");
-    response.addCookie(cookie);
-    log.info("세션이 만료되었습니다");
+  public void expireSession(HttpServletRequest request) {
+    Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+    redisRepository.deleteById(sessionCookie.getValue());
   }
 }

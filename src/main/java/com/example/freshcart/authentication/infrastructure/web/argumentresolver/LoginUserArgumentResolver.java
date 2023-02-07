@@ -13,6 +13,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 /**
  * 로그인 객체를 보다 편리하게 가져올 수 있음.
+ * AuthenticatedUser.Class가 parameter 로 존재하는 컨트롤러에 resolveArgument를 진행.
  */
 
 @Slf4j
