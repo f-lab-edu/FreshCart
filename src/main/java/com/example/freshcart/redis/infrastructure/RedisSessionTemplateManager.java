@@ -1,4 +1,4 @@
-package com.example.freshcart.redis;
+package com.example.freshcart.redis.infrastructure;
 
 import com.example.freshcart.authentication.application.LoginUser;
 import com.example.freshcart.authentication.application.SessionManager;

@@ -1,10 +1,10 @@
-package com.example.freshcart.redis.infrastructure.config;
+package com.example.freshcart.redis.config;
 
 import com.example.freshcart.authentication.application.SessionManager;
-import com.example.freshcart.redis.RedisObjectMapper;
-import com.example.freshcart.redis.RedisSessionTemplateManager;
-import com.example.freshcart.redis.SessionRedisTemplate;
-import com.example.freshcart.redis.infrastructure.config.RedisPropertiesConfig.RedisProperties;
+import com.example.freshcart.legacy.redis.RedisObjectMapper;
+import com.example.freshcart.redis.config.RedisPropertiesConfig.RedisProperties;
+import com.example.freshcart.redis.infrastructure.RedisSessionTemplateManager;
+import com.example.freshcart.redis.infrastructure.SessionRedisTemplate;
 import io.lettuce.core.ReadFrom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +47,7 @@ public class RedisConfig {
     RedisClusterConfiguration redisClusterConfig = new RedisClusterConfiguration(properties.getNodes());
     return new LettuceConnectionFactory(redisClusterConfig, clientConfiguration);
   }
-
+//  주석 처리를 지양하고자 하나, 다른 구현체로 변경할 경우에 대비해서 주석 처리함.
 //  @Bean
 //  public SessionManager sessionManager(SessionRedisRepository redisRepository) {
 //    return new RedisSessionManager(redisRepository);

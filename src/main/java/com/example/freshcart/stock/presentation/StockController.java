@@ -57,7 +57,7 @@ public class StockController {
   @LoginCheck
   @PostMapping("/options")
   public void addOptionStock(@AuthenticatedUser LoginUser user, @RequestBody List<OptionStockAddRequest> request) {
-    stockManager.addInventory(user, request.stream().map(OptionStockAddRequest::toCommand).collect(toList()));
+    stockManager.addOptionInventory(user, request.stream().map(OptionStockAddRequest::toCommand).collect(toList()));
   }
 
   @Authentication(authority = Role.SELLER)
@@ -65,6 +65,6 @@ public class StockController {
   @PatchMapping("/options/{optionStockId}")
   public void changeOptionStock(@AuthenticatedUser LoginUser user, @PathVariable Long optionStockId,
       @RequestBody OptionStockUpdateRequest request) {
-    stockManager.updateInventory(user, optionStockId, request.toCommand());
+    stockManager.updateOptionInventory(user, optionStockId, request.toCommand());
   }
 }

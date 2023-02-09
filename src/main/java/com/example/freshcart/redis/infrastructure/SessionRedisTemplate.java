@@ -1,7 +1,8 @@
-package com.example.freshcart.redis;
+package com.example.freshcart.redis.infrastructure;
 
 import com.example.freshcart.authentication.application.LoginUser;
 import com.example.freshcart.global.exception.JsonDeserializationIssueException;
+import com.example.freshcart.legacy.redis.RedisObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
@@ -26,15 +27,14 @@ public class SessionRedisTemplate {
 
   public LoginUser findBySessionId(String sessionId) {
     try {
-      LoginUser loginUser = redisObjectMapper.getData(sessionId);
-      return loginUser;
+      return redisObjectMapper.getData(sessionId);
     } catch (JsonProcessingException e) {
       throw new JsonDeserializationIssueException();
     }
   }
 
   public void remove(String sessionCookie) {
-      redisObjectMapper.removeData(sessionCookie);
+    redisObjectMapper.removeData(sessionCookie);
   }
 
 }

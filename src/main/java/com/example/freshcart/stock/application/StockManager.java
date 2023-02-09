@@ -42,7 +42,6 @@ public class StockManager {
       ProductStock productStock = ProductStockAddCommand.of(productId, command, user.getUserId());
       productStockRepository.save(productStock);
     }
-
   }
 
   //판매자가 임의로 수량을 바꾸고 싶을 때
@@ -54,7 +53,7 @@ public class StockManager {
     productStockRepository.save(productStock);
   }
 
-  public void addInventory(LoginUser user, List<OptionStockAddCommand> commandList) {
+  public void addOptionInventory(LoginUser user, List<OptionStockAddCommand> commandList) {
     for (OptionStockAddCommand command : commandList) {
       Long optionId = command.getOptionId();
       if (optionStockRepository.findByOptionId(optionId) != null) {
@@ -69,7 +68,7 @@ public class StockManager {
   }
 
   //판매자가 임의로 수량을 바꾸고 싶을 때
-  public void updateInventory(LoginUser user, Long optionStockId,
+  public void updateOptionInventory(LoginUser user, Long optionStockId,
       OptionStockUpdateCommand command) {
     OptionStock optionStock = optionStockRepository.findById(optionStockId);
     VerifyUserUtils.verifyOwner(user, optionStock.getSellerId());

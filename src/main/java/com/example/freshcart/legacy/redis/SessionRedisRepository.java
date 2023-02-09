@@ -1,6 +1,5 @@
-package com.example.freshcart.redis;
+package com.example.freshcart.legacy.redis;
 
-import com.example.freshcart.redis.infrastructure.RedisHashLoginUser;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 

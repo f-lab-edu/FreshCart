@@ -1,4 +1,4 @@
-package com.example.freshcart.user.infrastructure;
+package com.example.freshcart.legacy.inmemory;
 
 import com.example.freshcart.user.domain.UserRepository;
 import com.example.freshcart.user.domain.User;

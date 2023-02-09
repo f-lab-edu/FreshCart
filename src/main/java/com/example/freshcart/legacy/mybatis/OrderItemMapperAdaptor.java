@@ -1,8 +1,7 @@
-package com.example.freshcart.order.infrastructure;
+package com.example.freshcart.legacy.mybatis;
 
 import com.example.freshcart.order.domain.OrderItem;
 import com.example.freshcart.order.domain.OrderItemRepository;
-import com.example.freshcart.order.infrastructure.mybatis.OrderItemMapper;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
